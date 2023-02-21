@@ -1,36 +1,32 @@
 package com.example.stories.android
 
 import android.os.Bundle
-import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
+import com.example.stories.android.feature.AppScreens
+import com.github.terrakok.cicerone.Command
+import com.github.terrakok.cicerone.Replace
+import com.github.terrakok.cicerone.androidx.AppNavigator
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity(R.layout.activity_main) {
+
+    private val navigator = AppNavigator(this, R.id.container)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContent {
-            MainActivityScreen()
+        if (savedInstanceState == null) {
+            navigator.applyCommands(arrayOf<Command>(Replace(AppScreens.MainScreen())))
         }
     }
 
-    @Composable
-    private fun MainActivityScreen() {
-        Box(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxSize()
-        ) {
-            Text(
-                text = "Hello World!",
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
+    override fun onResume() {
+        super.onResume()
+        (application as App).navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        (application as App).navigatorHolder.removeNavigator()
+        super.onPause()
     }
 }
