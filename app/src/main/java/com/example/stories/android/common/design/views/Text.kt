@@ -1,4 +1,4 @@
-package com.example.stories.android.core.design.views
+package com.example.stories.android.common.design.views
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import com.example.stories.android.core.design.colors.AppColors
-import com.example.stories.android.core.design.fonts.AppTypography
+import com.example.stories.android.common.design.colors.AppColors
+import com.example.stories.android.common.design.fonts.AppTypography
 
 @Composable
 fun Title1(
