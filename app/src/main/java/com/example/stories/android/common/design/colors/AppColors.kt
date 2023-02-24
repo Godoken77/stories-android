@@ -1,4 +1,4 @@
-package com.example.stories.android.core.design.colors
+package com.example.stories.android.common.design.colors
 
 import androidx.compose.ui.graphics.Color
 
@@ -8,4 +8,5 @@ object AppColors {
     val Purple = Color(0xFF873DFF)
     val BackgroundDark = Color(0xFF0E0E0E)
     val BackgroundLight = Color(0xFF474747)
+    val Transparent = Color(0x00000000)
 }

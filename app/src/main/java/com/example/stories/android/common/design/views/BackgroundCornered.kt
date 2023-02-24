@@ -1,4 +1,4 @@
-package com.example.stories.android.core.design.views
+package com.example.stories.android.common.design.views
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.wrapContentSize
@@ -9,11 +9,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.example.stories.android.common.design.colors.AppColors
 
 @Composable
 fun BackgroundCornered(
     modifier: Modifier = Modifier,
-    backgroundColor: Color,
+    backgroundColor: Color = AppColors.Transparent,
     roundedCornerSize: Dp = 16.dp,
     content: @Composable () -> Unit
 ) {
