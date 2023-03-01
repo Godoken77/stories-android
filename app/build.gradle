@@ -47,6 +47,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.9.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
+    implementation "androidx.fragment:fragment-ktx:1.5.5"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.core:core-ktx:1.9.0'
     testImplementation 'junit:junit:4.13.2'
@@ -58,15 +59,24 @@ dependencies {
     implementation 'androidx.compose.material:material:1.3.1'
     implementation 'androidx.compose.ui:ui-tooling:1.3.3'
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
 
-    //Image Loader
+    // Image Loader
     implementation "io.coil-kt:coil:2.2.1"
     implementation "io.coil-kt:coil-compose:2.2.1"
 
-    //Navigation
+    // Navigation
     implementation "com.github.terrakok:cicerone:7.1"
 
-    //DI
+    // DI
     implementation "com.google.dagger:hilt-android:2.44"
     kapt "com.google.dagger:hilt-compiler:2.44"
+
+    // ViewModel
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+
+    //MVI
+    implementation "org.orbit-mvi:orbit-viewmodel:4.4.0"
+    testImplementation "org.orbit-mvi:orbit-test:4.4.0"
+    implementation "org.orbit-mvi:orbit-compose:4.4.0"
 }

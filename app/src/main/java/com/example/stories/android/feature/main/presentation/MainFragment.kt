@@ -5,21 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 internal class MainFragment : Fragment() {
+
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,15 +45,6 @@ internal class MainFragment : Fragment() {
 
     @Composable
     private fun ScreenContent() {
-        Box(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxSize()
-        ) {
-            Text(
-                text = "Hello World!",
-                modifier = Modifier.align(Alignment.Center)
-            )
-        }
+        MainScreen(viewModel = viewModel)
     }
 }

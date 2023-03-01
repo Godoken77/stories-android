@@ -22,16 +22,16 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.stories.android.common.design.colors.AppColors
 
-data class HistoryItemViewState(
+data class StoryItemViewState(
     val id: String,
     val name: String,
     val picture: String
 )
 
 @Composable
-fun HistoryItem(
-    state: HistoryItemViewState,
-    onClick: (HistoryItemViewState) -> Unit,
+fun StoryItem(
+    state: StoryItemViewState,
+    onClick: (StoryItemViewState) -> Unit,
     height: Dp = 150.dp,
     width: Dp = 116.dp
 ) {
@@ -63,12 +63,12 @@ fun HistoryItem(
 
 @Preview
 @Composable
-private fun PreviewHistoryItem() {
+private fun PreviewStoryItem() {
     val picture = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png"
     val name = "Белый Бим"
     val id = "id"
 
-    val state = HistoryItemViewState(
+    val state = StoryItemViewState(
         id = id,
         name = name,
         picture = picture
@@ -80,7 +80,7 @@ private fun PreviewHistoryItem() {
                 .background(Color.Black)
                 .fillMaxWidth()
         ) {
-            HistoryItem(
+            StoryItem(
                 state = state,
                 onClick = {}
             )
