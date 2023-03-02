@@ -5,5 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class StoryItem(
-    val id: String
+    val id: String,
+    val pictureUrl: String,
+    val name: String
 ) : Parcelable

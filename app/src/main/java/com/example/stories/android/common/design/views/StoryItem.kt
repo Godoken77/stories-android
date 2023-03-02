@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -56,7 +57,10 @@ fun StoryItem(
         SubTitle(
             text = state.name,
             color = AppColors.WhiteTitle.copy(alpha = 0.8f),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Start,
+            modifier = Modifier.width(width),
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }
@@ -65,7 +69,7 @@ fun StoryItem(
 @Composable
 private fun PreviewStoryItem() {
     val picture = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png"
-    val name = "Белый Бим"
+    val name = "Белый Бим Название Название"
     val id = "id"
 
     val state = StoryItemViewState(

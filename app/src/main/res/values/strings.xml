@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">stories-android</string>
+
+    <string name="main_recommended_title">Рекомендации</string>
+
+    <string name="category_item_name_new">Новинки</string>
+    <string name="category_item_name_adventure">Приключения</string>
+    <string name="category_item_name_fantasy">Фэнтези</string>
+    <string name="category_item_name_detective">Детективы</string>
+    <string name="category_item_name_comedy">Комедия</string>
+    <string name="category_item_name_horror">Ужасы</string>
 </resources>
