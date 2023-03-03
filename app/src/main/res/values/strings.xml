@@ -2,6 +2,8 @@
     <string name="app_name">stories-android</string>
 
     <string name="main_recommended_title">Рекомендации</string>
+    <string name="main_categories_title">Жанры</string>
+    <string name="main_recently_title">Продолжить чтение</string>
 
     <string name="category_item_name_new">Новинки</string>
     <string name="category_item_name_adventure">Приключения</string>
