@@ -90,6 +90,26 @@ fun SubTitle(
 }
 
 @Composable
+fun SubTitle2(
+    modifier: Modifier = Modifier,
+    text: String,
+    textAlign: TextAlign? = null,
+    color: Color = AppColors.WhiteTitle,
+    overflow: TextOverflow = TextOverflow.Clip,
+    maxLines: Int = Int.MAX_VALUE
+) {
+    Text(
+        textAlign = textAlign,
+        text = text,
+        style = AppTypography.Text15Regular,
+        modifier = modifier,
+        color = color,
+        overflow = overflow,
+        maxLines = maxLines
+    )
+}
+
+@Composable
 fun PlainText(
     modifier: Modifier = Modifier,
     text: String,
