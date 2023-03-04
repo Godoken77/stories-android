@@ -5,6 +5,8 @@
     <string name="main_categories_title">Жанры</string>
     <string name="main_recently_title">Продолжить чтение</string>
 
+    <string name="main_continue_story_title">Продолжить историю</string>
+
     <string name="category_item_name_new">Новинки</string>
     <string name="category_item_name_adventure">Приключения</string>
     <string name="category_item_name_fantasy">Фэнтези</string>

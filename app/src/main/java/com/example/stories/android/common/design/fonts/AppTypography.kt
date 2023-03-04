@@ -27,9 +27,9 @@ object AppTypography {
 
     val Text15Regular = TextStyle(
         fontFamily = velaSansRegular,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Medium,
         fontSize = 12.sp,
-        lineHeight = 17.sp,
+        lineHeight = 18.sp,
     )
 
     val Text15Bold = TextStyle(

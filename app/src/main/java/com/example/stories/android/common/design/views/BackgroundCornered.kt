@@ -1,6 +1,7 @@
 package com.example.stories.android.common.design.views
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Surface
@@ -26,6 +27,29 @@ fun BackgroundCornered(
                 RoundedCornerShape(size = roundedCornerSize)
             )
             .wrapContentSize()
+    ) {
+        content()
+    }
+}
+
+@Composable
+fun BackgroundCorneredWithBorder(
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = AppColors.Transparent,
+    borderColor: Color,
+    roundedCornerSize: Dp = 16.dp,
+    content: @Composable () -> Unit
+) {
+    Surface(
+        modifier = modifier
+            .wrapContentSize()
+            .border(
+                1.dp,
+                color = borderColor,
+                shape = RoundedCornerShape(size = roundedCornerSize)
+            ),
+        shape = RoundedCornerShape(size = roundedCornerSize),
+        color = backgroundColor
     ) {
         content()
     }

@@ -36,6 +36,7 @@ fun CategoryItem(
 ) {
     BackgroundCornered(
         backgroundColor = AppColors.White.copy(alpha = 0.09f),
+        roundedCornerSize = 67.dp,
         modifier = Modifier
             .clickable(
                 role = Role.Button,
