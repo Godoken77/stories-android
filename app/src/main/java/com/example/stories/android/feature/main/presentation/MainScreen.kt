@@ -57,11 +57,10 @@ internal fun MainScreen(
                 MarginVertical(margin = 10.dp)
                 ButtonContinueStory(
                     state = ButtonContinueStoryViewState(
-                        description = state.storyToContinue.name,
-                        pictureUrl = state.storyToContinue.pictureUrl
+                        storyToContinue = state.storyToContinue
                     ),
-                    onClick = {
-                        viewModel.openStory(state.storyToContinue.id)
+                    onClick = { storyId ->
+                        viewModel.openStory(storyId)
                     },
                     modifier = Modifier
                         .fillMaxWidth()

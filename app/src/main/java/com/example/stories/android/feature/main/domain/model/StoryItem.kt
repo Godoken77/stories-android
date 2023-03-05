@@ -1,11 +1,18 @@
 package com.example.stories.android.feature.main.domain.model
 
 import android.os.Parcelable
+import com.example.stories.android.feature.category.domain.model.Category
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class StoryItem(
-    val id: String,
-    val pictureUrl: String,
-    val name: String
-) : Parcelable
+sealed class IStoryItem : Parcelable {
+
+    data class StoryItem(
+        val id: String,
+        val pictureUrl: String,
+        val name: String,
+        val categories: List<Category>
+    ) : IStoryItem()
+
+    object ShimmerItem : IStoryItem()
+}

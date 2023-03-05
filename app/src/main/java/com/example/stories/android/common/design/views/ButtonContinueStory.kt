@@ -26,10 +26,11 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.stories.android.R
 import com.example.stories.android.common.design.colors.AppColors
+import com.example.stories.android.feature.category.domain.model.Category
+import com.example.stories.android.feature.main.domain.model.IStoryItem
 
 data class ButtonContinueStoryViewState(
-    val description: String,
-    val pictureUrl: String,
+    val storyToContinue: IStoryItem,
     val backgroundColor: Color = AppColors.Purple
 )
 
@@ -37,7 +38,7 @@ data class ButtonContinueStoryViewState(
 fun ButtonContinueStory(
     modifier: Modifier = Modifier,
     state: ButtonContinueStoryViewState,
-    onClick: (ButtonContinueStoryViewState) -> Unit
+    onClick: (String) -> Unit
 ) {
     BackgroundCornered(
         backgroundColor = state.backgroundColor,
@@ -55,14 +56,16 @@ fun ButtonContinueStory(
 private fun ButtonContent(
     modifier: Modifier,
     state: ButtonContinueStoryViewState,
-    onClick: (ButtonContinueStoryViewState) -> Unit
+    onClick: (String) -> Unit
 ) {
     Box(
         modifier = modifier
             .clickable(
                 role = Role.Button,
                 onClick = {
-                    onClick(state)
+                    if (state.storyToContinue is IStoryItem.StoryItem) {
+                        onClick(state.storyToContinue.id)
+                    }
                 }
             )
             .padding(
@@ -73,29 +76,31 @@ private fun ButtonContent(
             ),
         contentAlignment = Alignment.Center
     ) {
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column {
-                Title2(
-                    text = stringResource(id = R.string.main_continue_story_title),
-                    maxLines = 1
-                )
-                MarginVertical(margin = 2.dp)
-                SubTitle2(
-                    text = state.description,
-                    maxLines = 1
+        if (state.storyToContinue is IStoryItem.StoryItem) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column {
+                    Title2(
+                        text = stringResource(id = R.string.main_continue_story_title),
+                        maxLines = 1
+                    )
+                    MarginVertical(margin = 2.dp)
+                    SubTitle2(
+                        text = state.storyToContinue.name,
+                        maxLines = 1
+                    )
+                }
+                Spacer(modifier = Modifier.weight(1f))
+                AsyncImage(
+                    model = state.storyToContinue.pictureUrl,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(60.dp)
+                        .clip(CircleShape),
                 )
             }
-            Spacer(modifier = Modifier.weight(1f))
-            AsyncImage(
-                model = state.pictureUrl,
-                contentScale = ContentScale.Crop,
-                contentDescription = null,
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(CircleShape),
-            )
         }
     }
 }
@@ -104,8 +109,12 @@ private fun ButtonContent(
 @Composable
 private fun PreviewButtonContinueStory() {
     val state = ButtonContinueStoryViewState(
-        description = "«Перси Джексон и проклятие титана»",
-        pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png"
+        storyToContinue = IStoryItem.StoryItem(
+            id = "id",
+            name = "«Перси Джексон и проклятие титана»",
+            pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
+            categories = listOf(Category.FANTASY, Category.ADVENTURE)
+        )
     )
 
     MaterialTheme {
