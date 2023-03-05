@@ -2,11 +2,12 @@ package com.example.stories.android.feature.main.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.stories.android.feature.AppScreens
 import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.category.domain.usecase.CategoryUseCase
 import com.example.stories.android.feature.main.domain.MainSideEffect
 import com.example.stories.android.feature.main.domain.MainState
-import com.example.stories.android.feature.main.domain.model.StoryItem
+import com.example.stories.android.feature.main.domain.model.IStoryItem
 import com.example.stories.android.feature.main.domain.usecase.RecentlyStoriesUseCase
 import com.example.stories.android.feature.main.domain.usecase.RecommendedStoriesUseCase
 import com.github.terrakok.cicerone.Router
@@ -33,11 +34,7 @@ internal class MainViewModel @Inject constructor(
                 recentlyStories = emptyList(),
                 recommendedStories = emptyList(),
                 categories = emptyList(),
-                storyToContinue = StoryItem(
-                    id = "id",
-                    pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
-                    name = "Белый Бим"
-                )
+                storyToContinue = IStoryItem.ShimmerItem
             ),
             savedStateHandle = savedStateHandle
         ) {
@@ -50,11 +47,13 @@ internal class MainViewModel @Inject constructor(
             .onSuccess { recommendedStories ->
                 val categories = categoryUseCase.getCategories()
                 val recentlyStories = recentlyStoriesUseCase.getRecentlyStories()
+                val storyToContinue = recentlyStoriesUseCase.getStoryToContinue()
                 reduce {
                     state.copy(
                         recommendedStories = recommendedStories,
                         categories = categories,
                         recentlyStories = recentlyStories,
+                        storyToContinue = storyToContinue,
                         isProgress = false
                     )
                 }
@@ -74,6 +73,6 @@ internal class MainViewModel @Inject constructor(
     }
 
     fun openStoriesByCategory(category: Category) {
-        // Go to Stories List by Category
+        router.navigateTo(AppScreens.StoriesScreen(category))
     }
 }

@@ -1,11 +1,13 @@
-package com.example.stories.android.feature.main.domain.usecase
+package com.example.stories.android.feature.stories.domain.usecase
 
 import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.main.domain.model.IStoryItem.StoryItem
 import javax.inject.Inject
 
-class RecommendedStoriesUseCaseImpl @Inject constructor() : RecommendedStoriesUseCase {
-    override suspend fun getRecommendedStories(): List<StoryItem> =
+class StoriesByCategoryUseCaseImpl @Inject constructor() : StoriesByCategoryUseCase {
+    override suspend fun getStoriesByCategory(
+        category: Category
+    ): List<StoryItem> =
         listOf(
             StoryItem(
                 id = "1",
@@ -36,6 +38,30 @@ class RecommendedStoriesUseCaseImpl @Inject constructor() : RecommendedStoriesUs
                 pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
                 name = "Title Title",
                 categories = listOf(Category.ADVENTURE, Category.DETECTIVE)
+            ),
+            StoryItem(
+                id = "6",
+                pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
+                name = "Title Title Название Название",
+                categories = listOf(Category.ADVENTURE, Category.FANTASY, Category.NEW)
+            ),
+            StoryItem(
+                id = "7",
+                pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
+                name = "Title TitleНазвание Название",
+                categories = listOf(Category.ADVENTURE, Category.FANTASY, Category.NEW)
+            ),
+            StoryItem(
+                id = "8",
+                pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
+                name = "TitleНазвание Название Title",
+                categories = listOf(Category.ADVENTURE, Category.FANTASY, Category.NEW)
+            ),
+            StoryItem(
+                id = "9",
+                pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
+                name = "Title Title 1212122",
+                categories = listOf(Category.ADVENTURE, Category.FANTASY, Category.NEW)
             )
-        )
+        ).filter { it.categories.contains(category) }
 }
