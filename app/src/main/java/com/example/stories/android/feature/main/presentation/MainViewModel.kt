@@ -68,11 +68,11 @@ internal class MainViewModel @Inject constructor(
             }
     }
 
-    fun openStory(storyId: String) {
+    fun openStory(storyId: String) = intent {
         // Go to Story
     }
 
-    fun openStoriesByCategory(category: Category) {
+    fun openStoriesByCategory(category: Category) = intent {
         router.navigateTo(AppScreens.StoriesScreen(category))
     }
 }
