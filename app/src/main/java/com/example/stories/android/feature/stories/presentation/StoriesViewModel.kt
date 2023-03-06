@@ -70,4 +70,12 @@ internal class StoriesViewModel @Inject constructor(
                 }
             }
     }
+
+    fun onBackPressed() = intent {
+        router.exit()
+    }
+
+    fun openStory(storyId: String) = intent {
+        // Go to Story
+    }
 }
