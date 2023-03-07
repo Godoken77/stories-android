@@ -27,7 +27,7 @@ import coil.compose.AsyncImage
 import com.example.stories.android.R
 import com.example.stories.android.common.design.colors.AppColors
 import com.example.stories.android.feature.category.domain.model.Category
-import com.example.stories.android.feature.main.domain.model.IStoryItem
+import com.example.stories.android.feature.stories.domain.model.IStoryItem
 
 data class ButtonContinueStoryViewState(
     val storyToContinue: IStoryItem,

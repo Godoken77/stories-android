@@ -1,4 +1,4 @@
-package com.example.stories.android.feature.main.domain.model
+package com.example.stories.android.feature.stories.domain.model
 
 import android.os.Parcelable
 import com.example.stories.android.feature.category.domain.model.Category

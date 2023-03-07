@@ -1,7 +1,7 @@
 package com.example.stories.android.feature.stories.domain.usecase
 
 import com.example.stories.android.feature.category.domain.model.Category
-import com.example.stories.android.feature.main.domain.model.IStoryItem.StoryItem
+import com.example.stories.android.feature.stories.domain.model.IStoryItem.StoryItem
 import javax.inject.Inject
 
 class StoriesByCategoryUseCaseImpl @Inject constructor() : StoriesByCategoryUseCase {

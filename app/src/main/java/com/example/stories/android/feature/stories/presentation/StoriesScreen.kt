@@ -28,7 +28,7 @@ import com.example.stories.android.common.design.views.MarginVertical
 import com.example.stories.android.common.design.views.StoryItem
 import com.example.stories.android.common.design.views.StoryItemViewState
 import com.example.stories.android.common.design.views.Title1
-import com.example.stories.android.feature.main.domain.model.IStoryItem
+import com.example.stories.android.feature.stories.domain.model.IStoryItem
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable

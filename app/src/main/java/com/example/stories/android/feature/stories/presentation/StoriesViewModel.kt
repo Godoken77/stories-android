@@ -4,9 +4,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.category.domain.model.CategoryItem
-import com.example.stories.android.feature.main.domain.model.IStoryItem
 import com.example.stories.android.feature.stories.domain.StoriesSideEffect
 import com.example.stories.android.feature.stories.domain.StoriesState
+import com.example.stories.android.feature.stories.domain.model.IStoryItem
 import com.example.stories.android.feature.stories.domain.usecase.StoriesByCategoryUseCase
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -7,9 +7,9 @@ import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.category.domain.usecase.CategoryUseCase
 import com.example.stories.android.feature.main.domain.MainSideEffect
 import com.example.stories.android.feature.main.domain.MainState
-import com.example.stories.android.feature.main.domain.model.IStoryItem
 import com.example.stories.android.feature.main.domain.usecase.RecentlyStoriesUseCase
 import com.example.stories.android.feature.main.domain.usecase.RecommendedStoriesUseCase
+import com.example.stories.android.feature.stories.domain.model.IStoryItem
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.Container
