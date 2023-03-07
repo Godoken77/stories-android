@@ -125,6 +125,11 @@ private fun PreviewButton() {
         backgroundColor = AppColors.Purple
     )
 
+    val stateChoiceButton = ButtonViewState(
+        title = "Продолжить",
+        backgroundColor = AppColors.Grey
+    )
+
     val statePayButton = ButtonViewState(
         title = "Получить за 40 монет",
         backgroundColor = AppColors.Green
@@ -172,6 +177,13 @@ private fun PreviewButton() {
             ) {
                 Button(
                     state = state,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .defaultMinSize(minHeight = 58.dp),
+                    onClick = {}
+                )
+                Button(
+                    state = stateChoiceButton,
                     modifier = Modifier
                         .fillMaxWidth()
                         .defaultMinSize(minHeight = 58.dp),
