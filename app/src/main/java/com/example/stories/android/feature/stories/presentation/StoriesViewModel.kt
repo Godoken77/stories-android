@@ -2,6 +2,7 @@ package com.example.stories.android.feature.stories.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.example.stories.android.feature.AppScreens
 import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.category.domain.model.CategoryItem
 import com.example.stories.android.feature.stories.domain.StoriesSideEffect
@@ -76,6 +77,6 @@ internal class StoriesViewModel @Inject constructor(
     }
 
     fun openStory(storyId: String) = intent {
-        // Go to Story
+        router.navigateTo(AppScreens.StoryProcessScreen(storyId))
     }
 }
