@@ -2,8 +2,8 @@ package com.example.stories.android.feature.main.domain
 
 import android.os.Parcelable
 import com.example.stories.android.feature.category.domain.model.CategoryItem
-import com.example.stories.android.feature.main.domain.model.IStoryItem
-import com.example.stories.android.feature.main.domain.model.IStoryItem.StoryItem
+import com.example.stories.android.feature.stories.domain.model.IStoryItem
+import com.example.stories.android.feature.stories.domain.model.IStoryItem.StoryItem
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
