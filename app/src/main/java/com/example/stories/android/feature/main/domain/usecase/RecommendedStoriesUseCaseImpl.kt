@@ -1,41 +1,16 @@
 package com.example.stories.android.feature.main.domain.usecase
 
-import com.example.stories.android.feature.category.domain.model.Category
+import com.example.stories.android.feature.common.data.StoryRepository
 import com.example.stories.android.feature.stories.domain.model.IStoryItem.StoryItem
 import javax.inject.Inject
 
-class RecommendedStoriesUseCaseImpl @Inject constructor() : RecommendedStoriesUseCase {
+internal class RecommendedStoriesUseCaseImpl @Inject constructor(
+    private val storyRepository: StoryRepository
+) : RecommendedStoriesUseCase {
     override suspend fun getRecommendedStories(): List<StoryItem> =
-        listOf(
-            StoryItem(
-                id = "1",
-                pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
-                name = "Хорошее название",
-                categories = listOf(Category.NEW, Category.HORROR)
-            ),
-            StoryItem(
-                id = "2",
-                pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
-                name = "Белый Бим",
-                categories = listOf(Category.NEW, Category.COMEDY)
-            ),
-            StoryItem(
-                id = "3",
-                pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
-                name = "Название",
-                categories = listOf(Category.ADVENTURE, Category.FANTASY)
-            ),
-            StoryItem(
-                id = "4",
-                pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
-                name = "Name name",
-                categories = listOf(Category.ADVENTURE, Category.FANTASY)
-            ),
-            StoryItem(
-                id = "5",
-                pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
-                name = "Title Title",
-                categories = listOf(Category.ADVENTURE, Category.DETECTIVE)
-            )
-        )
+        storyRepository.getStories().filter {
+            it.isRecommended
+        }.map {
+            StoryItem.fromStory(it)
+        }
 }

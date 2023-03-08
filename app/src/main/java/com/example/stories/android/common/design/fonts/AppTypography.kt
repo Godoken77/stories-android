@@ -46,6 +46,13 @@ object AppTypography {
         lineHeight = 33.sp,
     )
 
+    val Text20SemiBold = TextStyle(
+        fontFamily = velaSansSemiBold,
+        fontWeight = FontWeight.SemiBold,
+        fontSize = 20.sp,
+        lineHeight = 28.sp,
+    )
+
     val Text15SemiBold = TextStyle(
         fontFamily = velaSansSemiBold,
         fontWeight = FontWeight.SemiBold,
