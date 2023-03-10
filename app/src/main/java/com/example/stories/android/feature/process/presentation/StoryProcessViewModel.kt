@@ -81,38 +81,53 @@ internal class StoryProcessViewModel @Inject constructor(
 
         val nextArticle = currentStoryPart.articles.first { !it.isOpen }
 
-        reduce {
-            state.copy(
-                storyProcessModel = storyProcess.copy(
-                    storyParts = storyParts.map {
-                        if (it.partId == currentStoryPart.partId) {
-                            currentStoryPart.copy(
-                                articles = currentStoryPart.articles.map { article ->
-                                    if (article.id == nextArticle.id) {
-                                        article.copy(isOpen = true)
-                                    } else {
-                                        article
-                                    }
-                                }
-                            )
-                        } else {
-                            it
-                        }
-                    }
-                )
+        storyProcessUseCase.runCatching {
+            setArticleOpened(
+                storyId = storyProcess.id,
+                partId = storyProcess.currentPartId,
+                articleId = nextArticle.id
             )
+        }.onSuccess {
+            reduce {
+                state.copy(
+                    storyProcessModel = storyProcess.copy(
+                        storyParts = storyParts.map { storyPart ->
+                            if (storyPart.partId == storyProcess.currentPartId) {
+                                storyPart.copy(
+                                    articles = storyPart.articles.map { article ->
+                                        if (article.id == nextArticle.id) {
+                                            article.copy(isOpen = true)
+                                        } else {
+                                            article
+                                        }
+                                    }
+                                )
+                            } else {
+                                storyPart
+                            }
+                        }
+                    )
+                )
+            }
         }
         postSideEffect(StoryProcessSideEffect.ScrollToLastArticle)
     }
 
     fun onChoiceClicked(choice: Choice, storyProcess: IStoryProcess.StoryProcessModel) = intent {
         if (choice.nextStoryPartId != null) {
-            reduce {
-                state.copy(
-                    storyProcessModel = storyProcess.copy(
-                        currentPartId = choice.nextStoryPartId
-                    )
+            storyProcessUseCase.runCatching {
+                setStoryPart(
+                    storyId = storyProcess.id,
+                    partId = choice.nextStoryPartId
                 )
+            }.onSuccess {
+                reduce {
+                    state.copy(
+                        storyProcessModel = storyProcess.copy(
+                            currentPartId = it
+                        )
+                    )
+                }
             }
         }
     }

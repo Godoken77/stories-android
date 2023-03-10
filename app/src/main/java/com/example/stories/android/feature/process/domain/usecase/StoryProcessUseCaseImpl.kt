@@ -16,4 +16,19 @@ internal class StoryProcessUseCaseImpl @Inject constructor(
             }
         return IStoryProcess.StoryProcessModel.fromStory(story)
     }
+
+    override suspend fun setStoryPart(storyId: String, partId: String): String {
+        return storyRepository.setStoryPart(
+            storyId = storyId,
+            partId = partId
+        )
+    }
+
+    override suspend fun setArticleOpened(storyId: String, partId: String, articleId: String) {
+        storyRepository.setArticleOpened(
+            storyId = storyId,
+            currentPartId = partId,
+            articleId = articleId
+        )
+    }
 }
