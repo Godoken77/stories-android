@@ -154,6 +154,7 @@ internal fun StoryProcessScreen(
                                 text = state.storyProcessModel.name,
                                 modifier = Modifier.width(250.dp),
                                 overflow = TextOverflow.Ellipsis,
+                                textAlign = TextAlign.Center,
                                 maxLines = 1
                             )
                             MarginVertical(margin = 32.dp)

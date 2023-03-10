@@ -59,7 +59,7 @@ dependencies {
     implementation 'androidx.compose.material:material:1.3.1'
     implementation 'androidx.compose.ui:ui-tooling:1.3.3'
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0"
     implementation "androidx.compose.foundation:foundation:1.3.1"
 
     // Image Loader
@@ -74,10 +74,20 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.44"
 
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
 
     //MVI
     implementation "org.orbit-mvi:orbit-viewmodel:4.4.0"
     testImplementation "org.orbit-mvi:orbit-test:4.4.0"
     implementation "org.orbit-mvi:orbit-compose:4.4.0"
+
+    // Room
+    implementation("androidx.room:room-runtime:2.5.0")
+    annotationProcessor("androidx.room:room-compiler:2.5.0")
+
+    kapt("androidx.room:room-compiler:2.5.0")
+    implementation("androidx.room:room-ktx:2.5.0")
+
+    // Gson
+    implementation 'com.google.code.gson:gson:2.9.1'
 }
