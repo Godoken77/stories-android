@@ -42,6 +42,10 @@ internal class MainViewModel @Inject constructor(
         }
 
     private fun onViewReady() = intent {
+
+    }
+
+    fun updateState() = intent {
         recommendedStoriesUseCase
             .runCatching { getRecommendedStories() }
             .onSuccess { recommendedStories ->

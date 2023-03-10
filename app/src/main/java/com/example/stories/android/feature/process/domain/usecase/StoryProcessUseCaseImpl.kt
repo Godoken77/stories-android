@@ -1,20 +1,18 @@
 package com.example.stories.android.feature.process.domain.usecase
 
+import com.example.stories.android.feature.common.data.SettingsRepository
 import com.example.stories.android.feature.common.data.StoryRepository
 import com.example.stories.android.feature.process.domain.model.IStoryProcess
 import javax.inject.Inject
 
 internal class StoryProcessUseCaseImpl @Inject constructor(
-    private val storyRepository: StoryRepository
+    private val storyRepository: StoryRepository,
+    private val settingsRepository: SettingsRepository
 ) : StoryProcessUseCase {
 
     override suspend fun getStoryProcessWithStoryParts(storyId: String): IStoryProcess.StoryProcessModel {
         val story = storyRepository.getStoryProcessWithStoryParts(storyId = storyId)
-        /*val story = storyRepository
-            .getStories()
-            .first {
-                it.id == storyId
-            }*/
+        settingsRepository.setStoryToContinue(storyId)
         return IStoryProcess.StoryProcessModel.fromStory(story)
     }
 

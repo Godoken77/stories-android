@@ -234,8 +234,7 @@ internal class Service {
             Category.NEW,
             Category.ADVENTURE,
             Category.COMEDY
-        ),
-        isRecentlyOpened = true
+        )
     )
 
     private val story5 = story1.copy(
@@ -246,7 +245,6 @@ internal class Service {
             Category.ADVENTURE,
             Category.DETECTIVE
         ),
-        isRecentlyOpened = true,
         isRecommended = true
     )
 

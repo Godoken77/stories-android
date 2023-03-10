@@ -176,7 +176,7 @@ internal class StoryRepositoryImpl @Inject constructor(
 
                 val updatedStory = remoteStory.copy(
                     currentPartId = localStory.currentPartId,
-                    isRecentlyOpened = localStory.isRecentlyOpened,
+                    isRecentlyOpened = true,
                     storyParts = mergedStoryParts
                 )
 

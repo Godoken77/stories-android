@@ -2,9 +2,12 @@ package com.example.stories.android.feature.common.di
 
 import androidx.room.Room
 import com.example.stories.android.App
+import com.example.stories.android.feature.common.data.SettingsRepository
+import com.example.stories.android.feature.common.data.SettingsRepositoryImpl
 import com.example.stories.android.feature.common.data.StoryRepository
 import com.example.stories.android.feature.common.data.StoryRepositoryImpl
 import com.example.stories.android.feature.common.data.datasource.db.Database
+import com.example.stories.android.feature.common.data.datasource.db.dao.SettingsDao
 import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDao
 import com.example.stories.android.feature.common.data.datasource.remote.Service
 import dagger.Binds
@@ -19,7 +22,12 @@ import javax.inject.Singleton
 internal interface CommonModule {
 
     @Binds
+    @Singleton
     fun bindStoryRepository(impl: StoryRepositoryImpl): StoryRepository
+
+    @Binds
+    @Singleton
+    fun bindSettingsRepository(impl: SettingsRepositoryImpl): SettingsRepository
 }
 
 @InstallIn(SingletonComponent::class)
@@ -38,6 +46,11 @@ internal object CommonProvideModule {
     @Singleton
     fun provideStoryDao(db: Database): StoryDao =
         db.storyDao()
+
+    @Provides
+    @Singleton
+    fun provideSettingsDao(db: Database): SettingsDao =
+        db.settingsDao()
 
     @Provides
     @Singleton
