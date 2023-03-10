@@ -8,12 +8,13 @@ internal class StoryProcessUseCaseImpl @Inject constructor(
     private val storyRepository: StoryRepository
 ) : StoryProcessUseCase {
 
-    override suspend fun getStoryProcessByStoryId(storyId: String): IStoryProcess.StoryProcessModel {
-        val story = storyRepository
+    override suspend fun getStoryProcessWithStoryParts(storyId: String): IStoryProcess.StoryProcessModel {
+        val story = storyRepository.getStoryProcessWithStoryParts(storyId = storyId)
+        /*val story = storyRepository
             .getStories()
             .first {
                 it.id == storyId
-            }
+            }*/
         return IStoryProcess.StoryProcessModel.fromStory(story)
     }
 
@@ -30,5 +31,9 @@ internal class StoryProcessUseCaseImpl @Inject constructor(
             currentPartId = partId,
             articleId = articleId
         )
+    }
+
+    override suspend fun resetStoryProgress(storyId: String): String {
+        return storyRepository.resetStoryProgress(storyId = storyId)
     }
 }

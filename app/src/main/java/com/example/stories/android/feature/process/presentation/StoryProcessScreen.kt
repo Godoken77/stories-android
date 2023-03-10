@@ -243,7 +243,7 @@ internal fun StoryProcessScreen(
                         ButtonIcon(
                             iconId = R.drawable.ic_refresh,
                             onClick = {
-                                viewModel.onResetProgressClicked(state.storyProcessModel.id)
+                                viewModel.onResetProgressClicked(state.storyProcessModel)
                             }
                         )
                     }

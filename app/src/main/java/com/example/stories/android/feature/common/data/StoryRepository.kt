@@ -16,4 +16,8 @@ internal interface StoryRepository {
         currentPartId: String,
         articleId: String
     ): Boolean
+
+    suspend fun resetStoryProgress(storyId: String): String
+
+    suspend fun getStoryProcessWithStoryParts(storyId: String): Story
 }

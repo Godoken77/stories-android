@@ -4,7 +4,7 @@ import com.example.stories.android.feature.process.domain.model.IStoryProcess
 
 internal interface StoryProcessUseCase {
 
-    suspend fun getStoryProcessByStoryId(storyId: String): IStoryProcess.StoryProcessModel
+    suspend fun getStoryProcessWithStoryParts(storyId: String): IStoryProcess.StoryProcessModel
 
     suspend fun setStoryPart(storyId: String, partId: String): String
 
@@ -13,4 +13,6 @@ internal interface StoryProcessUseCase {
         partId: String,
         articleId: String
     )
+
+    suspend fun resetStoryProgress(storyId: String): String
 }

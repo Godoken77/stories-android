@@ -12,7 +12,7 @@ data class Story(
     val pictureUrl: String,
     val name: String,
     val categories: List<Category>,
-    val storyParts: List<StoryPart>,
+    val storyParts: List<StoryPart> = emptyList(),
     val currentPartId: String,
     val isRecentlyOpened: Boolean = false,
     val isRecommended: Boolean = false

@@ -250,13 +250,31 @@ internal class Service {
         isRecommended = true
     )
 
-    suspend fun getStories(): List<Story> {
-        return listOf(
-            story1,
-            story2,
-            story3,
-            story4,
-            story5
+    private val storiesWithContent = listOf(
+        story1,
+        story2,
+        story3,
+        story4,
+        story5
+    )
+
+    private val stories = listOf(
+        story1,
+        story2,
+        story3,
+        story4,
+        story5
+    ).map {
+        it.copy(
+            storyParts = emptyList()
         )
+    }
+
+    suspend fun getStories(): List<Story> {
+        return stories
+    }
+
+    suspend fun getStoryWithContent(storyId: String): Story {
+        return storiesWithContent.first { it.id == storyId }
     }
 }
