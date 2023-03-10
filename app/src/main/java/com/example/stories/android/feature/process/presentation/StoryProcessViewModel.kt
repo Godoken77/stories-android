@@ -46,7 +46,7 @@ internal class StoryProcessViewModel @Inject constructor(
 
     private fun onViewReady() = intent {
         storyProcessUseCase
-            .runCatching { getStoryProcessByStoryId(storyId) }
+            .runCatching { getStoryProcessWithStoryParts(storyId) }
             .onSuccess { storyProcess ->
                 reduce {
                     state.copy(
@@ -74,6 +74,11 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onContinueClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
+        reduce {
+            state.copy(
+                isProgress = true
+            )
+        }
         val storyParts = storyProcess.storyParts
         val currentStoryPart = storyParts.first {
             it.partId == storyProcess.currentPartId
@@ -109,11 +114,23 @@ internal class StoryProcessViewModel @Inject constructor(
                     )
                 )
             }
+        }.onFailure {
+            reduce {
+                state.copy(
+                    isProgress = false
+                )
+            }
         }
+
         postSideEffect(StoryProcessSideEffect.ScrollToLastArticle)
     }
 
     fun onChoiceClicked(choice: Choice, storyProcess: IStoryProcess.StoryProcessModel) = intent {
+        reduce {
+            state.copy(
+                isProgress = true
+            )
+        }
         if (choice.nextStoryPartId != null) {
             storyProcessUseCase.runCatching {
                 setStoryPart(
@@ -128,11 +145,45 @@ internal class StoryProcessViewModel @Inject constructor(
                         )
                     )
                 }
+            }.onFailure {
+                reduce {
+                    state.copy(
+                        isProgress = false
+                    )
+                }
             }
         }
     }
 
-    fun onResetProgressClicked(storyId: String) = intent {
-        // Open dialog to confirm reset
+    fun onResetProgressClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
+        reduce {
+            state.copy(
+                isProgress = true
+            )
+        }
+
+        storyProcessUseCase.runCatching { resetStoryProgress(storyProcess.id) }
+            .onSuccess { defaultStoryPartId ->
+                val defaultStoryParts = storyProcess.storyParts.map { part ->
+                    part.copy(
+                        articles = part.articles.mapIndexed { index, article ->
+                            if (index == 0) {
+                                article.copy(isOpen = true)
+                            } else {
+                                article.copy(isOpen = false)
+                            }
+                        }
+                    )
+                }
+
+                reduce {
+                    state.copy(
+                        storyProcessModel = storyProcess.copy(
+                            currentPartId = defaultStoryPartId,
+                            storyParts = defaultStoryParts
+                        )
+                    )
+                }
+            }
     }
 }

@@ -29,17 +29,9 @@ internal class StoryRepositoryImpl @Inject constructor(
                         val remoteStory = remoteIterator.next()
                         val localStory = localIterator.next()
 
-                        // Доработать версионирование local и remote списков историй
-                        val mergedStoryParts = if (remoteStory.storyParts.size == localStory.storyParts.size) {
-                            localStory.storyParts
-                        } else {
-                            remoteStory.storyParts
-                        }
-
                         val mergedStory = remoteStory.copy(
                             currentPartId = localStory.currentPartId,
-                            isRecentlyOpened = localStory.isRecentlyOpened,
-                            storyParts = mergedStoryParts
+                            isRecentlyOpened = localStory.isRecentlyOpened
                         )
                         yield(mergedStory)
                     }
@@ -127,5 +119,74 @@ internal class StoryRepositoryImpl @Inject constructor(
             }
 
         return isOpened
+    }
+
+    override suspend fun resetStoryProgress(storyId: String): String {
+        var defaultStoryPartId: String? = null
+
+        storyDao.runCatching { getStoryById(storyId) }
+            .onSuccess { storyEntity ->
+                val storyParts = storyEntity.storyParts
+                val firstStoryPartId = storyParts.minBy { it.partId }.partId
+                val defaultStoryParts = storyParts.map { part ->
+                    part.copy(
+                        articles = part.articles.mapIndexed { index, article ->
+                            if (index == 0) {
+                                article.copy(isOpen = true)
+                            } else {
+                                article.copy(isOpen = false)
+                            }
+                        }
+                    )
+                }
+
+                storyDao.runCatching {
+                    updateStory(
+                        storyEntity.copy(
+                            currentPartId = firstStoryPartId,
+                            storyParts = defaultStoryParts
+                        )
+                    )
+                }.onSuccess {
+                    defaultStoryPartId = firstStoryPartId
+                }.onFailure {
+                    throw it
+                }
+            }
+            .onFailure {
+                throw it
+            }
+
+        return requireNotNull(defaultStoryPartId)
+    }
+
+    override suspend fun getStoryProcessWithStoryParts(storyId: String): Story {
+        var storyWithContent: Story? = null
+
+        service.runCatching { getStoryWithContent(storyId) }
+            .onSuccess { remoteStory ->
+                val localStory = storyDao.getStoryById(storyId)
+
+                // Доработать версионирование local и remote списков историй
+                val mergedStoryParts = if (remoteStory.storyParts.size == localStory.storyParts.size) {
+                    localStory.storyParts
+                } else {
+                    remoteStory.storyParts
+                }
+
+                val updatedStory = remoteStory.copy(
+                    currentPartId = localStory.currentPartId,
+                    isRecentlyOpened = localStory.isRecentlyOpened,
+                    storyParts = mergedStoryParts
+                )
+
+                storyWithContent = updatedStory
+                storyDao.updateStory(StoryEntity.fromStory(updatedStory))
+            }
+            .onFailure {
+                storyWithContent = Story.fromStoryEntity(storyDao.getStoryById(storyId))
+            }
+
+        return requireNotNull(storyWithContent)
     }
 }
