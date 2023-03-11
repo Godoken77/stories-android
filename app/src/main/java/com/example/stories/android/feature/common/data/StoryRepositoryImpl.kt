@@ -4,6 +4,7 @@ import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDa
 import com.example.stories.android.feature.common.data.datasource.db.entity.StoryEntity
 import com.example.stories.android.feature.common.data.datasource.remote.Service
 import com.example.stories.android.feature.common.model.Story
+import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.StoryPart
 import javax.inject.Inject
 
@@ -83,8 +84,9 @@ internal class StoryRepositoryImpl @Inject constructor(
         storyId: String,
         currentPartId: String,
         articleId: String
-    ): Boolean {
-        var isOpened = false
+    ): List<Article> {
+
+        val updatedArticles = mutableListOf<Article>()
 
         storyDao.runCatching { getStoryById(storyId) }
             .onSuccess {
@@ -92,14 +94,17 @@ internal class StoryRepositoryImpl @Inject constructor(
 
                 val updatedStoryParts = storyParts.map { part: StoryPart ->
                     if (part.partId == currentPartId) {
-                        part.copy(
-                            articles = part.articles.map { article ->
+                        updatedArticles.addAll(
+                            part.articles.map { article ->
                                 if (article.id == articleId) {
                                     article.copy(isOpen = true)
                                 } else {
                                     article
                                 }
                             }
+                        )
+                        part.copy(
+                            articles = updatedArticles
                         )
                     } else {
                         part
@@ -109,16 +114,13 @@ internal class StoryRepositoryImpl @Inject constructor(
                     storyParts = updatedStoryParts
                 )
 
-                storyDao.runCatching { updateStory(updatedStory) }
-                    .onSuccess {
-                        isOpened = true
-                    }
+                storyDao.updateStory(updatedStory)
             }
             .onFailure {
                 throw it
             }
 
-        return isOpened
+        return updatedArticles
     }
 
     override suspend fun resetStoryProgress(storyId: String): String {

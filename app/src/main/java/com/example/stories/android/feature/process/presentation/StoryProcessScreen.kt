@@ -1,8 +1,11 @@
 package com.example.stories.android.feature.process.presentation
 
 import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,6 +24,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -70,7 +74,17 @@ internal fun StoryProcessScreen(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication = null
+        ) {
+            if (state.storyProcessModel is IStoryProcess.StoryProcessModel) {
+                viewModel.onContinueClicked(state.storyProcessModel)
+            }
+        }
+    ) {
         Column {
             MarginVertical(margin = 88.dp)
             Spacer(
@@ -87,7 +101,8 @@ internal fun StoryProcessScreen(
         }
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(16.dp),
-            state = scrollState
+            state = scrollState,
+            modifier = Modifier.animateContentSize()
         ) {
             if (state.storyProcessModel is IStoryProcess.StoryProcessModel) {
                 val currentStoryPart = state.storyProcessModel.storyParts.first {
@@ -117,9 +132,11 @@ internal fun StoryProcessScreen(
                             )
                             MarginVertical(margin = 10.dp)
                             LazyRow(
-                                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                                modifier = Modifier.padding(start = 10.dp)
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {
+                                item {
+                                    MarginHorizontal(margin = 10.dp)
+                                }
                                 items(state.storyProcessModel.categories) { category ->
                                     CategoryItem(
                                         state = CategoryItemViewState(
@@ -168,7 +185,9 @@ internal fun StoryProcessScreen(
                 ) { _: Int, item: Article ->
                     AnimatedVisibility(
                         visible = item.isOpen,
-                        enter = fadeIn()
+                        enter = slideInVertically(
+                            initialOffsetY  = { it / 2 }
+                        )
                     ) {
                         PlainText(
                             text = item.text,
@@ -179,7 +198,9 @@ internal fun StoryProcessScreen(
                 item {
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        modifier = Modifier.padding(horizontal = 10.dp)
+                        modifier = Modifier
+                            .padding(horizontal = 10.dp)
+                            .animateContentSize()
                     ) {
                         val choices = currentStoryPart.articles.last { it.isOpen }.choices
                         if (choices.isNotEmpty()) {
@@ -203,20 +224,27 @@ internal fun StoryProcessScreen(
                                 MarginVertical(margin = 8.dp)
                             }
                         } else {
-                            MarginVertical(margin = 24.dp)
-                            Button(
-                                state = ButtonViewState(
-                                    title = stringResource(id = R.string.story_process_continue_button_title),
-                                    backgroundColor = AppColors.Purple
-                                ),
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .defaultMinSize(minHeight = 58.dp),
-                                onClick = {
-                                    viewModel.onContinueClicked(state.storyProcessModel)
+                            val storyParts = state.storyProcessModel.storyParts
+
+                            if (storyParts.first().partId == currentStoryPart.partId) {
+                                val secondArticle = storyParts.first().articles[1]
+                                if (!secondArticle.isOpen) {
+                                    MarginVertical(margin = 24.dp)
+                                    Button(
+                                        state = ButtonViewState(
+                                            title = stringResource(id = R.string.story_process_continue_button_title),
+                                            backgroundColor = AppColors.Purple
+                                        ),
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .defaultMinSize(minHeight = 58.dp),
+                                        onClick = {
+                                            viewModel.onContinueClicked(state.storyProcessModel)
+                                        }
+                                    )
+                                    MarginVertical(margin = 8.dp)
                                 }
-                            )
-                            MarginVertical(margin = 8.dp)
+                            }
                         }
                     }
                 }

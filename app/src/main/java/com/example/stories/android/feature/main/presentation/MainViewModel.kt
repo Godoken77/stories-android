@@ -41,9 +41,7 @@ internal class MainViewModel @Inject constructor(
             onViewReady()
         }
 
-    private fun onViewReady() = intent {
-
-    }
+    private fun onViewReady() = intent {}
 
     fun updateState() = intent {
         recommendedStoriesUseCase

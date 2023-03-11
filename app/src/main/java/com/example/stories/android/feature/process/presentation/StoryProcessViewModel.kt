@@ -84,7 +84,16 @@ internal class StoryProcessViewModel @Inject constructor(
             it.partId == storyProcess.currentPartId
         }
 
-        val nextArticle = currentStoryPart.articles.first { !it.isOpen }
+        val nextArticle = currentStoryPart.articles.firstOrNull { !it.isOpen }
+
+        if (nextArticle == null) {
+            reduce {
+                state.copy(
+                    isProgress = false
+                )
+            }
+            return@intent
+        }
 
         storyProcessUseCase.runCatching {
             setArticleOpened(
@@ -92,26 +101,21 @@ internal class StoryProcessViewModel @Inject constructor(
                 partId = storyProcess.currentPartId,
                 articleId = nextArticle.id
             )
-        }.onSuccess {
+        }.onSuccess { updatedArticles ->
             reduce {
                 state.copy(
                     storyProcessModel = storyProcess.copy(
                         storyParts = storyParts.map { storyPart ->
                             if (storyPart.partId == storyProcess.currentPartId) {
                                 storyPart.copy(
-                                    articles = storyPart.articles.map { article ->
-                                        if (article.id == nextArticle.id) {
-                                            article.copy(isOpen = true)
-                                        } else {
-                                            article
-                                        }
-                                    }
+                                    articles = updatedArticles
                                 )
                             } else {
                                 storyPart
                             }
                         }
-                    )
+                    ),
+                    isProgress = false
                 )
             }
         }.onFailure {

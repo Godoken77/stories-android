@@ -1,5 +1,6 @@
 package com.example.stories.android.feature.process.domain.usecase
 
+import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.IStoryProcess
 
 internal interface StoryProcessUseCase {
@@ -12,7 +13,7 @@ internal interface StoryProcessUseCase {
         storyId: String,
         partId: String,
         articleId: String
-    )
+    ): List<Article>
 
     suspend fun resetStoryProgress(storyId: String): String
 }
