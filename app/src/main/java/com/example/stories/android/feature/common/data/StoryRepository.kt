@@ -1,6 +1,7 @@
 package com.example.stories.android.feature.common.data
 
 import com.example.stories.android.feature.common.model.Story
+import com.example.stories.android.feature.process.domain.model.Article
 
 internal interface StoryRepository {
 
@@ -15,7 +16,7 @@ internal interface StoryRepository {
         storyId: String,
         currentPartId: String,
         articleId: String
-    ): Boolean
+    ): List<Article>
 
     suspend fun resetStoryProgress(storyId: String): String
 
