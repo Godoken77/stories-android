@@ -32,7 +32,8 @@ internal class StoryRepositoryImpl @Inject constructor(
 
                         val mergedStory = remoteStory.copy(
                             currentPartId = localStory.currentPartId,
-                            isRecentlyOpened = localStory.isRecentlyOpened
+                            isRecentlyOpened = localStory.isRecentlyOpened,
+                            storyParts = localStory.storyParts
                         )
                         yield(mergedStory)
                     }
@@ -89,20 +90,18 @@ internal class StoryRepositoryImpl @Inject constructor(
         val updatedArticles = mutableListOf<Article>()
 
         storyDao.runCatching { getStoryById(storyId) }
-            .onSuccess {
-                val storyParts = it.storyParts
+            .onSuccess {localStoryEntity ->
+                val storyParts = localStoryEntity.storyParts
 
                 val updatedStoryParts = storyParts.map { part: StoryPart ->
                     if (part.partId == currentPartId) {
-                        updatedArticles.addAll(
-                            part.articles.map { article ->
-                                if (article.id == articleId) {
-                                    article.copy(isOpen = true)
-                                } else {
-                                    article
-                                }
+                        part.articles.map { article ->
+                            if (article.id == articleId) {
+                                updatedArticles.add(article.copy(isOpen = true))
+                            } else {
+                                updatedArticles.add(article)
                             }
-                        )
+                        }
                         part.copy(
                             articles = updatedArticles
                         )
@@ -110,11 +109,14 @@ internal class StoryRepositoryImpl @Inject constructor(
                         part
                     }
                 }
-                val updatedStory = it.copy(
+                val updatedStory = localStoryEntity.copy(
                     storyParts = updatedStoryParts
                 )
 
-                storyDao.updateStory(updatedStory)
+                storyDao.runCatching { updateStory(updatedStory) }
+                    .onFailure { throwable ->
+                        throw throwable
+                    }
             }
             .onFailure {
                 throw it
