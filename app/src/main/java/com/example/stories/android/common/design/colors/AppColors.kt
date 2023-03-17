@@ -12,4 +12,6 @@ object AppColors {
     val BackgroundDark = Color(0xFF0E0E0E)
     val BackgroundLight = Color(0xFF474747)
     val Transparent = Color(0x00000000)
+    val PurpleLight = Color(0xFFE0CCFF)
+    val BlueLight = Color(0xFFB9D1FF)
 }

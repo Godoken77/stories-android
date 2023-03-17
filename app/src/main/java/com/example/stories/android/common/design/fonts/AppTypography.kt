@@ -17,12 +17,23 @@ object AppTypography {
         Font(R.font.vela_sans_bold, FontWeight.W700)
     )
 
-    private val velaSansSemiBold = FontFamily(
+    val velaSansSemiBold = FontFamily(
         Font(R.font.vela_sans_semibold, FontWeight.W600)
     )
 
     private val velaSansMedium = FontFamily(
         Font(R.font.vela_sans_medium, FontWeight.W500)
+    )
+
+    private val nexaTextMedium = FontFamily(
+        Font(R.font.nexa_text_regular, FontWeight.W500)
+    )
+
+    val Text12MediumNexa = TextStyle(
+        fontFamily = nexaTextMedium,
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+        lineHeight = 16.sp,
     )
 
     val Text15Regular = TextStyle(
