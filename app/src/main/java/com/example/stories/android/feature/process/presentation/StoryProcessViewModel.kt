@@ -73,6 +73,19 @@ internal class StoryProcessViewModel @Inject constructor(
         router.exit()
     }
 
+    fun onResetProgressClicked() = intent {
+        postSideEffect(StoryProcessSideEffect.ShowResetConfirmationDialog)
+    }
+
+    fun onConfirmResetClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
+        resetProgress(storyProcess)
+        postSideEffect(StoryProcessSideEffect.DismissResetConfirmationDialog)
+    }
+
+    fun onDismissResetClicked() = intent {
+        postSideEffect(StoryProcessSideEffect.DismissResetConfirmationDialog)
+    }
+
     fun onContinueClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
         reduce {
             state.copy(
@@ -159,7 +172,7 @@ internal class StoryProcessViewModel @Inject constructor(
         }
     }
 
-    fun onResetProgressClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
+    private suspend fun resetProgress(storyProcess: IStoryProcess.StoryProcessModel) = intent {
         reduce {
             state.copy(
                 isProgress = true

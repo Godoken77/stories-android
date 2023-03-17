@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">stories-android</string>
 
+    <string name="common_yes">Да</string>
+    <string name="common_no">Нет</string>
+
     <string name="main_recommended_title">Рекомендации</string>
     <string name="main_categories_title">Жанры</string>
     <string name="main_recently_title">Продолжить чтение</string>
@@ -15,4 +18,5 @@
     <string name="category_item_name_horror">Ужасы</string>
 
     <string name="story_process_continue_button_title">Продолжить</string>
+    <string name="story_process_reset_confirmation_title">Вы точно хотите начать\nсначала?</string>
 </resources>
