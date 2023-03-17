@@ -27,6 +27,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -38,6 +39,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import coil.compose.AsyncImage
 import com.example.stories.android.R
 import com.example.stories.android.common.design.colors.AppColors
@@ -58,6 +61,7 @@ import com.example.stories.android.feature.process.domain.StoryProcessSideEffect
 import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.IStoryProcess
 import com.example.stories.android.feature.process.domain.model.RemarkColor
+import com.example.stories.android.feature.process.presentation.dialog.ResetConfirmationDialogScreen
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -71,6 +75,10 @@ internal fun StoryProcessScreen(
     val scrollState = rememberLazyListState()
     val scope = rememberCoroutineScope()
 
+    val resetConfirmationDialogVisibility = remember {
+        mutableStateOf(false)
+    }
+
     viewModel.collectSideEffect {
         when(it) {
             is StoryProcessSideEffect.ScrollToLastArticle -> {
@@ -78,6 +86,33 @@ internal fun StoryProcessScreen(
                     scrollState.animateScrollToItem(scrollState.layoutInfo.totalItemsCount)
                 }
             }
+            is StoryProcessSideEffect.ShowResetConfirmationDialog -> {
+                resetConfirmationDialogVisibility.value = true
+            }
+            is StoryProcessSideEffect.DismissResetConfirmationDialog -> {
+                resetConfirmationDialogVisibility.value = false
+            }
+        }
+    }
+
+    if (state.storyProcessModel is IStoryProcess.StoryProcessModel &&
+        resetConfirmationDialogVisibility.value
+    ) {
+        Dialog(
+            onDismissRequest = {
+                resetConfirmationDialogVisibility.value = false
+            },
+            properties = DialogProperties(
+                dismissOnClickOutside = true,
+                usePlatformDefaultWidth = false
+            )
+        ) {
+            ResetConfirmationDialogScreen(
+                onConfirmClicked = {
+                    viewModel.onConfirmResetClicked(state.storyProcessModel)
+                },
+                onDismissClicked = viewModel::onDismissResetClicked
+            )
         }
     }
 
@@ -307,9 +342,7 @@ internal fun StoryProcessScreen(
                         if (!currentPartIsFirstPart) {
                             ButtonIcon(
                                 iconId = R.drawable.ic_refresh,
-                                onClick = {
-                                    viewModel.onResetProgressClicked(state.storyProcessModel)
-                                }
+                                onClick = viewModel::onResetProgressClicked
                             )
                         }
                     }
