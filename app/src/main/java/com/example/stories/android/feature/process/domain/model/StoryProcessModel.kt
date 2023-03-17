@@ -46,9 +46,10 @@ data class StoryPart(
 @Parcelize
 data class Article(
     val id: String,
-    val text: String,
+    val text: String? = null,
     val isOpen: Boolean = false,
     val choices: List<Choice> = emptyList(),
+    val remark: Remark? = null
 ) : Parcelable
 
 @Parcelize
@@ -56,3 +57,15 @@ data class Choice(
     val title: String,
     val nextStoryPartId: String? = null
 ) : Parcelable
+
+@Parcelize
+data class Remark(
+    val remark: String,
+    val name: String,
+    val color: RemarkColor = RemarkColor.FIRSTLY
+) : Parcelable
+
+enum class RemarkColor {
+    FIRSTLY,
+    SECONDARY
+}

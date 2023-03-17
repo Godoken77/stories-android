@@ -97,7 +97,9 @@ internal class StoryRepositoryImpl @Inject constructor(
                     if (part.partId == currentPartId) {
                         part.articles.map { article ->
                             if (article.id == articleId) {
-                                updatedArticles.add(article.copy(isOpen = true))
+                                updatedArticles.add(
+                                    article.copy(isOpen = true)
+                                )
                             } else {
                                 updatedArticles.add(article)
                             }

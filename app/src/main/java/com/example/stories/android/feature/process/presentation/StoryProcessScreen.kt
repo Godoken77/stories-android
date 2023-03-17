@@ -6,7 +6,6 @@ import androidx.compose.animation.core.Spring.StiffnessVeryLow
 import androidx.compose.animation.core.VisibilityThreshold
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.slideInVertically
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -51,11 +50,14 @@ import com.example.stories.android.common.design.views.CategoryItemViewState
 import com.example.stories.android.common.design.views.MarginHorizontal
 import com.example.stories.android.common.design.views.MarginVertical
 import com.example.stories.android.common.design.views.PlainText
+import com.example.stories.android.common.design.views.RemarkItem
+import com.example.stories.android.common.design.views.RemarkItemViewState
 import com.example.stories.android.common.design.views.Title1
 import com.example.stories.android.common.design.views.Title4
 import com.example.stories.android.feature.process.domain.StoryProcessSideEffect
 import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.IStoryProcess
+import com.example.stories.android.feature.process.domain.model.RemarkColor
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
@@ -99,13 +101,19 @@ internal fun StoryProcessScreen(
                 val currentPartIsFirstPart =
                     state.storyProcessModel.storyParts.first().partId == currentStoryPart.partId
 
+                val backgroundColor = if (currentPartIsFirstPart && state.storyProcessModel.storyParts.size != 1) {
+                    AppColors.Background
+                } else {
+                    AppColors.Transparent
+                }
+
                 Column {
                     MarginVertical(margin = 88.dp)
                     Spacer(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(
-                                color = AppColors.Background,
+                                color = backgroundColor,
                                 shape = RoundedCornerShape(
                                     topStart = 40.dp,
                                     topEnd = 40.dp
@@ -193,7 +201,7 @@ internal fun StoryProcessScreen(
                     itemsIndexed(
                         items = currentStoryPart.articles,
                         key = { _: Int, article: Article -> article.id }
-                    ) { _: Int, item: Article ->
+                    ) { index: Int, item: Article ->
                         AnimatedVisibility(
                             visible = item.isOpen,
                             enter = slideInVertically(
@@ -204,10 +212,30 @@ internal fun StoryProcessScreen(
                                 )
                             )
                         ) {
-                            PlainText(
-                                text = item.text,
-                                modifier = Modifier.padding(horizontal = 10.dp)
-                            )
+                            if (item.remark == null) {
+                                PlainText(
+                                    text = item.text.orEmpty(),
+                                    modifier = Modifier
+                                        .padding(horizontal = 10.dp)
+                                )
+                            } else {
+                                val remark = item.remark
+
+                                RemarkItem(
+                                    modifier = Modifier
+                                        .padding(
+                                            horizontal = 10.dp,
+                                        ),
+                                    state = RemarkItemViewState(
+                                        name = remark.name,
+                                        remark = remark.remark,
+                                        colorIcon = when (remark.color) {
+                                            RemarkColor.FIRSTLY -> AppColors.PurpleLight
+                                            RemarkColor.SECONDARY -> AppColors.BlueLight
+                                        }
+                                    )
+                                )
+                            }
                         }
                     }
                     item {
@@ -215,6 +243,7 @@ internal fun StoryProcessScreen(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
                                 .padding(horizontal = 10.dp)
+                                .padding(bottom = if (currentPartIsFirstPart) 0.dp else 200.dp)
                                 .animateContentSize()
                         ) {
                             val choices = currentStoryPart.articles.lastOrNull { it.isOpen }?.choices
