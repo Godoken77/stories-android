@@ -6,5 +6,6 @@ enum class Category {
     DETECTIVE,
     FANTASY,
     HORROR,
-    NEW
+    NEW,
+    ROMANTIC
 }

@@ -7,4 +7,6 @@ internal interface SettingsRepository {
     suspend fun getSettings(): SettingsEntity
 
     suspend fun setStoryToContinue(storyId: String)
+
+    suspend fun setFirstSessionState(isFirst: Boolean)
 }

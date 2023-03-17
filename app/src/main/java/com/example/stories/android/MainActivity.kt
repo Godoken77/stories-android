@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            navigator.applyCommands(arrayOf<Command>(Replace(AppScreens.MainScreen())))
+            navigator.applyCommands(arrayOf<Command>(Replace(AppScreens.SplashScreen())))
         }
     }
 

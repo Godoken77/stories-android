@@ -23,6 +23,7 @@ data class CategoryItem(
                     Category.DETECTIVE -> R.string.category_item_name_detective
                     Category.FANTASY -> R.string.category_item_name_fantasy
                     Category.HORROR -> R.string.category_item_name_horror
+                    Category.ROMANTIC -> R.string.category_item_name_romantic
                 },
                 iconId = when (category) {
                     Category.COMEDY -> R.drawable.ic_category_comedy
@@ -31,6 +32,7 @@ data class CategoryItem(
                     Category.DETECTIVE -> R.drawable.ic_category_detective
                     Category.FANTASY -> R.drawable.ic_category_fantasy
                     Category.HORROR -> R.drawable.ic_category_horror
+                    Category.ROMANTIC -> R.drawable.ic_category_romantic
                 }
             )
         }
