@@ -29,6 +29,7 @@ data class ButtonViewState(
     val title: String,
     val description: String? = null,
     @DrawableRes val iconId: Int? = null,
+    @DrawableRes val startIconId: Int? = null,
     val backgroundColor: Color = AppColors.Transparent,
     val borderColor: Color? = null
 )
@@ -91,6 +92,15 @@ private fun ButtonContent(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                if (state.startIconId != null) {
+                    Icon(
+                        painter = painterResource(id = state.startIconId),
+                        contentDescription = null,
+                        tint = Color.Unspecified,
+                        modifier = Modifier.size(24.dp)
+                    )
+                    MarginHorizontal(margin = 10.dp)
+                }
                 Title2(
                     text = state.title,
                     maxLines = 1
@@ -162,6 +172,13 @@ private fun PreviewButton() {
         borderColor = AppColors.Green
     )
 
+    val stateCategoryBorderedButtonWithStartIcon = ButtonViewState(
+        title = "Романтика",
+        backgroundColor = AppColors.Transparent,
+        startIconId = R.drawable.ic_category_romantic,
+        borderColor = AppColors.Purple
+    )
+
     MaterialTheme {
         Box(
             modifier = Modifier
@@ -222,6 +239,13 @@ private fun PreviewButton() {
                     modifier = Modifier
                         .fillMaxWidth()
                         .defaultMinSize(minHeight = 80.dp),
+                    onClick = {}
+                )
+                Button(
+                    state = stateCategoryBorderedButtonWithStartIcon,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .defaultMinSize(minHeight = 62.dp),
                     onClick = {}
                 )
             }

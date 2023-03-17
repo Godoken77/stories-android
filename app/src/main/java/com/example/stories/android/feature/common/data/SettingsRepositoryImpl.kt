@@ -50,4 +50,20 @@ internal class SettingsRepositoryImpl @Inject constructor(
             settingsDao.updateSettings(updatedSettings)
         }
     }
+
+    override suspend fun setFirstSessionState(isFirst: Boolean) {
+        val currentSettings = settingsDao.getSettings()
+
+        if (currentSettings != null) {
+            val updatedSettings = currentSettings.copy(
+                isFirstSession = isFirst
+            )
+            settingsDao.updateSettings(updatedSettings)
+        } else {
+            val updatedSettings = SettingsEntity().copy(
+                isFirstSession = isFirst
+            )
+            settingsDao.updateSettings(updatedSettings)
+        }
+    }
 }

@@ -624,7 +624,7 @@ internal class Service {
         categories = listOf(
             Category.NEW,
             Category.ADVENTURE,
-            Category.HORROR
+            Category.ROMANTIC
         ),
         isRecommended = true
     )

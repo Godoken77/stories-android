@@ -142,7 +142,9 @@ internal fun MainScreen(
             }
         }
         item {
-            Column {
+            Column(
+                modifier = Modifier.padding(bottom = 8.dp)
+            ) {
                 if (state.recentlyStories.isNotEmpty()) {
                     Title1(
                         text = stringResource(R.string.main_recently_title),
