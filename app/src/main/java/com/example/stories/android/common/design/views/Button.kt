@@ -31,7 +31,8 @@ data class ButtonViewState(
     @DrawableRes val iconId: Int? = null,
     @DrawableRes val startIconId: Int? = null,
     val backgroundColor: Color = AppColors.Transparent,
-    val borderColor: Color? = null
+    val borderColor: Color? = null,
+    val titleColor: Color = AppColors.WhiteTitle
 )
 
 @Composable

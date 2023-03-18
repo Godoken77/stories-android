@@ -21,11 +21,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.ModalBottomSheetLayout
+import androidx.compose.material.ModalBottomSheetState
+import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,6 +55,7 @@ import com.example.stories.android.common.design.views.ButtonIcon
 import com.example.stories.android.common.design.views.ButtonViewState
 import com.example.stories.android.common.design.views.CategoryItem
 import com.example.stories.android.common.design.views.CategoryItemViewState
+import com.example.stories.android.common.design.views.Grip
 import com.example.stories.android.common.design.views.MarginHorizontal
 import com.example.stories.android.common.design.views.MarginVertical
 import com.example.stories.android.common.design.views.PlainText
@@ -58,14 +64,17 @@ import com.example.stories.android.common.design.views.RemarkItemViewState
 import com.example.stories.android.common.design.views.Title1
 import com.example.stories.android.common.design.views.Title4
 import com.example.stories.android.feature.process.domain.StoryProcessSideEffect
+import com.example.stories.android.feature.process.domain.StoryProcessState
 import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.IStoryProcess
 import com.example.stories.android.feature.process.domain.model.RemarkColor
 import com.example.stories.android.feature.process.presentation.dialog.ResetConfirmationDialogScreen
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 
+@OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun StoryProcessScreen(
     viewModel: StoryProcessViewModel
@@ -75,7 +84,16 @@ internal fun StoryProcessScreen(
     val scrollState = rememberLazyListState()
     val scope = rememberCoroutineScope()
 
+    val modalBottomSheetState: ModalBottomSheetState = androidx.compose.material.rememberModalBottomSheetState(
+        initialValue = ModalBottomSheetValue.Hidden,
+        skipHalfExpanded = true
+    )
+
     val resetConfirmationDialogVisibility = remember {
+        mutableStateOf(false)
+    }
+
+    val rateAppState = remember {
         mutableStateOf(false)
     }
 
@@ -83,7 +101,11 @@ internal fun StoryProcessScreen(
         when(it) {
             is StoryProcessSideEffect.ScrollToLastArticle -> {
                 scope.launch {
-                    scrollState.animateScrollToItem(scrollState.layoutInfo.totalItemsCount)
+                    // Dirty hack
+                    delay(100)
+                    scrollState.animateScrollToItem(
+                        index = scrollState.layoutInfo.totalItemsCount - 1
+                    )
                 }
             }
             is StoryProcessSideEffect.ShowResetConfirmationDialog -> {
@@ -91,6 +113,18 @@ internal fun StoryProcessScreen(
             }
             is StoryProcessSideEffect.DismissResetConfirmationDialog -> {
                 resetConfirmationDialogVisibility.value = false
+            }
+            is StoryProcessSideEffect.ShowRateBottomSheet -> {
+                scope.launch {
+                    modalBottomSheetState.show()
+                }
+            }
+            is StoryProcessSideEffect.HideRateBottomSheet -> {
+                scope.launch {
+                    modalBottomSheetState.hide()
+                }.invokeOnCompletion {
+                    rateAppState.value = false
+                }
             }
         }
     }
@@ -116,6 +150,103 @@ internal fun StoryProcessScreen(
         }
     }
 
+    ModalBottomSheetLayout(
+        sheetContent = {
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier
+                    .padding(
+                        start = 10.dp,
+                        end = 10.dp,
+                        bottom = 40.dp
+                    )
+                    .fillMaxWidth()
+                    .animateContentSize()
+            ) {
+                MarginVertical(margin = 8.dp)
+                Grip(Modifier.align(Alignment.CenterHorizontally))
+                MarginVertical(margin = 28.dp)
+                if (!rateAppState.value) {
+                    Title4(
+                        text = stringResource(id = R.string.story_process_rate_story_title),
+                        textAlign = TextAlign.Center
+                    )
+                    MarginVertical(margin = 20.dp)
+                    Row(horizontalArrangement = Arrangement.Center) {
+                        ButtonIcon(
+                            iconId = R.drawable.ic_like,
+                            onClick = {
+                                viewModel.onLikeClicked()
+                                rateAppState.value = true
+                            },
+                            buttonSize = 72.dp,
+                            iconSize = 24.dp,
+                            backgroundColor = AppColors.Green
+                        )
+                        MarginHorizontal(margin = 20.dp)
+                        ButtonIcon(
+                            iconId = R.drawable.ic_dislike,
+                            onClick = {
+                                viewModel.onDislikeClicked()
+                            },
+                            buttonSize = 72.dp,
+                            iconSize = 24.dp,
+                            backgroundColor = AppColors.Red
+                        )
+                    }
+                } else {
+                    Title4(
+                        text = stringResource(id = R.string.story_process_rate_app_title),
+                        textAlign = TextAlign.Center
+                    )
+                    MarginVertical(margin = 20.dp)
+                    Button(
+                        state = ButtonViewState(
+                            title = stringResource(id = R.string.story_process_rate_app_confirm),
+                            backgroundColor = AppColors.Purple
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .defaultMinSize(minHeight = 58.dp),
+                        onClick = {
+                            viewModel.onRateConfirmClicked()
+                        }
+                    )
+                    MarginVertical(margin = 10.dp)
+                    Button(
+                        state = ButtonViewState(
+                            title = stringResource(id = R.string.story_process_rate_app_dissmiss),
+                            titleColor = AppColors.WhiteTitle.copy(alpha = 0.6f)
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .defaultMinSize(minHeight = 58.dp),
+                        onClick = {
+                            viewModel.onRateDismissClicked()
+                        }
+                    )
+                }
+            }
+        },
+        content = {
+            ScreenContent(
+                viewModel = viewModel,
+                state = state,
+                scrollState = scrollState
+            )
+        },
+        sheetState = modalBottomSheetState,
+        sheetShape = RoundedCornerShape(topEnd = 40.dp, topStart = 40.dp),
+        sheetBackgroundColor = AppColors.Background
+    )
+}
+
+@Composable
+private fun ScreenContent(
+    viewModel: StoryProcessViewModel,
+    state: StoryProcessState,
+    scrollState: LazyListState
+) {
     Box(modifier = Modifier
         .fillMaxSize()
         .clickable(
@@ -236,7 +367,7 @@ internal fun StoryProcessScreen(
                     itemsIndexed(
                         items = currentStoryPart.articles,
                         key = { _: Int, article: Article -> article.id }
-                    ) { index: Int, item: Article ->
+                    ) { _: Int, item: Article ->
                         AnimatedVisibility(
                             visible = item.isOpen,
                             enter = slideInVertically(
@@ -278,7 +409,7 @@ internal fun StoryProcessScreen(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
                                 .padding(horizontal = 10.dp)
-                                .padding(bottom = if (currentPartIsFirstPart) 0.dp else 200.dp)
+                                .padding(top = if (currentPartIsFirstPart) 0.dp else 200.dp)
                                 .animateContentSize()
                         ) {
                             val choices = currentStoryPart.articles.lastOrNull { it.isOpen }?.choices
@@ -342,7 +473,9 @@ internal fun StoryProcessScreen(
                         if (!currentPartIsFirstPart) {
                             ButtonIcon(
                                 iconId = R.drawable.ic_refresh,
-                                onClick = viewModel::onResetProgressClicked
+                                onClick = viewModel::onResetProgressClicked,
+                                buttonSize = 48.dp,
+                                iconSize = 20.dp
                             )
                         }
                     }

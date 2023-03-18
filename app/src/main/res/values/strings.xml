@@ -20,6 +20,10 @@
 
     <string name="story_process_continue_button_title">Продолжить</string>
     <string name="story_process_reset_confirmation_title">Вы точно хотите начать\nсначала?</string>
+    <string name="story_process_rate_story_title">Пожалуйста, оцените\nисторию</string>
+    <string name="story_process_rate_app_title">Понравилось приложение?\nПоставьте оценку в Play Market</string>
+    <string name="story_process_rate_app_confirm">Оценить</string>
+    <string name="story_process_rate_app_dissmiss">Позже</string>
 
     <string name="choose_category_title">Какой жанр предпочитаете?</string>
 </resources>
