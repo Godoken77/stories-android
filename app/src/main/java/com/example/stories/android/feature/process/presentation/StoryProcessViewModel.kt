@@ -86,6 +86,24 @@ internal class StoryProcessViewModel @Inject constructor(
         postSideEffect(StoryProcessSideEffect.DismissResetConfirmationDialog)
     }
 
+    fun onLikeClicked() = intent {
+        //Analytics
+    }
+
+    fun onDislikeClicked() = intent {
+        //Analytics
+        postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
+    }
+
+    fun onRateConfirmClicked() = intent {
+        //Go to Play Market
+        postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
+    }
+
+    fun onRateDismissClicked() = intent {
+        postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
+    }
+
     fun onContinueClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
         reduce {
             state.copy(
@@ -98,6 +116,16 @@ internal class StoryProcessViewModel @Inject constructor(
         }
 
         val nextArticle = currentStoryPart.articles.firstOrNull { !it.isOpen }
+
+        if (nextArticle == null && currentStoryPart.partId == storyParts.last().partId) {
+            reduce {
+                state.copy(
+                    isProgress = false
+                )
+            }
+            postSideEffect(StoryProcessSideEffect.ShowRateBottomSheet)
+            return@intent
+        }
 
         if (nextArticle == null) {
             reduce {

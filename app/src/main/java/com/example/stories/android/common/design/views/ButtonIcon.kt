@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.example.stories.android.R
 import com.example.stories.android.common.design.colors.AppColors
@@ -24,13 +25,16 @@ import com.example.stories.android.common.design.colors.AppColors
 @Composable
 fun ButtonIcon(
     @DrawableRes iconId: Int,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    buttonSize: Dp,
+    iconSize: Dp,
+    backgroundColor: Color = AppColors.Background
 ) {
     Box(
         modifier = Modifier
-            .size(48.dp)
+            .size(buttonSize)
             .background(
-                AppColors.Background,
+                backgroundColor,
                 CircleShape
             )
             .clickable(
@@ -43,7 +47,7 @@ fun ButtonIcon(
             painter = painterResource(id = iconId),
             contentDescription = null,
             tint = Color.Unspecified,
-            modifier = Modifier.size(20.dp)
+            modifier = Modifier.size(iconSize)
         )
     }
 }
@@ -63,7 +67,9 @@ fun ButtonIconPreview() {
         ) {
             ButtonIcon(
                 iconId = R.drawable.ic_refresh,
-                onClick = {}
+                onClick = {},
+                buttonSize = 48.dp,
+                iconSize = 20.dp
             )
         }
     }
