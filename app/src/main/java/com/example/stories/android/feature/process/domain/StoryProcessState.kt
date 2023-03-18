@@ -8,5 +8,11 @@ import kotlinx.parcelize.Parcelize
 data class StoryProcessState(
     val storyProcessModel: IStoryProcess,
     val isProgress: Boolean = true,
-    val isFailure: Boolean = false
+    val isFailure: Boolean = false,
+    val payOffer: PayOffer? = null
+) : Parcelable
+
+@Parcelize
+data class PayOffer(
+    val price: String
 ) : Parcelable

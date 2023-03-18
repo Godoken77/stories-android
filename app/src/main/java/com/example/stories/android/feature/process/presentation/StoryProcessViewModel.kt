@@ -4,10 +4,12 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.stories.android.feature.AppScreens
 import com.example.stories.android.feature.category.domain.model.Category
+import com.example.stories.android.feature.process.domain.PayOffer
 import com.example.stories.android.feature.process.domain.StoryProcessSideEffect
 import com.example.stories.android.feature.process.domain.StoryProcessState
 import com.example.stories.android.feature.process.domain.model.Choice
 import com.example.stories.android.feature.process.domain.model.IStoryProcess
+import com.example.stories.android.feature.process.domain.usecase.AdvertisementUseCase
 import com.example.stories.android.feature.process.domain.usecase.StoryProcessUseCase
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +25,7 @@ import javax.inject.Inject
 internal class StoryProcessViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val storyProcessUseCase: StoryProcessUseCase,
+    private val advertisementUseCase: AdvertisementUseCase,
     private val router: Router
 ) : ViewModel(), ContainerHost<StoryProcessState, StoryProcessSideEffect> {
 
@@ -104,17 +107,51 @@ internal class StoryProcessViewModel @Inject constructor(
         postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
     }
 
+    fun onPayClicked() = intent {
+        // Make pay for ad block
+    }
+
+    fun onShowAdClicked() = intent {
+        advertisementUseCase.runCatching { resetAlreadyReadArticleCount() }
+            .onSuccess {
+                reduce {
+                    state.copy(
+                        payOffer = null
+                    )
+                }
+                postSideEffect(StoryProcessSideEffect.ShowAd)
+            }
+    }
+
     fun onContinueClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
+        if (advertisementUseCase.isAdvertisementEnabled()) {
+            val isNeedToShowAd = advertisementUseCase.isNeedToShowAd()
+            if (isNeedToShowAd) {
+                val price = advertisementUseCase.getBlockAdPrice()
+                reduce {
+                    state.copy(
+                        payOffer = PayOffer(
+                            price = price
+                        )
+                    )
+                }
+                postSideEffect(StoryProcessSideEffect.ScrollToLastArticle)
+                return@intent
+            }
+        }
+
         reduce {
             state.copy(
                 isProgress = true
             )
         }
+
         val storyParts = storyProcess.storyParts
         val currentStoryPart = storyParts.first {
             it.partId == storyProcess.currentPartId
         }
 
+        val currentArticle = currentStoryPart.articles.last { it.isOpen }
         val nextArticle = currentStoryPart.articles.firstOrNull { !it.isOpen }
 
         if (nextArticle == null && currentStoryPart.partId == storyParts.last().partId) {
@@ -128,11 +165,10 @@ internal class StoryProcessViewModel @Inject constructor(
         }
 
         if (nextArticle == null) {
-            reduce {
-                state.copy(
-                    isProgress = false
-                )
-            }
+            openNextStoryPart(
+                choice = currentArticle.choices.first(),
+                storyProcess = storyProcess
+            )
             return@intent
         }
 
@@ -143,6 +179,7 @@ internal class StoryProcessViewModel @Inject constructor(
                 articleId = nextArticle.id
             )
         }.onSuccess { updatedArticles ->
+            advertisementUseCase.increaseReadArticleCount()
             reduce {
                 state.copy(
                     storyProcessModel = storyProcess.copy(
@@ -170,12 +207,7 @@ internal class StoryProcessViewModel @Inject constructor(
         postSideEffect(StoryProcessSideEffect.ScrollToLastArticle)
     }
 
-    fun onChoiceClicked(choice: Choice, storyProcess: IStoryProcess.StoryProcessModel) = intent {
-        reduce {
-            state.copy(
-                isProgress = true
-            )
-        }
+    private fun openNextStoryPart(choice: Choice, storyProcess: IStoryProcess.StoryProcessModel) = intent {
         if (choice.nextStoryPartId != null) {
             storyProcessUseCase.runCatching {
                 setStoryPart(

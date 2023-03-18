@@ -102,7 +102,7 @@ internal fun StoryProcessScreen(
             is StoryProcessSideEffect.ScrollToLastArticle -> {
                 scope.launch {
                     // Dirty hack
-                    delay(100)
+                    delay(150)
                     scrollState.animateScrollToItem(
                         index = scrollState.layoutInfo.totalItemsCount - 1
                     )
@@ -125,6 +125,9 @@ internal fun StoryProcessScreen(
                 }.invokeOnCompletion {
                     rateAppState.value = false
                 }
+            }
+            is  StoryProcessSideEffect.ShowAd -> {
+                //Show Ad Frame
             }
         }
     }
@@ -215,7 +218,7 @@ internal fun StoryProcessScreen(
                     MarginVertical(margin = 10.dp)
                     Button(
                         state = ButtonViewState(
-                            title = stringResource(id = R.string.story_process_rate_app_dissmiss),
+                            title = stringResource(id = R.string.story_process_rate_app_dismiss),
                             titleColor = AppColors.WhiteTitle.copy(alpha = 0.6f)
                         ),
                         modifier = Modifier
@@ -409,49 +412,65 @@ private fun ScreenContent(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
                                 .padding(horizontal = 10.dp)
-                                .padding(top = if (currentPartIsFirstPart) 0.dp else 200.dp)
+                                .padding(top = if (currentPartIsFirstPart) 50.dp else 250.dp)
                                 .animateContentSize()
                         ) {
-                            val choices = currentStoryPart.articles.lastOrNull { it.isOpen }?.choices
-                            if (!choices.isNullOrEmpty()) {
-                                MarginVertical(margin = 24.dp)
-                                Button(
-                                    state = ButtonViewState(
-                                        title = choices.first().title,
-                                        backgroundColor = AppColors.Purple
-                                    ),
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .defaultMinSize(minHeight = 58.dp),
-                                    onClick = {
-                                        viewModel.onChoiceClicked(
-                                            choice = choices.first(),
-                                            storyProcess = state.storyProcessModel
-                                        )
-                                    }
-                                )
-                                MarginVertical(margin = 8.dp)
-                            } else {
-                                val storyParts = state.storyProcessModel.storyParts
+                            val offer = state.payOffer
+                            val offerEnabled = offer != null
 
-                                if (currentPartIsFirstPart) {
-                                    val lastOpenedArticleId = storyParts.first().articles.last { it.isOpen }.id
-                                    if (lastOpenedArticleId == "1") {
-                                        MarginVertical(margin = 24.dp)
-                                        Button(
-                                            state = ButtonViewState(
-                                                title = stringResource(id = R.string.story_process_continue_button_title),
-                                                backgroundColor = AppColors.Purple
+                            offer?.let {
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Button(
+                                        state = ButtonViewState(
+                                            backgroundColor = AppColors.Green,
+                                            title = stringResource(
+                                                id = R.string.story_process_pay_offer_title,
+                                                it.price
                                             ),
-                                            modifier = Modifier
-                                                .fillMaxWidth()
-                                                .defaultMinSize(minHeight = 58.dp),
-                                            onClick = {
-                                                viewModel.onContinueClicked(state.storyProcessModel)
-                                            }
-                                        )
-                                        MarginVertical(margin = 8.dp)
-                                    }
+                                            iconId = R.drawable.ic_dollar,
+                                            iconEndColor = AppColors.WhiteTitle
+                                        ),
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .defaultMinSize(minHeight = 58.dp),
+                                        onClick = {
+                                            viewModel.onPayClicked()
+                                        }
+                                    )
+                                    Button(
+                                        state = ButtonViewState(
+                                            title = stringResource(id = R.string.story_process_pay_offer_title_dismiss),
+                                            titleColor = AppColors.WhiteTitle.copy(alpha = 0.6f)
+                                        ),
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .defaultMinSize(minHeight = 58.dp),
+                                        onClick = {
+                                            viewModel.onShowAdClicked()
+                                        }
+                                    )
+                                }
+                            }
+
+                            if (!offerEnabled) {
+                                val storyParts = state.storyProcessModel.storyParts
+                                val lastOpenedArticleId = storyParts.first().articles.last { it.isOpen }.id
+
+                                if (currentPartIsFirstPart && lastOpenedArticleId == "1") {
+                                    MarginVertical(margin = 24.dp)
+                                    Button(
+                                        state = ButtonViewState(
+                                            title = stringResource(id = R.string.story_process_continue_button_title),
+                                            backgroundColor = AppColors.Purple
+                                        ),
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .defaultMinSize(minHeight = 58.dp),
+                                        onClick = {
+                                            viewModel.onContinueClicked(state.storyProcessModel)
+                                        }
+                                    )
+                                    MarginVertical(margin = 8.dp)
                                 }
                             }
                         }
