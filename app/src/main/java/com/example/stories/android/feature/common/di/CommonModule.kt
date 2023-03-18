@@ -9,6 +9,7 @@ import com.example.stories.android.feature.common.data.StoryRepositoryImpl
 import com.example.stories.android.feature.common.data.datasource.db.Database
 import com.example.stories.android.feature.common.data.datasource.db.dao.SettingsDao
 import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDao
+import com.example.stories.android.feature.common.data.datasource.remote.AdService
 import com.example.stories.android.feature.common.data.datasource.remote.Service
 import dagger.Binds
 import dagger.Module
@@ -56,4 +57,9 @@ internal object CommonProvideModule {
     @Singleton
     fun provideService(): Service =
         Service()
+
+    @Provides
+    @Singleton
+    fun provideAdService(): AdService =
+        AdService()
 }

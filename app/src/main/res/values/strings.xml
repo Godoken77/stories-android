@@ -23,7 +23,9 @@
     <string name="story_process_rate_story_title">Пожалуйста, оцените\nисторию</string>
     <string name="story_process_rate_app_title">Понравилось приложение?\nПоставьте оценку в Play Market</string>
     <string name="story_process_rate_app_confirm">Оценить</string>
-    <string name="story_process_rate_app_dissmiss">Позже</string>
+    <string name="story_process_rate_app_dismiss">Позже</string>
+    <string name="story_process_pay_offer_title">Отключить рекламу за %s</string>
+    <string name="story_process_pay_offer_title_dismiss">Продолжить с рекламой</string>
 
     <string name="choose_category_title">Какой жанр предпочитаете?</string>
 </resources>

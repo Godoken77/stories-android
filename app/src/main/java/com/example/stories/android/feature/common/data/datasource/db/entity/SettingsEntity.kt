@@ -14,5 +14,7 @@ data class SettingsEntity(
     @ColumnInfo(name = "story_to_continue_id")
     val storyToContinueId: String? = null,
     @ColumnInfo(name = "is_first_session")
-    val isFirstSession: Boolean = true
+    val isFirstSession: Boolean = true,
+    @ColumnInfo(name = "count")
+    val alreadyReadArticleCount: Int = 0
 ): Parcelable

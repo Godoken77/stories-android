@@ -66,4 +66,36 @@ internal class SettingsRepositoryImpl @Inject constructor(
             settingsDao.updateSettings(updatedSettings)
         }
     }
+
+    override suspend fun setAlreadyReadArticleCount(count: Int) {
+        val currentSettings = settingsDao.getSettings()
+
+        if (currentSettings != null) {
+            val updatedSettings = currentSettings.copy(
+                alreadyReadArticleCount = count
+            )
+            settingsDao.updateSettings(updatedSettings)
+        } else {
+            val updatedSettings = SettingsEntity().copy(
+                alreadyReadArticleCount = count
+            )
+            settingsDao.updateSettings(updatedSettings)
+        }
+    }
+
+    override suspend fun increaseReadArticleCount() {
+        val currentSettings = settingsDao.getSettings()
+
+        if (currentSettings != null) {
+            val updatedSettings = currentSettings.copy(
+                alreadyReadArticleCount = currentSettings.alreadyReadArticleCount + 1
+            )
+            settingsDao.updateSettings(updatedSettings)
+        } else {
+            val updatedSettings = SettingsEntity().copy(
+                alreadyReadArticleCount = 1
+            )
+            settingsDao.updateSettings(updatedSettings)
+        }
+    }
 }

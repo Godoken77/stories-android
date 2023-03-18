@@ -32,7 +32,8 @@ data class ButtonViewState(
     @DrawableRes val startIconId: Int? = null,
     val backgroundColor: Color = AppColors.Transparent,
     val borderColor: Color? = null,
-    val titleColor: Color = AppColors.WhiteTitle
+    val titleColor: Color = AppColors.WhiteTitle,
+    val iconEndColor: Color = AppColors.White.copy(alpha = 0.8f)
 )
 
 @Composable
@@ -111,8 +112,9 @@ private fun ButtonContent(
                     Icon(
                         painter = painterResource(id = state.iconId),
                         contentDescription = null,
-                        tint = AppColors.White.copy(alpha = 0.8f),
-                        modifier = Modifier.size(16.dp)
+                        tint = state.iconEndColor,
+                        modifier = Modifier
+                            .size(16.dp)
                     )
                 }
             }
