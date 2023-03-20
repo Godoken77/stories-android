@@ -19,3 +19,8 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Add this global rule
+-keepattributes Signature
+-keep class com.google.android.gms.ads.** { *; }
+-keepclassmembers class com.example.stories.android.feature.common.model** { *; }

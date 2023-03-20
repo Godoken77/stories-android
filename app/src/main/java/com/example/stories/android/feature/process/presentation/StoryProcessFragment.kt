@@ -17,10 +17,35 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.stories.android.common.design.colors.AppColors
+import com.google.android.gms.ads.AdError
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.FullScreenContentCallback
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 internal class StoryProcessFragment : Fragment() {
+
+    private var fullScreenAd: InterstitialAd? = null
+    private val fullScreenContentCallback = object : FullScreenContentCallback() {
+        override fun onAdClicked() {}
+
+        override fun onAdDismissedFullScreenContent() {
+            fullScreenAd = null
+            loadAd()
+        }
+
+        override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+            fullScreenAd = null
+            loadAd()
+        }
+
+        override fun onAdImpression() {}
+
+        override fun onAdShowedFullScreenContent() {}
+    }
 
     private val viewModel: StoryProcessViewModel by viewModels()
 
@@ -38,6 +63,7 @@ internal class StoryProcessFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        loadAd()
         return ComposeView(requireContext()).apply {
             setContent {
                 MaterialTheme {
@@ -60,6 +86,35 @@ internal class StoryProcessFragment : Fragment() {
 
     @Composable
     private fun ScreenContent() {
-        StoryProcessScreen(viewModel = viewModel)
+        StoryProcessScreen(
+            viewModel = viewModel,
+            showAd = {
+                showAd()
+            }
+        )
+    }
+
+    private fun loadAd() {
+        val adRequest = AdRequest.Builder().build()
+        InterstitialAd.load(
+            requireContext(),
+            // Test ad id
+            "ca-app-pub-3940256099942544/1033173712",
+            adRequest,
+            object : InterstitialAdLoadCallback() {
+                override fun onAdFailedToLoad(adError: LoadAdError) {
+                    fullScreenAd = null
+                }
+
+                override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                    fullScreenAd = interstitialAd
+                    fullScreenAd?.fullScreenContentCallback = fullScreenContentCallback
+                }
+            }
+        )
+    }
+
+    private fun showAd() {
+        fullScreenAd?.show(requireActivity())
     }
 }
