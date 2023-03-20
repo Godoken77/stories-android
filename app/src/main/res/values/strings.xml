@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">stories-android</string>
+    <string name="app_name">NeuralStory</string>
 
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>

@@ -13,7 +13,7 @@ internal class Service {
     // Mock stories
     private val storyReal2 = Story(
         id = "succub",
-        pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
+        pictureUrl = "https://i.ibb.co/G3bZL8M/women.png",
         name = "Соблазнительные чары суккуба",
         categories = listOf(
             Category.NEW,
@@ -160,7 +160,7 @@ internal class Service {
     )
     private val storyReal1 = Story(
         id = "sorceress_and_witch",
-        pictureUrl = "https://www.emojiall.com/en/svg-to-png/twitter/1920/1f7e6.png",
+        pictureUrl = "https://i.ibb.co/LkYYqvZ/Lyra.png",
         name = "Волшебница и ведьма: Битва за лес",
         categories = listOf(
             Category.NEW,

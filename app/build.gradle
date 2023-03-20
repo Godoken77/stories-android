@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.stories.android'
+    namespace 'org.neural.stories'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.stories.android"
+        applicationId "org.neural.stories"
         minSdk 28
         targetSdk 33
         versionCode 1
@@ -22,7 +22,8 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -67,8 +68,8 @@ dependencies {
     implementation "androidx.compose.ui:ui:1.4.0-rc01"
 
     // Image Loader
-    implementation "io.coil-kt:coil:2.2.1"
-    implementation "io.coil-kt:coil-compose:2.2.1"
+    implementation "io.coil-kt:coil:2.2.2"
+    implementation "io.coil-kt:coil-compose:2.2.2"
 
     // Navigation
     implementation "com.github.terrakok:cicerone:7.1"

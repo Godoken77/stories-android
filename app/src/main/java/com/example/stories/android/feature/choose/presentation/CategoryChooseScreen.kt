@@ -12,12 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.example.stories.android.R
 import com.example.stories.android.common.design.colors.AppColors
 import com.example.stories.android.common.design.views.Button
 import com.example.stories.android.common.design.views.ButtonViewState
 import com.example.stories.android.common.design.views.MarginVertical
 import com.example.stories.android.common.design.views.Title1
+import org.neural.stories.R
 import org.orbitmvi.orbit.compose.collectAsState
 
 @Composable

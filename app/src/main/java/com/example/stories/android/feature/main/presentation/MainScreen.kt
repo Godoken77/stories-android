@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.stories.android.R
 import com.example.stories.android.common.design.colors.AppColors
 import com.example.stories.android.common.design.views.ButtonContinueStory
 import com.example.stories.android.common.design.views.ButtonContinueStoryViewState
@@ -29,6 +28,7 @@ import com.example.stories.android.common.design.views.MarginVertical
 import com.example.stories.android.common.design.views.StoryItem
 import com.example.stories.android.common.design.views.StoryItemViewState
 import com.example.stories.android.common.design.views.Title1
+import org.neural.stories.R
 import org.orbitmvi.orbit.compose.collectAsState
 
 @OptIn(ExperimentalFoundationApi::class)
