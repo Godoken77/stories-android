@@ -6,7 +6,7 @@ internal class AdService {
 
     suspend fun getAdSettings(): AdSettings {
         return AdSettings(
-            beforeCount = 1,
+            beforeCount = 10,
             isEnabled = true,
             price = 499
         )

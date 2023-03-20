@@ -17,8 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.stories.android.R
 import com.example.stories.android.common.design.colors.AppColors
+import org.neural.stories.R
 
 @Composable
 fun ButtonBack(

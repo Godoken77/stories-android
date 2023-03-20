@@ -47,7 +47,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import coil.compose.AsyncImage
-import com.example.stories.android.R
 import com.example.stories.android.common.design.colors.AppColors
 import com.example.stories.android.common.design.views.Button
 import com.example.stories.android.common.design.views.ButtonBack
@@ -71,6 +70,7 @@ import com.example.stories.android.feature.process.domain.model.RemarkColor
 import com.example.stories.android.feature.process.presentation.dialog.ResetConfirmationDialogScreen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import org.neural.stories.R
 import org.orbitmvi.orbit.compose.collectAsState
 import org.orbitmvi.orbit.compose.collectSideEffect
 

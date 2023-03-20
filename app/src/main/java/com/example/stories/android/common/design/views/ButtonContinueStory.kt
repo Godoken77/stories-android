@@ -24,10 +24,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.stories.android.R
 import com.example.stories.android.common.design.colors.AppColors
 import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.stories.domain.model.IStoryItem
+import org.neural.stories.R
 
 data class ButtonContinueStoryViewState(
     val storyToContinue: IStoryItem,

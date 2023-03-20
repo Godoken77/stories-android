@@ -3,8 +3,8 @@ package com.example.stories.android.feature.category.domain.model
 import android.os.Parcelable
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import com.example.stories.android.R
 import kotlinx.parcelize.Parcelize
+import org.neural.stories.R
 
 @Parcelize
 data class CategoryItem(
