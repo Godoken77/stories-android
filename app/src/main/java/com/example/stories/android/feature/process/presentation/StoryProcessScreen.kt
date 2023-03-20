@@ -77,7 +77,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 internal fun StoryProcessScreen(
-    viewModel: StoryProcessViewModel
+    viewModel: StoryProcessViewModel,
+    showAd: () -> Unit
 ) {
     val state = viewModel.collectAsState().value
 
@@ -127,7 +128,7 @@ internal fun StoryProcessScreen(
                 }
             }
             is  StoryProcessSideEffect.ShowAd -> {
-                //Show Ad Frame
+                showAd()
             }
         }
     }
