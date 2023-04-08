@@ -14,7 +14,7 @@ android {
         applicationId "org.neural.stories"
         minSdk 28
         targetSdk 33
-        versionCode 1
+        versionCode 4
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -98,4 +98,7 @@ dependencies {
 
     // Google Ad
     implementation 'com.google.android.gms:play-services-ads:21.5.0'
+
+    // Goggle Billing - Library
+    implementation 'com.github.akshaaatt:Google-IAP:1.2.5'
 }

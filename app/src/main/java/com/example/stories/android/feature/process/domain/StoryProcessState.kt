@@ -9,10 +9,11 @@ data class StoryProcessState(
     val storyProcessModel: IStoryProcess,
     val isProgress: Boolean = true,
     val isFailure: Boolean = false,
-    val payOffer: PayOffer? = null
+    val payOffer: PayOffer = PayOffer()
 ) : Parcelable
 
 @Parcelize
 data class PayOffer(
-    val price: String
+    val price: String? = null,
+    val isEnabled: Boolean = false
 ) : Parcelable

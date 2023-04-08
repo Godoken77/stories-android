@@ -11,6 +11,7 @@ import com.example.stories.android.feature.common.data.datasource.db.dao.Setting
 import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDao
 import com.example.stories.android.feature.common.data.datasource.remote.AdService
 import com.example.stories.android.feature.common.data.datasource.remote.Service
+import com.example.stories.android.feature.common.domain.GetKey
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -62,4 +63,9 @@ internal object CommonProvideModule {
     @Singleton
     fun provideAdService(): AdService =
         AdService()
+
+    @Provides
+    @Singleton
+    fun provideGetKey(): GetKey =
+        GetKey()
 }

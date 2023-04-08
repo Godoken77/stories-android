@@ -25,10 +25,6 @@ internal class AdvertisementUseCaseImpl @Inject constructor(
         return service.getAdSettings().isEnabled
     }
 
-    override suspend fun getBlockAdPrice(): String {
-        return service.getAdSettings().price.toPriceFormat()
-    }
-
     override suspend fun isNeedToShowAd(): Boolean {
         val alreadyReadArticleCount = getAlreadyReadArticleCount()
         val articleCountBeforeAd = getArticleCountBeforeAdvertisement()
@@ -44,12 +40,5 @@ internal class AdvertisementUseCaseImpl @Inject constructor(
 
     private suspend fun getArticleCountBeforeAdvertisement(): Int {
         return service.getAdSettings().beforeCount
-    }
-
-    private fun Int.toPriceFormat(): String {
-        val fractional = this.mod(100)
-        val int = this.div(100)
-
-        return "$int,$fractional"
     }
 }

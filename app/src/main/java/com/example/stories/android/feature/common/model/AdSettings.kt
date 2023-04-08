@@ -6,6 +6,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class AdSettings(
     val beforeCount: Int,
-    val isEnabled: Boolean,
-    val price: Int
+    val isEnabled: Boolean
 ): Parcelable

@@ -2,6 +2,7 @@ package com.example.stories.android.feature.process.presentation
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.aemerse.iap.DataWrappers
 import com.example.stories.android.feature.AppScreens
 import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.process.domain.PayOffer
@@ -108,7 +109,27 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onPayClicked() = intent {
-        // Make pay for ad block
+        postSideEffect(StoryProcessSideEffect.StartPayment)
+    }
+
+    fun updatePrice(productDetails: DataWrappers.ProductDetails) = intent {
+        reduce {
+            state.copy(
+                payOffer = state.payOffer.copy(
+                    price = productDetails.price.orEmpty()
+                )
+            )
+        }
+    }
+
+    fun onPaymentConfirmed() = intent {
+        reduce {
+            state.copy(
+                payOffer = state.payOffer.copy(
+                    isEnabled = false
+                )
+            )
+        }
     }
 
     fun onShowAdClicked() = intent {
@@ -116,7 +137,9 @@ internal class StoryProcessViewModel @Inject constructor(
             .onSuccess {
                 reduce {
                     state.copy(
-                        payOffer = null
+                        payOffer = state.payOffer.copy(
+                            isEnabled = false
+                        )
                     )
                 }
                 postSideEffect(StoryProcessSideEffect.ShowAd)
@@ -127,15 +150,18 @@ internal class StoryProcessViewModel @Inject constructor(
         if (advertisementUseCase.isAdvertisementEnabled()) {
             val isNeedToShowAd = advertisementUseCase.isNeedToShowAd()
             if (isNeedToShowAd) {
-                val price = advertisementUseCase.getBlockAdPrice()
-                reduce {
-                    state.copy(
-                        payOffer = PayOffer(
-                            price = price
+                if (!state.payOffer.price.isNullOrEmpty()) {
+                    reduce {
+                        state.copy(
+                            payOffer = PayOffer(
+                                isEnabled = true
+                            )
                         )
-                    )
+                    }
+                    postSideEffect(StoryProcessSideEffect.ScrollToLastArticle)
+                } else {
+                    onShowAdClicked()
                 }
-                postSideEffect(StoryProcessSideEffect.ScrollToLastArticle)
                 return@intent
             }
         }

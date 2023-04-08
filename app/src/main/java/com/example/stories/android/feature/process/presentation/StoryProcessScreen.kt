@@ -78,7 +78,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 @Composable
 internal fun StoryProcessScreen(
     viewModel: StoryProcessViewModel,
-    showAd: () -> Unit
+    showAd: () -> Unit,
+    startPayment: () -> Unit
 ) {
     val state = viewModel.collectAsState().value
 
@@ -127,8 +128,11 @@ internal fun StoryProcessScreen(
                     rateAppState.value = false
                 }
             }
-            is  StoryProcessSideEffect.ShowAd -> {
+            is StoryProcessSideEffect.ShowAd -> {
                 showAd()
+            }
+            is StoryProcessSideEffect.StartPayment -> {
+                startPayment()
             }
         }
     }
@@ -416,28 +420,30 @@ private fun ScreenContent(
                                 .padding(top = if (currentPartIsFirstPart) 50.dp else 250.dp)
                                 .animateContentSize()
                         ) {
-                            val offer = state.payOffer
-                            val offerEnabled = offer != null
+                            val price = state.payOffer.price
+                            val isEnabled = state.payOffer.isEnabled
 
-                            offer?.let {
+                            if (isEnabled) {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                                    Button(
-                                        state = ButtonViewState(
-                                            backgroundColor = AppColors.Green,
-                                            title = stringResource(
-                                                id = R.string.story_process_pay_offer_title,
-                                                it.price
+                                    price?.let {
+                                        Button(
+                                            state = ButtonViewState(
+                                                backgroundColor = AppColors.Green,
+                                                title = stringResource(
+                                                    id = R.string.story_process_pay_offer_title,
+                                                    it
+                                                ),
+                                                iconId = R.drawable.ic_dollar,
+                                                iconEndColor = AppColors.WhiteTitle
                                             ),
-                                            iconId = R.drawable.ic_dollar,
-                                            iconEndColor = AppColors.WhiteTitle
-                                        ),
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .defaultMinSize(minHeight = 58.dp),
-                                        onClick = {
-                                            viewModel.onPayClicked()
-                                        }
-                                    )
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .defaultMinSize(minHeight = 58.dp),
+                                            onClick = {
+                                                viewModel.onPayClicked()
+                                            }
+                                        )
+                                    }
                                     Button(
                                         state = ButtonViewState(
                                             title = stringResource(id = R.string.story_process_pay_offer_title_dismiss),
@@ -453,7 +459,7 @@ private fun ScreenContent(
                                 }
                             }
 
-                            if (!offerEnabled) {
+                            if (!isEnabled) {
                                 val storyParts = state.storyProcessModel.storyParts
                                 val lastOpenedArticleId = storyParts.first().articles.last { it.isOpen }.id
 

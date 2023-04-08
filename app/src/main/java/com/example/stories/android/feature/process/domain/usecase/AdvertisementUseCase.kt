@@ -2,8 +2,6 @@ package com.example.stories.android.feature.process.domain.usecase
 
 internal interface AdvertisementUseCase {
 
-    suspend fun getBlockAdPrice(): String
-
     suspend fun resetAlreadyReadArticleCount()
 
     suspend fun isAdvertisementEnabled(): Boolean

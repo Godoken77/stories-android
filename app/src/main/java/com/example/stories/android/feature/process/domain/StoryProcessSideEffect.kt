@@ -13,4 +13,6 @@ internal sealed class StoryProcessSideEffect {
     object HideRateBottomSheet : StoryProcessSideEffect()
 
     object ShowAd : StoryProcessSideEffect()
+
+    object StartPayment : StoryProcessSideEffect()
 }
