@@ -417,7 +417,7 @@ private fun ScreenContent(
                             horizontalAlignment = Alignment.CenterHorizontally,
                             modifier = Modifier
                                 .padding(horizontal = 10.dp)
-                                .padding(top = if (currentPartIsFirstPart) 50.dp else 250.dp)
+                                .padding(top = if (currentPartIsFirstPart) 50.dp else 220.dp)
                                 .animateContentSize()
                         ) {
                             val price = state.payOffer.price
