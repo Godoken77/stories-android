@@ -2,7 +2,7 @@ package com.example.stories.android.feature.common.data
 
 import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDao
 import com.example.stories.android.feature.common.data.datasource.db.entity.StoryEntity
-import com.example.stories.android.feature.common.data.datasource.remote.Service
+import com.example.stories.android.feature.common.data.datasource.remote.ApiService
 import com.example.stories.android.feature.common.model.Story
 import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.StoryPart
@@ -10,14 +10,17 @@ import javax.inject.Inject
 
 internal class StoryRepositoryImpl @Inject constructor(
     private val storyDao: StoryDao,
-    private val service: Service
+    private val apiService: ApiService
 ) : StoryRepository {
 
     override suspend fun getStories(): List<Story> {
         val stories = mutableListOf<Story>()
 
-        service.runCatching { getStories() }
-            .onSuccess { remoteStories ->
+        apiService.runCatching { getStories() }
+            .onSuccess { remoteStoriesResult ->
+                val remoteStories = remoteStoriesResult.data?.map {
+                    Story.fromResponseStory(it)
+                } ?: throw Exception()
                 val localStories = storyDao.getStories().map { storyEntity ->
                     Story.fromStoryEntity(storyEntity)
                 }
@@ -169,8 +172,11 @@ internal class StoryRepositoryImpl @Inject constructor(
     override suspend fun getStoryProcessWithStoryParts(storyId: String): Story {
         var storyWithContent: Story? = null
 
-        service.runCatching { getStoryWithContent(storyId) }
-            .onSuccess { remoteStory ->
+        apiService.runCatching { getStory(storyId) }
+            .onSuccess { remoteStoryResult ->
+                val remoteStory = remoteStoryResult.data?.let {
+                    Story.fromResponseStoryContent(it)
+                } ?: throw Exception()
                 val localStory = storyDao.getStoryById(storyId)
 
                 // Доработать версионирование local и remote списков историй

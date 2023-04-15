@@ -3,6 +3,7 @@ package com.example.stories.android.feature.process.domain.model
 import android.os.Parcelable
 import com.example.stories.android.feature.category.domain.model.CategoryItem
 import com.example.stories.android.feature.common.model.Story
+import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -39,12 +40,14 @@ sealed class IStoryProcess : Parcelable {
 // или один вариант Продолжить
 @Parcelize
 data class StoryPart(
+    @SerializedName("index")
     val partId: String,
     val articles: List<Article>
 ) : Parcelable
 
 @Parcelize
 data class Article(
+    @SerializedName("index")
     val id: String,
     val text: String? = null,
     val isOpen: Boolean = false,

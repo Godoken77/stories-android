@@ -14,7 +14,7 @@ android {
         applicationId "org.neural.stories"
         minSdk 28
         targetSdk 33
-        versionCode 1
+        versionCode 4
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -45,27 +45,27 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.10.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
-    implementation "androidx.fragment:fragment-ktx:1.5.5"
+    implementation "androidx.fragment:fragment-ktx:1.5.6"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.core:core-ktx:1.9.0'
-    implementation 'androidx.compose.material:material:1.3.1'
+    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.compose.material:material:1.4.1'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     // Compose
-    implementation 'androidx.activity:activity-compose:1.6.1'
-    implementation "androidx.compose.material3:material3:1.1.0-alpha08"
+    implementation 'androidx.activity:activity-compose:1.7.0'
+    implementation "androidx.compose.material3:material3:1.1.0-beta02"
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.0"
-    implementation "androidx.compose.foundation:foundation:1.3.1"
-    implementation "androidx.compose.compiler:compiler:1.4.3"
-    implementation "androidx.compose.animation:animation:1.4.0-rc01"
-    implementation "androidx.compose.ui:ui-tooling:1.3.3"
-    implementation "androidx.compose.ui:ui:1.4.0-rc01"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
+    implementation 'androidx.compose.foundation:foundation:1.4.1'
+    implementation "androidx.compose.compiler:compiler:1.4.4"
+    implementation "androidx.compose.animation:animation:1.4.1"
+    implementation "androidx.compose.ui:ui-tooling:1.4.1"
+    implementation "androidx.compose.ui:ui:1.4.1"
 
     // Image Loader
     implementation "io.coil-kt:coil:2.2.2"
@@ -79,7 +79,7 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.44"
 
     // ViewModel
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 
     //MVI
     implementation "org.orbit-mvi:orbit-viewmodel:4.4.0"
@@ -87,15 +87,23 @@ dependencies {
     implementation "org.orbit-mvi:orbit-compose:4.4.0"
 
     // Room
-    implementation("androidx.room:room-runtime:2.5.0")
-    annotationProcessor("androidx.room:room-compiler:2.5.0")
+    implementation("androidx.room:room-runtime:2.5.1")
+    annotationProcessor("androidx.room:room-compiler:2.5.1")
 
-    kapt("androidx.room:room-compiler:2.5.0")
-    implementation("androidx.room:room-ktx:2.5.0")
+    kapt("androidx.room:room-compiler:2.5.1")
+    implementation("androidx.room:room-ktx:2.5.1")
 
     // Gson
     implementation 'com.google.code.gson:gson:2.9.1'
 
     // Google Ad
-    implementation 'com.google.android.gms:play-services-ads:21.5.0'
+    implementation 'com.google.android.gms:play-services-ads:22.0.0'
+
+    // Goggle Billing - Library
+    implementation 'com.github.akshaaatt:Google-IAP:1.2.5'
+
+    // Network
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
 }

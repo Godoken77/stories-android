@@ -16,7 +16,11 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.aemerse.iap.DataWrappers
+import com.aemerse.iap.IapConnector
+import com.aemerse.iap.PurchaseServiceListener
 import com.example.stories.android.common.design.colors.AppColors
+import com.example.stories.android.feature.common.domain.GetKey
 import com.google.android.gms.ads.AdError
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.FullScreenContentCallback
@@ -24,9 +28,13 @@ import com.google.android.gms.ads.LoadAdError
 import com.google.android.gms.ads.interstitial.InterstitialAd
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 internal class StoryProcessFragment : Fragment() {
+
+    @Inject
+    lateinit var keyGetter: GetKey
 
     private var fullScreenAd: InterstitialAd? = null
     private val fullScreenContentCallback = object : FullScreenContentCallback() {
@@ -47,9 +55,26 @@ internal class StoryProcessFragment : Fragment() {
         override fun onAdShowedFullScreenContent() {}
     }
 
+    private var iapConnector: IapConnector? = null
+    private val purchaseServiceListener = object : PurchaseServiceListener {
+        override fun onPricesUpdated(iapKeyPrices: Map<String, DataWrappers.ProductDetails>) {
+            viewModel.updatePrice(
+                requireNotNull(iapKeyPrices[purchaseKey])
+            )
+        }
+
+        override fun onProductPurchased(purchaseInfo: DataWrappers.PurchaseInfo) {
+            viewModel.onPaymentConfirmed()
+        }
+
+        override fun onProductRestored(purchaseInfo: DataWrappers.PurchaseInfo) {}
+    }
+
+
     private val viewModel: StoryProcessViewModel by viewModels()
 
     companion object {
+        private const val purchaseKey = "disabling_ads"
         fun newInstance(storyId: String): Fragment =
             StoryProcessFragment().apply {
                 arguments = bundleOf(
@@ -64,6 +89,7 @@ internal class StoryProcessFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         loadAd()
+        setIapConnector()
         return ComposeView(requireContext()).apply {
             setContent {
                 MaterialTheme {
@@ -90,6 +116,9 @@ internal class StoryProcessFragment : Fragment() {
             viewModel = viewModel,
             showAd = {
                 showAd()
+            },
+            startPayment = {
+                startPayment()
             }
         )
     }
@@ -114,7 +143,22 @@ internal class StoryProcessFragment : Fragment() {
         )
     }
 
+    private fun setIapConnector() {
+        iapConnector = IapConnector(
+            context = requireContext(),
+            nonConsumableKeys = listOf(purchaseKey),
+            key = keyGetter.getKey()
+        )
+    }
+
     private fun showAd() {
         fullScreenAd?.show(requireActivity())
+    }
+
+    private fun startPayment() {
+        iapConnector?.purchase(
+            requireActivity(),
+            purchaseKey
+        )
     }
 }
