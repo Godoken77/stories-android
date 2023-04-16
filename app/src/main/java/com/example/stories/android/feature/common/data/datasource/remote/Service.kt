@@ -160,7 +160,7 @@ internal class Service {
         isRecommended = true
     )
     private val storyReal1 = Story(
-        id = "sorceress_and_witch",
+        id = "560",
         pictureUrl = "https://i.ibb.co/LkYYqvZ/Lyra.png",
         name = "Волшебница и ведьма: Битва за лес",
         categories = listOf(
@@ -417,6 +417,7 @@ internal class Service {
         storyJoRu1,
         storySpaceRu1,
         storyWildWestRu1,
+        storyLoveStoryRu1,
         storyReal1,
         //storyReal2
     )
