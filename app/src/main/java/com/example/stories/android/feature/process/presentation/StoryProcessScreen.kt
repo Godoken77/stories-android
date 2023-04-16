@@ -297,6 +297,7 @@ private fun ScreenContent(
                 }
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally,
                     state = scrollState,
                     modifier = Modifier
                         .animateContentSize()

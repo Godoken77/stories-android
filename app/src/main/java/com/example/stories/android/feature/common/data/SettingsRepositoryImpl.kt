@@ -14,11 +14,13 @@ internal class SettingsRepositoryImpl @Inject constructor(
     override suspend fun getSettings(): SettingsEntity {
         var settingsEntity: SettingsEntity? = null
 
+        // Server models updating - delete in release version
+
         /*val stories = service.storiesWithContent
         stories.forEach {
             apiService.setStory(it)
         }*/
-
+        
         /*val result = apiService.getStories().data
         result?.forEach {
             apiService.deleteStory(it.id)

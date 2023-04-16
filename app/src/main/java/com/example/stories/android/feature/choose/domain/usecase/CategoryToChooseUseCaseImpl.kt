@@ -18,7 +18,7 @@ internal class CategoryToChooseUseCaseImpl @Inject constructor(
             it.categories.contains(Category.HORROR)
         }
         val secondStoryToChoose = recommendedStories.first {
-            it.categories.contains(Category.ROMANTIC)
+            it.categories.contains(Category.ROMANTIC) && it.id != firstStoryToChoose.id
         }
 
         return Pair(
