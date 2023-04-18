@@ -147,8 +147,10 @@ internal class StoryProcessFragment : Fragment() {
         iapConnector = IapConnector(
             context = requireContext(),
             nonConsumableKeys = listOf(purchaseKey),
-            key = keyGetter.getKey()
+            key = keyGetter.getKey(),
+            enableLogging = true
         )
+        iapConnector?.addPurchaseListener(purchaseServiceListener)
     }
 
     private fun showAd() {
