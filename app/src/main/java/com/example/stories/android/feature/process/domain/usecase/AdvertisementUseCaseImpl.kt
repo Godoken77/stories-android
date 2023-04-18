@@ -2,6 +2,7 @@ package com.example.stories.android.feature.process.domain.usecase
 
 import com.example.stories.android.feature.common.data.SettingsRepository
 import com.example.stories.android.feature.common.data.datasource.remote.ApiService
+import com.example.stories.android.feature.common.model.AdSettings
 import javax.inject.Inject
 
 internal class AdvertisementUseCaseImpl @Inject constructor(
@@ -14,6 +15,8 @@ internal class AdvertisementUseCaseImpl @Inject constructor(
         const val AD_COUNT = 5
     }
 
+    private var adSettingsCache: AdSettings? = null
+
     override suspend fun resetAlreadyReadArticleCount() {
         settingsRepository.setAlreadyReadArticleCount(RESET_STATE)
     }
@@ -23,7 +26,10 @@ internal class AdvertisementUseCaseImpl @Inject constructor(
     }
 
     override suspend fun isAdvertisementEnabled(): Boolean {
-        val settings = apiService.getAdSettings().data
+        val settings = adSettingsCache ?: run {
+            adSettingsCache = apiService.getAdSettings().data
+            return@run adSettingsCache
+        }
 
         return settings?.isEnabled ?: true
     }
@@ -42,7 +48,10 @@ internal class AdvertisementUseCaseImpl @Inject constructor(
     }
 
     private suspend fun getArticleCountBeforeAdvertisement(): Int {
-        val settings = apiService.getAdSettings().data
+        val settings = adSettingsCache ?: run {
+            adSettingsCache = apiService.getAdSettings().data
+            return@run adSettingsCache
+        }
 
         return settings?.beforeCount ?: AD_COUNT
     }
