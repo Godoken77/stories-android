@@ -1,22 +1,26 @@
 package com.example.stories.android.feature.common.data
 
+import android.content.Context
 import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDao
 import com.example.stories.android.feature.common.data.datasource.db.entity.StoryEntity
 import com.example.stories.android.feature.common.data.datasource.remote.ApiService
 import com.example.stories.android.feature.common.model.Story
 import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.StoryPart
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 internal class StoryRepositoryImpl @Inject constructor(
     private val storyDao: StoryDao,
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    @ApplicationContext private val context: Context
 ) : StoryRepository {
 
     override suspend fun getStories(): List<Story> {
         val stories = mutableListOf<Story>()
+        val locale = context.resources.configuration.locales.get(0).displayLanguage.uppercase()
 
-        apiService.runCatching { getStories() }
+        apiService.runCatching { getStories(locale = locale) }
             .onSuccess { remoteStoriesResult ->
                 val remoteStories = remoteStoriesResult.data?.map {
                     Story.fromResponseStory(it)
@@ -171,8 +175,14 @@ internal class StoryRepositoryImpl @Inject constructor(
 
     override suspend fun getStoryProcessWithStoryParts(storyId: String): Story {
         var storyWithContent: Story? = null
+        val locale = context.resources.configuration.locales.get(0).displayLanguage.uppercase()
 
-        apiService.runCatching { getStory(storyId) }
+        apiService.runCatching {
+            getStory(
+                storyId = storyId,
+                locale = locale
+            )
+        }
             .onSuccess { remoteStoryResult ->
                 val remoteStory = remoteStoryResult.data?.let {
                     Story.fromResponseStoryContent(it)
