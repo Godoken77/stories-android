@@ -16,9 +16,6 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import com.aemerse.iap.DataWrappers
-import com.aemerse.iap.IapConnector
-import com.aemerse.iap.PurchaseServiceListener
 import com.example.stories.android.common.design.colors.AppColors
 import com.example.stories.android.feature.common.domain.GetKey
 import com.google.android.gms.ads.AdError
@@ -55,7 +52,7 @@ internal class StoryProcessFragment : Fragment() {
         override fun onAdShowedFullScreenContent() {}
     }
 
-    private var iapConnector: IapConnector? = null
+    /*private var iapConnector: IapConnector? = null
     private val purchaseServiceListener = object : PurchaseServiceListener {
         override fun onPricesUpdated(iapKeyPrices: Map<String, DataWrappers.ProductDetails>) {
             viewModel.updatePrice(
@@ -68,13 +65,13 @@ internal class StoryProcessFragment : Fragment() {
         }
 
         override fun onProductRestored(purchaseInfo: DataWrappers.PurchaseInfo) {}
-    }
+    }*/
 
 
     private val viewModel: StoryProcessViewModel by viewModels()
 
     companion object {
-        private const val purchaseKey = "disabling_ads"
+        //private const val purchaseKey = "disabling_ads"
         fun newInstance(storyId: String): Fragment =
             StoryProcessFragment().apply {
                 arguments = bundleOf(
@@ -144,13 +141,13 @@ internal class StoryProcessFragment : Fragment() {
     }
 
     private fun setIapConnector() {
-        iapConnector = IapConnector(
-            context = requireContext(),
+        /*iapConnector = IapConnector(
+            context = requireActivity(),
             nonConsumableKeys = listOf(purchaseKey),
             key = keyGetter.getKey(),
             enableLogging = true
         )
-        iapConnector?.addPurchaseListener(purchaseServiceListener)
+        iapConnector?.addPurchaseListener(purchaseServiceListener)*/
     }
 
     private fun showAd() {
@@ -158,9 +155,9 @@ internal class StoryProcessFragment : Fragment() {
     }
 
     private fun startPayment() {
-        iapConnector?.purchase(
+        /*iapConnector?.purchase(
             requireActivity(),
             purchaseKey
-        )
+        )*/
     }
 }
