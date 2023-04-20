@@ -18,12 +18,12 @@ internal class SettingsRepositoryImpl @Inject constructor(
 
         /*val stories = service.storiesWithContent
         stories.forEach {
-            apiService.setStory(it)
+            apiService.setStory(story = it)
         }*/
         
-        /*val result = apiService.getStories().data
+        /*val result = apiService.getStories(locale = Locale.RUSSIAN.name).data
         result?.forEach {
-            apiService.deleteStory(it.id)
+            apiService.deleteStory(storyId = it.id)
         }*/
 
         settingsDao.runCatching { getSettings() }

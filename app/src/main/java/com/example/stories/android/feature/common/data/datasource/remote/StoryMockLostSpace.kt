@@ -8,7 +8,7 @@ import com.example.stories.android.feature.process.domain.model.RemarkColor
 import com.example.stories.android.feature.process.domain.model.StoryPart
 
 val storySpaceRu1 = Story(
-    id = "2",
+    id = "3",
     pictureUrl = "https://i.ibb.co/ZxMZVwX/image.jpg",
     name = "Затерянный в космосе",
     categories = listOf(

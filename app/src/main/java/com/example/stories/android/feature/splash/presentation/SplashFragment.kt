@@ -52,5 +52,6 @@ internal class SplashFragment : Fragment() {
     @Composable
     private fun ScreenContent() {
         val state = viewModel.collectAsState().value
+        SplashScreen()
     }
 }

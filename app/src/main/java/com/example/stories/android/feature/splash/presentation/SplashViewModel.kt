@@ -6,6 +6,7 @@ import com.example.stories.android.feature.AppScreens
 import com.example.stories.android.feature.splash.domain.SplashSideEffect
 import com.example.stories.android.feature.splash.domain.SplashState
 import com.example.stories.android.feature.splash.domain.usecase.FirstSessionUseCase
+import com.example.stories.android.feature.splash.domain.usecase.PreloadStoriesUseCase
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.Container
@@ -18,6 +19,7 @@ import javax.inject.Inject
 internal class SplashViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val firstSessionUse: FirstSessionUseCase,
+    private val preloadStoriesUseCase: PreloadStoriesUseCase,
     private val router: Router
 ) : ViewModel(), ContainerHost<SplashState, SplashSideEffect> {
 
@@ -30,6 +32,7 @@ internal class SplashViewModel @Inject constructor(
         }
 
     private fun onViewReady() = intent {
+        preloadStoriesUseCase.preloadStories()
         firstSessionUse.runCatching { isFirstSession() }
             .onSuccess { isFirst ->
                 if (isFirst) {
