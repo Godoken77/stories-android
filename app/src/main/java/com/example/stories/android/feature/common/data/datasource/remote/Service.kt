@@ -418,6 +418,7 @@ internal class Service {
         storySpaceRu1,
         storyWildWestRu1,
         storyLoveStoryRu1,
+        storyElenaRu1,
         storyReal1,
         //storyReal2
     )
