@@ -4,26 +4,60 @@ import android.content.Context
 import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDao
 import com.example.stories.android.feature.common.data.datasource.db.entity.StoryEntity
 import com.example.stories.android.feature.common.data.datasource.remote.ApiService
+import com.example.stories.android.feature.common.data.datasource.remote.Service
 import com.example.stories.android.feature.common.model.Story
 import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.StoryPart
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
+// Delete mock server integrating
 internal class StoryRepositoryImpl @Inject constructor(
     private val storyDao: StoryDao,
     private val apiService: ApiService,
+    private val service: Service,
     @ApplicationContext private val context: Context
 ) : StoryRepository {
 
+    private val cacheStories: MutableList<Story> = mutableListOf()
+
     override suspend fun getStories(): List<Story> {
-        val stories = mutableListOf<Story>()
-        val locale = when(context.resources.configuration.locales.get(0).language.uppercase()) {
-            "RU" -> "RUSSIAN"
-            else -> "ENGLISH"
+        if (cacheStories.isNotEmpty()) {
+            val localStories = storyDao.getStories().map { storyEntity ->
+                Story.fromStoryEntity(storyEntity)
+            }
+
+            val mergedList = sequence {
+                val remoteIterator = cacheStories.sortedBy { it.id }.iterator()
+                val localIterator = localStories.sortedBy { it.id }.iterator()
+
+                while (remoteIterator.hasNext() && localIterator.hasNext()) {
+                    val remoteStory = remoteIterator.next()
+                    val localStory = localIterator.next()
+
+                    val mergedStory = remoteStory.copy(
+                        currentPartId = localStory.currentPartId,
+                        isRecentlyOpened = localStory.isRecentlyOpened,
+                        storyParts = localStory.storyParts
+                    )
+                    yield(mergedStory)
+                }
+
+                yieldAll(remoteIterator)
+            }.toList()
+
+            return mergedList
         }
 
-        apiService.runCatching { getStories(locale = locale) }
+        val stories = mutableListOf<Story>()
+        val locale = when(context.resources.configuration.locales.get(0).language.uppercase()) {
+            "RU" -> Locale.RUSSIAN.name
+            else -> Locale.RUSSIAN.name
+        }
+
+        // It is mock
+        service.runCatching { getStories() }
+        //apiService.runCatching { getStories(locale = locale) }
             .onSuccess { remoteStoriesResult ->
                 val remoteStories = remoteStoriesResult.data?.map {
                     Story.fromResponseStory(it)
@@ -73,6 +107,7 @@ internal class StoryRepositoryImpl @Inject constructor(
                     }
             }
 
+        cacheStories.addAll(stories)
         return stories
     }
 
@@ -183,12 +218,14 @@ internal class StoryRepositoryImpl @Inject constructor(
             else -> "ENGLISH"
         }
 
-        apiService.runCatching {
+        // It is mock
+        service.runCatching { getStoryById(storyId) }
+        /*apiService.runCatching {
             getStory(
                 storyId = storyId,
                 locale = locale
             )
-        }
+        }*/
             .onSuccess { remoteStoryResult ->
                 val remoteStory = remoteStoryResult.data?.let {
                     Story.fromResponseStoryContent(it)
@@ -217,4 +254,10 @@ internal class StoryRepositoryImpl @Inject constructor(
 
         return requireNotNull(storyWithContent)
     }
+}
+
+enum class Locale {
+    RUSSIAN,
+    ENGLISH,
+    DEFAULT
 }

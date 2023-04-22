@@ -1,6 +1,9 @@
 package com.example.stories.android.feature.common.data.datasource.remote
 
 import com.example.stories.android.feature.category.domain.model.Category
+import com.example.stories.android.feature.common.data.datasource.remote.response.BaseResponse
+import com.example.stories.android.feature.common.model.ResponseStory
+import com.example.stories.android.feature.common.model.ResponseStoryContent
 import com.example.stories.android.feature.common.model.Story
 import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.Choice
@@ -422,4 +425,48 @@ internal class Service {
         storyReal1,
         //storyReal2
     )
+
+    private val stories = listOf(
+        storyJoRu1,
+        storySpaceRu1,
+        storyWildWestRu1,
+        storyLoveStoryRu1,
+        storyElenaRu1,
+        storyReal1,
+        //storyReal2
+    ).map { it.copy(storyParts = emptyList()) }
+
+    suspend fun getStories(): BaseResponse<List<ResponseStory>> {
+        return BaseResponse(
+            data = stories.map {
+                ResponseStory(
+                    id = it.id,
+                    pictureUrl = it.pictureUrl,
+                    name = it.name,
+                    categories = it.categories,
+                    storyParts = it.storyParts,
+                    isRecommended = it.isRecommended
+                )
+            },
+            message = "Mock",
+            localCode = 0
+        )
+    }
+
+    suspend fun getStoryById(storyId: String): BaseResponse<ResponseStoryContent> {
+        return BaseResponse(
+            data = storiesWithContent.first { it.id == storyId }.let {
+                ResponseStoryContent(
+                    id = it.id,
+                    pictureUrl = it.pictureUrl,
+                    name = it.name,
+                    categories = it.categories,
+                    storyParts = it.storyParts,
+                    isRecommended = it.isRecommended
+                )
+            },
+            message = "Mock",
+            localCode = 0
+        )
+    }
 }

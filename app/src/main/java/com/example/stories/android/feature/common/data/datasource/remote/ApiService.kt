@@ -36,7 +36,7 @@ interface ApiService {
     @POST("story")
     suspend fun setStory(
         @Header("Credentials") credentials: String = "123qaaq123QAAQ!@",
-        @Header("Locale") locale: String = "RUSSIAN",
+        @Header("Locale") locale: String = "ENGLISH",
         @Body story: Story,
     ): BaseResponse<Unit>
 

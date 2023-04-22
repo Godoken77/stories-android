@@ -6,6 +6,7 @@ object AppColors {
     val WhiteTitle = Color(0xFFF9F9F9)
     val White = Color(0xFFFFFFFF)
     val Purple = Color(0xFF873DFF)
+    val PurpleDark = Color(0xFF4808B0)
     val Green = Color(0xFF4CAA77)
     val Red = Color(0xFFC23A3A)
     val Grey = Color(0xFF2A2A2C)
