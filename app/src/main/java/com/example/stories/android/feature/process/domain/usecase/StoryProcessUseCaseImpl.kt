@@ -24,6 +24,10 @@ internal class StoryProcessUseCaseImpl @Inject constructor(
         )
     }
 
+    override suspend fun setStoryRated(storyId: String) {
+        storyRepository.setStoryRated(storyId)
+    }
+
     override suspend fun setArticleOpened(
         storyId: String,
         partId: String,

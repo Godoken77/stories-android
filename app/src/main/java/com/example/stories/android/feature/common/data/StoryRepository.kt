@@ -7,6 +7,8 @@ internal interface StoryRepository {
 
     suspend fun getStories(): List<Story>
 
+    suspend fun setStoryRated(storyId: String)
+
     suspend fun setStoryPart(
         storyId: String,
         partId: String

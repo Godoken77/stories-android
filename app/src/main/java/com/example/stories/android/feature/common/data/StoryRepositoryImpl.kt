@@ -38,7 +38,8 @@ internal class StoryRepositoryImpl @Inject constructor(
                     val mergedStory = remoteStory.copy(
                         currentPartId = localStory.currentPartId,
                         isRecentlyOpened = localStory.isRecentlyOpened,
-                        storyParts = localStory.storyParts
+                        storyParts = localStory.storyParts,
+                        isRated = localStory.isRated
                     )
                     yield(mergedStory)
                 }
@@ -77,6 +78,7 @@ internal class StoryRepositoryImpl @Inject constructor(
                         val mergedStory = remoteStory.copy(
                             currentPartId = localStory.currentPartId,
                             isRecentlyOpened = localStory.isRecentlyOpened,
+                            isRated = localStory.isRated,
                             storyParts = localStory.storyParts
                         )
                         yield(mergedStory)
@@ -124,6 +126,19 @@ internal class StoryRepositoryImpl @Inject constructor(
             }
 
         return partId
+    }
+
+    override suspend fun setStoryRated(storyId: String) {
+        storyDao.runCatching { getStoryById(storyId) }
+            .onSuccess {
+                val updatedStory = it.copy(
+                    isRated = true
+                )
+                storyDao.updateStory(updatedStory)
+            }
+            .onFailure {
+                throw it
+            }
     }
 
     override suspend fun setArticleOpened(
@@ -242,6 +257,7 @@ internal class StoryRepositoryImpl @Inject constructor(
                 val updatedStory = remoteStory.copy(
                     currentPartId = localStory.currentPartId,
                     isRecentlyOpened = true,
+                    isRated = localStory.isRated,
                     storyParts = mergedStoryParts
                 )
 

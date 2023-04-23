@@ -126,6 +126,7 @@ internal fun StoryProcessScreen(
                     modalBottomSheetState.hide()
                 }.invokeOnCompletion {
                     rateAppState.value = false
+                    viewModel.onBackPressed()
                 }
             }
             is StoryProcessSideEffect.ShowAd -> {
@@ -133,6 +134,9 @@ internal fun StoryProcessScreen(
             }
             is StoryProcessSideEffect.StartPayment -> {
                 startPayment()
+            }
+            is StoryProcessSideEffect.ShowRateAppBottomSheet -> {
+                rateAppState.value = true
             }
         }
     }
@@ -185,7 +189,6 @@ internal fun StoryProcessScreen(
                             iconId = R.drawable.ic_like,
                             onClick = {
                                 viewModel.onLikeClicked()
-                                rateAppState.value = true
                             },
                             buttonSize = 72.dp,
                             iconSize = 24.dp,
