@@ -16,7 +16,8 @@ data class Story(
     val storyParts: List<StoryPart> = emptyList(),
     val currentPartId: String,
     val isRecentlyOpened: Boolean = false,
-    val isRecommended: Boolean = false
+    val isRecommended: Boolean = false,
+    val isRated: Boolean = false
 ) : Parcelable {
     companion object {
         fun fromStoryEntity(story: StoryEntity): Story {
@@ -28,7 +29,8 @@ data class Story(
                 storyParts = story.storyParts,
                 currentPartId = story.currentPartId,
                 isRecentlyOpened = story.isRecentlyOpened,
-                isRecommended = story.isRecommended
+                isRecommended = story.isRecommended,
+                isRated = story.isRated
             )
         }
 
@@ -41,7 +43,8 @@ data class Story(
                 storyParts = emptyList(),
                 currentPartId = "1",
                 isRecentlyOpened = false,
-                isRecommended = story.isRecommended
+                isRecommended = story.isRecommended,
+                isRated = false
             )
         }
 
@@ -77,7 +80,8 @@ data class Story(
                 storyParts = updatedStoryParts,
                 currentPartId = "1",
                 isRecentlyOpened = false,
-                isRecommended = story.isRecommended
+                isRecommended = story.isRecommended,
+                isRated = false
             )
         }
     }

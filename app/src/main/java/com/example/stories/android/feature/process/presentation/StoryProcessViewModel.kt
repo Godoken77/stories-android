@@ -90,11 +90,14 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onLikeClicked() = intent {
-        //Analytics
+        // Add Analytics
+        storyProcessUseCase.setStoryRated(storyId = storyId)
+        postSideEffect(StoryProcessSideEffect.ShowRateAppBottomSheet)
     }
 
     fun onDislikeClicked() = intent {
-        //Analytics
+        //Add Analytics
+        storyProcessUseCase.setStoryRated(storyId = storyId)
         postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
     }
 
@@ -185,7 +188,9 @@ internal class StoryProcessViewModel @Inject constructor(
                     isProgress = false
                 )
             }
-            postSideEffect(StoryProcessSideEffect.ShowRateBottomSheet)
+            if (!storyProcess.isRated) {
+                postSideEffect(StoryProcessSideEffect.ShowRateBottomSheet)
+            }
             return@intent
         }
 

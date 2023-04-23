@@ -15,7 +15,8 @@ sealed class IStoryProcess : Parcelable {
         val name: String,
         val categories: List<CategoryItem>,
         val storyParts: List<StoryPart>,
-        val currentPartId: String
+        val currentPartId: String,
+        val isRated: Boolean
     ) : IStoryProcess() {
         companion object {
             fun fromStory(story: Story): StoryProcessModel {
@@ -27,7 +28,8 @@ sealed class IStoryProcess : Parcelable {
                     storyParts = story.storyParts,
                     pictureUrl = story.pictureUrl,
                     name = story.name,
-                    currentPartId = story.currentPartId
+                    currentPartId = story.currentPartId,
+                    isRated = story.isRated
                 )
             }
         }

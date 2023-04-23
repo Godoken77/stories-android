@@ -24,7 +24,8 @@ data class StoryEntity(
     @ColumnInfo(name = "current_part_id")
     val currentPartId: String,
     val isRecentlyOpened: Boolean = false,
-    val isRecommended: Boolean = false
+    val isRecommended: Boolean = false,
+    val isRated: Boolean = false
 ): Parcelable {
     companion object {
         fun fromStory(story: Story): StoryEntity {
@@ -36,7 +37,8 @@ data class StoryEntity(
                 storyParts = story.storyParts,
                 currentPartId = story.currentPartId,
                 isRecentlyOpened = story.isRecentlyOpened,
-                isRecommended = story.isRecommended
+                isRecommended = story.isRecommended,
+                isRated = story.isRated
             )
         }
     }

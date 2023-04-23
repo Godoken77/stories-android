@@ -9,6 +9,8 @@ internal interface StoryProcessUseCase {
 
     suspend fun setStoryPart(storyId: String, partId: String): String
 
+    suspend fun setStoryRated(storyId: String)
+
     suspend fun setArticleOpened(
         storyId: String,
         partId: String,
