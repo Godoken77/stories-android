@@ -609,7 +609,619 @@ val storyJoRu1 = Story(
                     id = "28",
                     remark = Remark(
                         name = "Детектив Джонсон",
-                        remark = "о чем он говорил? Действительно ли здесь замешан кто-то по-крупнее? Нужно копнуть глубже..."
+                        remark = "О чем он говорил? Действительно ли здесь замешан кто-то по-крупнее? Нужно копнуть глубже..."
+                    )
+                )
+            )
+        )
+    ),
+    currentPartId = "0",
+    isRecommended = true
+)
+
+val storyJoEn1 = Story(
+    id = "2",
+    pictureUrl = "https://i.ibb.co/YhDscn6/image.jpg",
+    name = "Joe and Smith",
+    categories = listOf(
+        Category.NEW,
+        Category.DETECTIVE,
+        Category.ADVENTURE
+    ),
+    storyParts = listOf(
+        StoryPart(
+            partId = "0",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    text = "Detective Johnson has worked in the police for more than ten years and has seen a lot of terrible crimes. But this case was different. The victim was a wealthy businessman with ties to organized crime, and the killer left an encrypted message written in blood at the crime scene. Johnson knew that he was dealing with a dangerous and cunning criminal, and was determined to solve this case."
+                ),
+                Article(
+                    id = "1",
+                    choices = listOf(),
+                    text = "Detective Johnson has never been prone to superstition. But as he approached the old abandoned mansion, he couldn't help feeling uneasy. It was said that the mansion was haunted, and some people claimed to have seen ghostly visions in the windows. Johnson dismissed the rumors as nonsense, but couldn't shake the feeling that something was wrong."
+                ),
+            )
+        ),
+        StoryPart(
+            partId = "1",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    remark = Remark(
+                        remark = "Dispatcher, I'm heading to an old abandoned mansion. They say there are ghosts there, but I'm a skeptic.",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "1",
+                    remark = Remark(
+                        name = "Dispatcher",
+                        remark = "Accepted, Detective. Be careful there.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "2",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "The front door is ajar. I'm coming in."
+                    )
+                ),
+                Article(
+                    id = "3",
+                    remark = Remark(
+                        remark = "I understand you. Be alert.",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "4",
+                    remark = Remark(
+                        remark = "Do you hear that creak?",
+                        name = "Detective Johnson",
+                    )
+                ),
+                Article(
+                    id = "5",
+                    remark = Remark(
+                        remark = "No, what's going on, Detective?",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "6",
+                    remark = Remark(
+                        remark = "It looks like someone was upstairs. I'm going to check it out.",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "7",
+                    remark = Remark(
+                        remark = "Be careful, detective.",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "8",
+                    remark = Remark(
+                        remark = "Someone is here... Stop, police!",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "9",
+                    remark = Remark(
+                        remark = "Detective, are you okay?",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "10",
+                    remark = Remark(
+                        remark = "Detective?",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "11",
+                    remark = Remark(
+                        remark = "False alarm. It's just an old coat.",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "12",
+                    remark = Remark(
+                        remark = "Stay focused.",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "13",
+                    remark = Remark(
+                        remark = "Dispatcher, we have a murder. Send reinforcements to my place.",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "14",
+                    remark = Remark(
+                        remark = "I understand you, Detective. Stay put.",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "15",
+                    remark = Remark(
+                        remark = "Hold on, buddy. We'll find out who did it...",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "16",
+                    remark = Remark(
+                        remark = "Reinforcements are already in place.",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "17",
+                    remark = Remark(
+                        remark = "This bookshelf looks out of place.",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "18",
+                    remark = Remark(
+                        remark = "Dispatcher, I found something. Now.... Yes, a secret safe in the library bookshelf.",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "19",
+                    remark = Remark(
+                        remark = "Accepted, Detective. Can you open it?",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "20",
+                    remark = Remark(
+                        remark = "No. I'll need a locksmith.",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "21",
+                    remark = Remark(
+                        remark = "I understand you, Detective. We'll send someone here.",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "22",
+                    text = "....."
+                ),
+                Article(
+                    id = "23",
+                    remark = Remark(
+                        remark = "Detective, the safe is open. You will like what is in it",
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "24",
+                    remark = Remark(
+                        remark = "I'm on my way, thank you",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "25",
+                    remark = Remark(
+                        remark = "Smith, can you meet me at the train station? I have something interesting for you. There was a secret safe at the crime scene... and in it we found an accounting book containing interesting names...",
+                        name = "Detective Johnson"
+                    )
+                ),
+                Article(
+                    id = "26",
+                    remark = Remark(
+                        remark = "Morning begins with good news, Detective. I'll be there in 10 minutes.",
+                        name = "Officer Smith",
+                        color = RemarkColor.SECONDARY
+                    ),
+                    choices = listOf(),
+                ),
+            )
+        ),
+        StoryPart(
+            partId = "2",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Good afternoon officer."
+                    )
+                ),
+                Article(
+                    id = "1",
+                    remark = Remark(
+                        name = "Officer Smith",
+                        remark = "And the same to you, Jones, show your find...",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "2",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Hold on.... We know who killed Oliver and why. The name is literally written in this book."
+                    )
+                ),
+                Article(
+                    id = "3",
+                    remark = Remark(
+                        name = "Officer Smith",
+                        remark = "So the killer didn't bother to divert suspicion from himself?",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "4",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Rather, he just couldn't find the secret in Oliver's house."
+                    )
+                ),
+                Article(
+                    id = "5",
+                    remark = Remark(
+                        name = "Officer Smith",
+                        remark = "Huh, well, who is this and where is he now?",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "6",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "This is Robert Lagoon, and he is now heading to the airport to leave our state."
+                    )
+                ),
+                Article(
+                    id = "7",
+                    remark = Remark(
+                        name = "Officer Smith",
+                        remark = "So what are we waiting for, Detective? We need to act act immediately.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "8",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "I agree. Let's get to work..."
+                    )
+                ),
+                Article(
+                    id = "9",
+                    text = "....."
+                ),
+                Article(
+                    id = "10",
+                    remark = Remark(
+                        name = "Dispatcher",
+                        remark = "Detective? An officer? Are you there? Answer, over.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "11",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Yes, already on sesta, where is he now? Reception."
+                    )
+                ),
+                Article(
+                    id = "12",
+                    remark = Remark(
+                        name = "Dispatcher",
+                        remark = "Officer?... Reception",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "13",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Which officer?? Robert... Oliver's killer.... What kind of negligent approach to work? Reception."
+                    )
+                ),
+                Article(
+                    id = "14",
+                    remark = Remark(
+                        name = "Dispatcher",
+                        color = RemarkColor.SECONDARY,
+                        remark = "I'm sorry, Detective... first day of work... ahem. Robert is at Terminal A right now, talking to someone on the phone. Reception "
+                    )
+                ),
+                Article(
+                    id = "15",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Thank you, if there is movement immediately notify. Reception."
+                    )
+                ),
+                Article(
+                    id = "16",
+                    remark = Remark(
+                        name = "Dispatcher",
+                        remark = "I understand you. Reception.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "17",
+                    text = "....."
+                ),
+                Article(
+                    id = "18",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Where the hell is this Smith...."
+                    )
+                ),
+                Article(
+                    id = "19",
+                    remark = Remark(
+                        name = "Officer Smith",
+                        remark = "I've been standing behind you here for a minute. Reception, haha.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "20",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "And all you have to do is joke, Officer. "
+                    )
+                ),
+                Article(
+                    id = "21",
+                    remark = Remark(
+                        name = "Officer Smith",
+                        remark = "Come on... Let's go to the terminal ",
+                        color = RemarkColor.SECONDARY
+                    ),
+                    choices = listOf(),
+                ),
+            )
+        ),
+        StoryPart(
+            partId = "3",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    remark = Remark(
+                        name = "Dispatcher",
+                        remark = "Uh, Detective? The suspect leaves the airport and is about to run into you...",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "1",
+                    remark = Remark(
+                        name = "Officer Smith",
+                        remark = "This is a surprise.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "2",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "I understand you. Reception."
+                    )
+                ),
+                Article(
+                    id = "3",
+                    text = "....."
+                ),
+                Article(
+                    id = "4",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Young man... Can you tell me the time?"
+                    )
+                ),
+                Article(
+                    id = "5",
+                    remark = Remark(
+                        name = "Robert Lagoon",
+                        remark = "Yes, of course.... Wait.... And why do you have a watch on your hands?",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "6",
+                    remark = Remark(
+                        name = "Officer Smith",
+                        remark = "To record the time of your detention Robert... Or who are you according to the new document? Michelangelo?"
+                    )
+                ),
+                Article(
+                    id = "7",
+                    remark = Remark(
+                        name = "Robert Lagoon",
+                        remark = "Have you probably confused me with someone else? I'm going.... to his.... um grandma?",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "8",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Your grandmother is already waiting for you, let's go. I do not advise you to resist..."
+                    )
+                ),
+                Article(
+                    id = "9",
+                    remark = Remark(
+                        name = "Officer Smith",
+                        remark = "Dispatcher, take the car to the exit of the second floor. Reception."
+                    )
+                ),
+                Article(
+                    id = "10",
+                    remark = Remark(
+                        name = "Dispatcher",
+                        remark = "I understand you, officer. Reception."
+                    )
+                ),
+                Article(
+                    id = "11",
+                    remark = Remark(
+                        name = "Robert Lagoon",
+                        remark = "Can we agree?",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "12",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Let's agree... We will only arrive now and we will definitely agree."
+                    )
+                ),
+                Article(
+                    id = "13",
+                    text = "....."
+                ),
+                Article(
+                    id = "14",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Well.... How do you like our hotel?"
+                    )
+                ),
+                Article(
+                    id = "15",
+                    remark = Remark(
+                        name = "Robert Lagoon",
+                        remark = "...",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "16",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "You thought you could outsmart me, but you were wrong."
+                    )
+                ),
+                Article(
+                    id = "17",
+                    remark = Remark(
+                        name = "Robert Lagoon",
+                        remark = "You're wasting your time.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "18",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "We'll see about that. You're going to jail for what you did."
+                    )
+                ),
+                Article(
+                    id = "19",
+                    remark = Remark(
+                        name = "Robert Lagoon",
+                        color = RemarkColor.SECONDARY,
+                        remark = "You don't understand who you're dealing with. Do you think this is the end? Do you think putting me in jail will end the crimes? We are always 6 steps ahead of you! You have no idea what awaits you."
+                    )
+                ),
+                Article(
+                    id = "20",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Save your threats. We have all the evidence we need to put you behind bars forever."
+                    )
+                ),
+                Article(
+                    id = "21",
+                    remark = Remark(
+                        name = "Robert Lagoon",
+                        remark = "Do you think I'm the only one involved?",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "22",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "What are you talking about?"
+                    )
+                ),
+                Article(
+                    id = "23",
+                    remark = Remark(
+                        name = "Robert Lagoon",
+                        color = RemarkColor.SECONDARY,
+                        remark = "There are bigger players working here. You think you've solved this case, but you're only scratching the surface."
+                    )
+                ),
+                Article(
+                    id = "24",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "I've heard enough of your lies."
+                    )
+                ),
+                Article(
+                    id = "25",
+                    remark = Remark(
+                        name = "Robert Lagoon",
+                        color = RemarkColor.SECONDARY,
+                        remark = "Do as you like. But mark my words, Detective. You will come back to me."
+                    )
+                ),
+                Article(
+                    id = "26",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "Take him away."
+                    )
+                ),
+                Article(
+                    id = "27",
+                    text = "....."
+                ),
+                Article(
+                    id = "28",
+                    remark = Remark(
+                        name = "Detective Johnson",
+                        remark = "What was he talking about? Is there really someone bigger involved? We need to dig deeper..."
                     )
                 )
             )

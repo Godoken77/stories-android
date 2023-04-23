@@ -7,163 +7,12 @@ import com.example.stories.android.feature.common.model.ResponseStoryContent
 import com.example.stories.android.feature.common.model.Story
 import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.Choice
-import com.example.stories.android.feature.process.domain.model.Remark
-import com.example.stories.android.feature.process.domain.model.RemarkColor
 import com.example.stories.android.feature.process.domain.model.StoryPart
 
 internal class Service {
 
-    // Mock stories
-    private val storyReal2 = Story(
-        id = "succub",
-        pictureUrl = "https://i.ibb.co/G3bZL8M/women.png",
-        name = "Соблазнительные чары суккуба",
-        categories = listOf(
-            Category.NEW,
-            Category.HORROR,
-            Category.FANTASY,
-            Category.ROMANTIC
-        ),
-        storyParts = listOf(
-            StoryPart(
-                partId = "0",
-                articles = listOf(
-                    Article(
-                        id = "0",
-                        isOpen = true,
-                        text = "Джек был человеком, который жил ночной жизнью. Его привлекали яркие огни и пульсирующие ритмы города после наступления темноты. Он работал в популярном баре, где проводил ночи, смешивая напитки и болтая с клиентами, все время наслаждаясь яркой энергией сцены."
-                    ),
-                    Article(
-                        id = "1",
-                        text = "Однажды вечером, когда он смешивал мартини, его внимание привлекла женщина. Она была высокой и эффектной, с темными волосами, которые волнами падали ей на спину. Ее глаза блестели, а обтягивающее черное платье мало оставляло простора для воображения. Она двигалась по клубу уверенно и грациозно, привлекая внимание. Джек был очарован ею."
-                    ),
-                    Article(
-                        id = "2",
-                        text = "Когда ночь подходила к концу, Джека тянуло к ней. Он наблюдал, как она потягивала свой напиток в тихой угловой кабинке, не сводя с него глаз. Он колебался мгновение, прежде чем решил подойти к ней, его сердце колотилось."
-                    ),
-                    Article(
-                        id = "3",
-                        remark = Remark(
-                            remark = "Могу я предложить вам что-то?",
-                            name = "Джек",
-                            color = RemarkColor.FIRSTLY
-                        )
-                    ),
-                    Article(
-                        id = "4",
-                        text = "Он пытался говорить уверенно, но она лишь слегка улыбнулась.",
-                    ),
-                    Article(
-                        id = "5",
-                        remark = Remark(
-                            remark = "Думаю, ты уже знаешь, чего я хочу..",
-                            name = "Незнакомка",
-                            color = RemarkColor.SECONDARY
-                        )
-                    ),
-                    Article(
-                        id = "6",
-                        text = "Джек почувствовал, как по его спине пробежали мурашки. Было в ней что-то, что он находил одновременно соблазнительным и пугающим, но он не мог устоять перед ее очарованием. Он налил ей выпить и сел напротив нее."
-                    ),
-                    Article(
-                        id = "7",
-                        text = "Пока они разговаривали, Джек обнаружил, что очарован ею. Казалось, она знала о нем все, все страхи и желания, которые он когда-либо испытывал. Он не мог избавиться от ощущения, что он был под ее чарами, потерянный в глубине ее завораживающего взгляда"
-                    ),
-                    Article(
-                        id = "8",
-                        text = "Женщина пригласила его на вечеринку в роскошный особняк на окраине города, обещая незабываемую ночь наслаждений и наслаждений."
-                    ),
-                    Article(
-                        id = "9",
-                        text = "Джеку не терпелось испытать все это, и он последовал за ней по роскошным залам и комнатам особняка, где красивые люди бездельничали, смеялись и погружались в атмосферу декаданса."
-                    ),
-                    Article(
-                        id = "10",
-                        text = "Вечер был сплошным потоком музыки, напитков и танцев. Джек чувствовал, что все больше и больше опьяняется чувственной энергией вечеринки, его сдержанность исчезала, когда он потакал каждой прихоти и желанию."
-                    ),
-                    Article(
-                        id = "11",
-                        text = "Когда наступила глубокая ночь, он словно выпал из полудремы и обнаружил себя в тускло освещенном переулке, где его ждала женщина."
-                    ),
-                    Article(
-                        id = "12",
-                        text = "Ее губы прижались к его губам, ее руки лихорадочно исследовали каждый дюйм его тела. Он знал, что в опасности, но не мог остановиться, захваченный неотразимым очарованием ее прикосновения."
-                    ),
-                    Article(
-                        id = "13",
-                        text = "Внезапно лицо женщины исказилось, превратившись в гротескную маску."
-                    ),
-                    Article(
-                        id = "14",
-                        text = "Ее глаза приобрели глубокий кроваво-красный оттенок, а зубы стали длинными и острыми, как у злого хищника."
-                    ),
-                    Article(
-                        id = "15",
-                        text = "Джек слишком поздно понял, что попал в лапы суккуба, демонического существа, питавшегося жизненной силой людей."
-                    ),
-                    Article(
-                        id = "16",
-                        text = "Он изо всех сил пытался вырваться, но ее хватка была слишком сильной, ее влечение слишком сильным. Она высосала из него самую суть, его энергию и жизненные силы, пока он не рухнул кучей на землю."
-                    ),
-                    Article(
-                        id = "17",
-                        text = "Джек проснулся на следующий день, чувствуя себя слабым и истощенным, его память была размытой, а тело болело. Он знал, что что-то не так, но не мог вспомнить, что произошло."
-                    ),
-                    Article(
-                        id = "18",
-                        text = "Все, что он знал, это то, что он был поглощен обольстительной и ужасающей силой, порождением ночи, которое охотилось на его желания и оставило ему оболочку его прежнего «я»."
-                    ),
-                    Article(
-                        id = "19",
-                        text = "Следующие несколько дней Джек провел в тумане, пытаясь собрать воедино события той ночи, которую он провел с суккубом. Он пытался стряхнуть с себя чувство слабости и истощения, которые мучили его, но оно, казалось, цеплялось за него, как тяжелый плащ."
-                    ),
-                    Article(
-                        id = "20",
-                        text = "Шли дни, и Джек начал замечать в себе изменения. Он чувствовал ненасытный голод не только по еде, но и по чему-то более первобытному и сильному."
-                    ),
-                    Article(
-                        id = "21",
-                        text = "Его чувства обострились, и он мог видеть и слышать то, чего раньше никогда не мог. И он почувствовал, как внутри него шевелится странная сила, сила, которую он не мог ни понять, ни контролировать."
-                    ),
-                    Article(
-                        id = "22",
-                        text = "Джек начал опасаться, что он уже не совсем человек, что его испортило прикосновение суккуба. Он пытался сопротивляться притяжению тьмы, которая теперь, казалось, окружала его, но это было похоже на борьбу с приливной волной."
-                    ),
-                    Article(
-                        id = "23",
-                        text = "Отчаянно нуждаясь в ответах, Джек разыскал женщину, которая, как он слышал, была провидицей, мистиком, способным видеть за завесой реальности. Провидец выслушал его рассказ, ее темные глаза пристально смотрели в его собственные."
-                    ),
-                    Article(
-                        id = "24",
-                        remark = Remark(
-                            remark = "Вы были отмечены.. Суккуб оставила на тебе свой отпечаток, и теперь ты связан с ней. Ты уже не совсем человек, но ты еще и не порождение ночи. Твоя судьба по-прежнему в твоих руках",
-                            name = "Мистик"
-                        )
-                    ),
-                    Article(
-                        id = "25",
-                        text = "Джек знал, что ему нужно действовать быстро, если он хочет вырваться из лап суккуба. Он начал исследовать все, что мог найти о ночных существах, поглощая книги и статьи о вампирах, оборотнях и других сверхъестественных существах."
-                    ),
-                    Article(
-                        id = "26",
-                        text = "Наконец он нашел то, что искал — ритуал, который мог разорвать связь между ним и суккубом. Он собрал все необходимые ингредиенты и с помощью провидца провел ритуал при свете полной луны."
-                    ),
-                    Article(
-                        id = "27",
-                        text = "Когда последние слова ритуала эхом раздались в ночи, Джек почувствовал внезапное облегчение, груз свалился с его плеч. Он знал, что ему удалось разорвать связь между собой и суккубом."
-                    ),
-                    Article(
-                        id = "28",
-                        text = "С вновь обретенным чувством цели Джек покинул город в поисках новой жизни вдали от искушений и опасностей ночи. Он знал, что никогда не забудет тот опыт, который изменил его навсегда, но он был полон решимости двигаться вперед и найти способ жить с тьмой, которая теперь скрывалась внутри него."
-                    )
-                )
-            )
-        ),
-        currentPartId = "0",
-        isRecommended = true
-    )
     private val storyReal1 = Story(
-        id = "560",
+        id = "7",
         pictureUrl = "https://i.ibb.co/LkYYqvZ/Lyra.png",
         name = "Волшебница и ведьма: Битва за лес",
         categories = listOf(
@@ -171,7 +20,6 @@ internal class Service {
             Category.HORROR,
             Category.ADVENTURE,
             Category.FANTASY,
-            Category.ROMANTIC
         ),
         storyParts = listOf(
             StoryPart(
@@ -416,29 +264,290 @@ internal class Service {
         isRecommended = true
     )
 
-    val storiesWithContent = listOf(
-        storyJoRu1,
-        storySpaceRu1,
-        storyWildWestRu1,
-        storyLoveStoryRu1,
-        storyElenaRu1,
-        storyReal1,
-        //storyReal2
+    private val storyRealEn1 = Story(
+        id = "7",
+        pictureUrl = "https://i.ibb.co/LkYYqvZ/Lyra.png",
+        name = "The Sorceress and the Witch: The Battle for the Forest",
+        categories = listOf(
+            Category.NEW,
+            Category.HORROR,
+            Category.ADVENTURE,
+            Category.FANTASY,
+        ),
+        storyParts = listOf(
+            StoryPart(
+                partId = "0",
+                articles = listOf(
+                    Article(
+                        id = "0",
+                        isOpen = true,
+                        text = "Residents of a neighboring village began to complain about the strange behavior of wild animals and spoiled well water, which caused fever and delirium. Children woke up from nightmares, and hunters trembled with fear from the terrible howling coming from the forest thicket.\n"+
+                                "Lyra, the young sorceress, must find out what is going on here."
+                    ),
+                    Article(
+                        id = "1",
+                        text = "As long as she is responsible for these people, no one can harm them."
+                    ),
+                    Article(
+                        id = "2",
+                        text = "Entering the forest, Lyra began to feel uncomfortable, and her instincts told her that something was wrong. She went deeper into the forest, and as she progressed, the signs of dark magic became stronger."
+                    ),
+                    Article(
+                        id = "3",
+                        text = "The branches of the trees seemed to bend and writhe as if alive, and the air hummed with unnatural energy.",
+                        choices = listOf(
+                            Choice(
+                                title = "What awaits Lyra in the thicket of the forest?",
+                                nextStoryPartId = "1"
+                            )
+                        ),
+                    ),
+                )
+            ),
+            StoryPart(
+                partId = "1",
+                articles = listOf(
+                    Article(
+                        isOpen = true,
+                        id = "0",
+                        text = "While Lyra was walking, the wind carried strange whispers to her, it seemed that she was being watched. Turning around, Lyra saw an animal running away from her — a deer, his eyes were full of horror. It was strange; animals weren't usually afraid of her."
+                    ),
+                    Article(
+                        id = "1",
+                        text = "All signs pointed to the fact that the witch had settled in these surroundings and practiced dark magic, which caused riots. Their influence poisons everything around, and this is unnatural for the material plane."
+                    ),
+                    Article(
+                        id = "2",
+                        text = "While Lyra was walking along the trail, she could not get rid of the feeling that she was being watched. Lyra glanced over her shoulder, but saw nothing but twisting trees and ubiquitous shadows."
+                    ),
+                    Article(
+                        id = "3",
+                        text = "A branch cracked loudly behind her, making her jump. Lirp turned around, raising her hand to protect herself, but there was no one there."
+                    ),
+                    Article(
+                        id = "4",
+                        choices = listOf(
+                            Choice(
+                                title = "What will Lyra do?",
+                                nextStoryPartId = "2"
+                            )
+                        ),
+                        text = "Lyra felt a chill run down her spine. She knew that someone was still there, hiding in the dark. And she knew she wouldn't be safe until they were banished."
+                    )
+                ),
+            ),
+            StoryPart(
+                partId = "2",
+                articles = listOf(
+                    Article(
+                        id = "0",
+                        isOpen = true,
+                        text = "Lyra knew she needed to think outside the box if she was going to find a witch. When Lyra began the spell, she felt the power spread through her veins, her pulse quickened."
+                    ),
+                    Article(
+                        id = "1",
+                        text = "Magic began to glow and flicker in Lyra's eyes, and a bright ray of light burst out of her outstretched hand. Suddenly Lyra felt that she was lifting off the ground, being transported into the mind of forest creatures."
+                    ),
+                    Article(
+                        id = "2",
+                        text = "She could see through their eyes, feel their feelings and hear their thoughts. The wings of the birds flapped in unison, lifting her higher and higher, until she saw the whole forest from a bird's-eye view. The spell worked, and with the help of the creatures, Lyra was able to discover the source of the curse."
+                    ),
+                    Article(
+                        id = "3",
+                        text = "She thanked the birds and quickly headed for her goal, ready to investigate and put an end to any practice of dark magic."
+                    ),
+                    Article(
+                        id = "4",
+                        text = "After walking a few hundred meters, Lyra felt something different. There was a new energy in the air, goosebumps ran through my skin.\n"+
+                                " She followed the feeling, her heart was pounding in her chest. The path led her deeper into the forest, into the heart of darkness."
+                    ),
+                    Article(
+                        id = "5",
+                        choices = listOf(
+                            Choice(
+                                title = "What will she have to face?",
+                                nextStoryPartId = "3"
+                            )
+                        ),
+                        text = "Voices seemed to come from the depths of the forest, whispering dark and terrible things. She quickened her pace, feeling a growing fear."
+                    )
+                ),
+            ),
+            StoryPart(
+                partId = "3",
+                articles = listOf(
+                    Article(
+                        id = "0",
+                        isOpen = true,
+                        text = "Coming out into a clearing in the middle of the forest, Lyra froze in place when she saw the terrifying sight that opened before her. The witch was frightening."
+                    ),
+                    Article(
+                        id = "1",
+                        text = "Long matted hair and twisted horns sticking out of the head. Her skin was painfully pale, and her eyes were dark and sunken, as if she had made a deal with the devil himself."
+                    ),
+                    Article(
+                        id = "2",
+                        text = "The small and large centipedes and other insects surrounding her were just as terrifying—their limbs wriggled hideously as they crawled over each other, their sharp spikes on chitinous shells glistening in the dim light."
+                    ),
+                    Article(
+                        id = "3",
+                        text = "But Lyra's attention was drawn to the cauldron. It was huge, at least twice her size, and bubbled with a thick greenish liquid."
+                    ),
+                    Article(
+                        id = "4",
+                        text = "The stench coming from the cauldron was a sickening, rotten mixture of rotting flesh and something even more sinister. Lyra couldn't help but wonder what kind of potion the witch was brewing in such a monstrous vessel."
+                    ),
+                    Article(
+                        id = "5",
+                        text = "While the witch continued to sing her lullaby, Lyra noticed that the potion began to change color. It was turning a sickly purple hue, and the black hornets were buzzing around it more fiercely than before."
+                    ),
+                    Article(
+                        id = "6",
+                        choices = listOf(
+                            Choice(
+                                title = "Need a plan...",
+                                nextStoryPartId = "4"
+                            )
+                        ),
+                        text = "Lyra knew she needed to act quickly if she wanted to stop the witch and put an end to any sinister plot she was plotting."
+                    )
+                ),
+            ),
+            StoryPart(
+                partId = "4",
+                articles = listOf(
+                    Article(
+                        id = "0",
+                        isOpen = true,
+                        text = "Lyra took a deep breath and tried to calm her pounding heart. She knew that she needed to focus and come up with a battle plan to have a chance to defeat the witch. But when Lyra looked at her rival, she began to doubt her own abilities."
+                    ),
+                    Article(
+                        id = "1",
+                        text = "The witch was a powerful sorceress with many years of experience and knowledge. Lyra, on the other hand, was still relatively new to the world of magic. How could she hope to defeat someone as skilled as a witch?"
+                    ),
+                    Article(
+                        id = "2",
+                        text = "But then Lyra remembered why she came here. She fought not only for herself, but also for the safety of the entire forest. She couldn't let her doubts get the better of her."
+                    ),
+                    Article(
+                        id = "3",
+                        text = "Taking another deep breath, Lyra closed her eyes and focused on a possible plan, recalling all the knowledge she possessed about the witch's charms and the customs of the forest."
+                    ),
+                    Article(
+                        id = "4",
+                        text = "Lyra opened her eyes, feeling a newfound sense of determination. She decided to first try to weaken the witch's defenses by using a series of false spells. If she could deceive the witch, she wouldn't give her a chance."
+                    ),
+                    Article(
+                        id = "5",
+                        text = "But Lyra knew that the witch was insidious, and could not afford to relax her vigilance for a moment. She will have to be alert, ready to repel any attack that the witch may take in her direction."
+                    ),
+                    Article(
+                        id = "6",
+                        choices = listOf(
+                            Choice(
+                                title = "To fight!",
+                                nextStoryPartId = "5"
+                            )
+                        ),
+                        text = "After quickly weighing the pros and cons, Lyra took a step forward, her eyes met the witch's eyes. The two sorceresses were facing each other, each of them was ready to fight for their lives. The air was saturated with magic."
+                    )
+                ),
+            ),
+            StoryPart(
+                partId = "5",
+                articles = listOf(
+                    Article(
+                        id = "0",
+                        isOpen = true,
+                        text = "The fight started abruptly and violently, both opponents probed each other's defense and tried to circumvent it with sophisticated weaves. The chains of lightning were followed by fragments from exploding fireballs that set fire to grass and tree tops."
+                    ),
+                    Article(
+                        id = "1",
+                        text = "The cursed creatures turned to dust when discharges of light energy swept across the earth, trying to hit the witch."
+                    ),
+                    Article(
+                        id = "2",
+                        text = "Each of the fighters tried to gain the upper hand."
+                    ),
+                    Article(
+                        id = "3",
+                        text = "Lyra was on the verge of defeat several times, barely avoiding the witchcraft spells that seemed to be falling on her from all sides. But she managed to keep her concentration and stay alert, dodging and deflecting blows with her own powerful magic."
+                    ),
+                    Article(
+                        id = "4",
+                        text = "The witch was just as ferocious, using a whole arsenal of spells that Lyra had never seen before. Each spell was more dangerous than the previous one, and black clouds of smoke, witch fire and ice fragments swept past Lyra, threatening to take her life."
+                    ),
+                    Article(
+                        id = "5",
+                        text = "Lyra put all her energy into each spell, straining her mind and body to the limit. She couldn't afford to lose, not when people's lives were at stake."
+                    ),
+                    Article(
+                        id = "6",
+                        choices = listOf(
+                            Choice(
+                                title = "Where is this hag?..",
+                                nextStoryPartId = "6"
+                            )
+                        ),
+                        text = "Finally, after another blinding flash of light, the witch screamed and disappeared into the darkness. Lyra couldn't believe it. Did she win? She looked around, breathing heavily, but the witch was nowhere to be seen."
+                    )
+                ),
+            ),
+            StoryPart(
+                partId = "6",
+                articles = listOf(
+                    Article(
+                        id = "0",
+                        isOpen = true,
+                        text = "She didn't feel the echo of the witch's death, which meant that the witch had probably just escaped. Most likely, she will hide under a snag to gather her strength again, or maybe she will leave the earth plane, going to where she belongs. At least, she won't appear in this part of the forest for the next few months."
+                    ),
+                    Article(
+                        id = "1",
+                        choices = listOf(
+                            Choice(
+                                title = "End"
+                            )
+                        ),
+                        text = "Lyra made a barely noticeable gesture with her hand, and the huge copper cauldron tipped over, spilling the magic potion on the ground."
+                    )
+                ),
+            ),
+        ),
+        currentPartId = "0",
+        isRecommended = true
     )
 
-    private val stories = listOf(
+    val storiesWithContentEn = listOf(
+        storyElenaEn1,
+        storyJoEn1,
+        storyWillBeForgottenEn1,
+        storySpaceEn1,
+        storyLoveStoryEn1,
+        storyNightRoadEn1,
+        storyWildWestEn1,
+        storyWithTheMundaneEn1,
+        storyRealEn1
+    )
+
+    val storiesWithContentRu = listOf(
         storyJoRu1,
         storySpaceRu1,
         storyWildWestRu1,
         storyLoveStoryRu1,
         storyElenaRu1,
-        storyReal1,
-        //storyReal2
-    ).map { it.copy(storyParts = emptyList()) }
+        storyWillBeForgottenRu1,
+        storyNightRoadRu1,
+        storyWithTheMundaneRu1,
+        storyReal1
+    )
+
+    private val storiesRu = storiesWithContentRu.map { it.copy(storyParts = emptyList()) }
+
+    private val storiesEn = storiesWithContentEn.map { it.copy(storyParts = emptyList()) }
 
     suspend fun getStories(): BaseResponse<List<ResponseStory>> {
         return BaseResponse(
-            data = stories.map {
+            data = storiesRu.map {
                 ResponseStory(
                     id = it.id,
                     pictureUrl = it.pictureUrl,
@@ -455,7 +564,7 @@ internal class Service {
 
     suspend fun getStoryById(storyId: String): BaseResponse<ResponseStoryContent> {
         return BaseResponse(
-            data = storiesWithContent.first { it.id == storyId }.let {
+            data = storiesWithContentRu.first { it.id == storyId }.let {
                 ResponseStoryContent(
                     id = it.id,
                     pictureUrl = it.pictureUrl,

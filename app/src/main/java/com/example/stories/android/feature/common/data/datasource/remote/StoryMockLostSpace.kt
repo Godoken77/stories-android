@@ -383,3 +383,380 @@ val storySpaceRu1 = Story(
     currentPartId = "0",
     isRecommended = true
 )
+
+val storySpaceEn1 = Story(
+    id = "3",
+    pictureUrl = "https://i.ibb.co/ZxMZVwX/image.jpg",
+    name = "Lost in Space",
+    categories = listOf(
+        Category.NEW,
+        Category.FANTASY,
+        Category.ADVENTURE
+    ),
+    storyParts = listOf(
+        StoryPart(
+            partId = "0",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    text = "It was 2050, and space exploration became the norm. John, a veteran astronaut, was chosen to lead the first mission to Mars."
+                ),
+                Article(
+                    id = "1",
+                    choices = listOf(),
+                    text = "Excited and nervous, he left Earth with his team, ready for what would be the most significant achievement in human history. "
+                ),
+            )
+        ),
+        StoryPart(
+            partId = "1",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    remark = Remark(
+                        remark = "Houston, this is Commander Johnson. I have completed my spacewalk and am returning to the shuttle.",
+                        name = "Astronaut"
+                    )
+                ),
+                Article(
+                    id = "1",
+                    remark = Remark(
+                        name = "Houston",
+                        remark = "Accepted, Commander. We're getting telemetry data from your spacesuit. Everything seems to be in order.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "2",
+                    remark = Remark(
+                        name = "Astronaut",
+                        remark = "nice to hear. I'm opening the hatch now."
+                    )
+                ),
+                Article(
+                    id = "3",
+                    text = "Suddenly there is a loud hissing sound."
+                ),
+                Article(
+                    id = "4",
+                    remark = Remark(
+                        remark = "Houston, I detect a pressure drop in the airlock. I'm sealing it now.",
+                        name = "Astronaut",
+                    )
+                ),
+                Article(
+                    id = "5",
+                    remark = Remark(
+                        remark = "Understood, Commander. We are also seeing a drop in pressure. You need to get back to the shuttle as soon as possible.",
+                        name = "Houston",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "6",
+                    text = "The astronaut quickly returns to the shuttle, but the pressure continues to drop. He tries to close the airlock, but it's too late."
+                ),
+                Article(
+                    id = "7",
+                    remark = Remark(
+                        remark = "Houston, pressure is still dropping. I can't stop it.",
+                        name = "Astronaut"
+                    )
+                ),
+                Article(
+                    id = "8",
+                    remark = Remark(
+                        remark = "Commander, we are doing everything in our power. Wait.",
+                        name = "Houston",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "9",
+                    text = "The astronaut gasps for air when the pressure drops even more. He knows he doesn't have much time."
+                ),
+                Article(
+                    id = "10",
+                    remark = Remark(
+                        remark = "Houston, tell my family I love them....",
+                        name = "Astronaut"
+                    )
+                ),
+                Article(
+                    id = "11",
+                    remark = Remark(
+                        remark = "We will do that, Commander. Hang in there.",
+                        name = "Houston",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "12",
+                    text = "Just at the moment when it seems that all hope is lost, the pressure in the airlock suddenly rises. The astronaut feels the air rushing back into the shuttle."
+                ),
+                Article(
+                    id = "13",
+                    remark = Remark(
+                        remark = "Houston, the pressure is stabilizing. I can breathe again.",
+                        name = "Astronaut"
+                    )
+                ),
+                Article(
+                    id = "14",
+                    remark = Remark(
+                        remark = "This is unbelievable, Commander. We're not sure how it happened, but we're glad you're still with us.",
+                        name = "Houston",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "15",
+                    text = "The astronaut is being urgently sent back to Earth for medical help. Miraculously, he survives the incident, but what happened changed him forever. He knows that he was close to death, and this realization remains with him for the rest of his life."
+                ),
+                Article(
+                    id = "16",
+                    text = "In the following years, Johnson became a representative of space security, advocating for the improvement of technologies and procedures to prevent accidents like the one he encountered. He is leaving NASA, but continues to inspire young people who dream of exploring the stars."
+                ),
+                Article(
+                    id = "17",
+                    text = "Years later, when people will remember Johnson's space mission, they will remember the miraculous event that allowed him to survive. But for Johnson himself, this experience is a constant reminder of the fragility of life and the importance of safety in all aspects of space exploration."
+                ),
+                Article(
+                    id = "18",
+                    text = "Despite his propaganda of safety, accidents continue to occur in space, and Johnson is reminded of this when the news of another tragedy reaches him. He mourns the lives lost and wonders if there was anything else he could have done to prevent it."
+                ),
+                Article(
+                    id ="19",
+                    text = "When Johnson gets older, he realizes that his time on Earth is limited. But he finds solace in the realization that he was able to change the world for the better, even to a small extent. And he looks back on his stay in space with a sense of pride and gratitude, knowing that he managed to experience what falls to the lot of few people."
+                ),
+                Article(
+                    id = "20",
+                    text = "Johnson is now retired and living a quiet life with his family, but he still keeps in touch with his former NASA colleagues. One day, out of the blue, he gets a call that will change his life forever..."
+                ),
+                Article(
+                    id = "21",
+                    remark = Remark(
+                        remark = "Johnson, this is Houston. We have an urgent situation. A massive asteroid is heading towards Earth and we need you to lead the mission to stop it. You will fly with Oliver, one of our best astronauts.",
+                        name = "Houston",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "22",
+                    text = "Johnson is stunned by this news. He knows all too well about the dangers of space flight, but he also knows that this is an opportunity to make a difference on a global scale."
+                ),
+                Article(
+                    id = "23",
+                    remark = Remark(
+                        remark = "I'll do it. I will be with you soon",
+                        name = "Johnson",
+                    )
+                ),
+                Article(
+                    id = "24",
+                    remark = Remark(
+                        remark = "We are waiting for you, thank you, Johnson. The country will not forget this.",
+                        name = "Houston",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "25",
+                    text = "He quickly packs up his things and heads to NASA headquarters, where he meets Oliver and the rest of the team who will join them on the mission. They spend weeks in training, thinking over every detail of the mission and preparing for the worst-case scenario.",
+                    choices = listOf(),
+                ),
+            )
+        ),
+        StoryPart(
+            partId = "2",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    text = "Finally, the launch day is coming. Johnson and Oliver board a shuttle and go into space, heading for an asteroid."
+                ),
+                Article(
+                    id = "1",
+                    text = "As Johnson and Oliver approach the asteroid, they realize that this mission is going to be much more challenging than they ever imagined. The asteroid is bigger than they expected, and they know that one mistake can cost humanity many lives."
+                ),
+                Article(
+                    id = "2",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "On your last flight... I said goodbye to my family, but returned to earth."
+                    )
+                ),
+                Article(
+                    id = "3",
+                    text = "..."
+                ),
+                Article(
+                    id = "4",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "Circumstances saved me... I have nothing to do with it."
+                    )
+                ),
+                Article(
+                    id = "5",
+                    remark = Remark(
+                        name = "Oliver",
+                        remark = "You're wrong.... The asteroid is bigger than we thought..",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "6",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "You're right... Houston? Reception."
+                    )
+                ),
+                Article(
+                    id = "7",
+                    remark = Remark(
+                        name = "Houston",
+                        remark = "Yes?",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "8",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "The asteroid is bigger than we could have suspected."
+                    )
+                ),
+                Article(
+                    id = "9",
+                    remark = Remark(
+                        name = "Houston",
+                        remark = "You need to be more careful... We are with you... You will succeed.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "10",
+                    text = "....."
+                ),
+                Article(
+                    id = "11",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "Well.. We are ready to start."
+                    )
+                ),
+                Article(
+                    id = "12",
+                    remark = Remark(
+                        name = "Houston",
+                        remark = "Permission to start the operation.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "13",
+                    text = "It turned out everything was not as it was in training, but they do not give up, working together to develop a plan to destroy the asteroid. They use a series of explosives carefully placed to ensure maximum effect. And then, feeling both fear and determination, they activate explosives."
+                ),
+                Article(
+                    id = "14",
+                    text = "But the detonator's capability was not enough to destroy the asteroid completely, part of the asteroid broke off and began falling to Earth."
+                ),
+                Article(
+                    id = "15",
+                    remark = Remark(
+                        name = "Houston",
+                        remark = "The asteroid was not stopped!",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "16",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "We didn't have enough explosives, Houston!",
+                    )
+                ),
+                Article(
+                    id = "17",
+                    remark = Remark(
+                        name = "Oliver",
+                        remark = "Johnson... Look!",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "18",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "Oliver, not now..."
+                    )
+                ),
+                Article(
+                    id = "19",
+                    remark = Remark(
+                        name = "Houston",
+                        remark = "Asteroid will collide with earth within three hours",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "20",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "What happens after the collision, Houston?"
+                    )
+                ),
+                Article(
+                    id = "21",
+                    remark = Remark(
+                        name = "Houston",
+                        remark = "I ... p.... in .... tr..... coo.....",
+                        color = RemarkColor.SECONDARY
+                    ),
+                ),
+                Article(
+                    id = "22",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "Houston?"
+                    )
+                ),
+                Article(
+                    id = "23",
+                    remark = Remark(
+                        name = "Oliver",
+                        color = RemarkColor.SECONDARY,
+                        remark = "Don't waste your time, the Earth's magnetic field has turned off the electricity. We don't have a connection anymore..."
+                    )
+                ),
+                Article(
+                    id = "24",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "Damn..."
+                    )
+                ),
+                Article(
+                    id = "25",
+                    remark = Remark(
+                        name = "Oliver",
+                        remark = "we will not be able to return to earth without communication...",
+                        color = RemarkColor.SECONDARY,
+                    )
+                ),
+                Article(
+                    id = "26",
+                    remark = Remark(
+                        name = "Johnson",
+                        remark = "I know."
+                    )
+                ),
+            )
+        )
+    ),
+    currentPartId = "0",
+    isRecommended = true
+)

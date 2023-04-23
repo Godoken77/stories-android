@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">NeuralStory</string>
+
+    <string name="common_yes">Да</string>
+    <string name="common_no">Нет</string>
+
+    <string name="main_recommended_title">Рекомендации</string>
+    <string name="main_categories_title">Жанры</string>
+    <string name="main_recently_title">Продолжить чтение</string>
+
+    <string name="main_continue_story_title">Продолжить историю</string>
+
+    <string name="category_item_name_new">Новинки</string>
+    <string name="category_item_name_adventure">Приключения</string>
+    <string name="category_item_name_fantasy">Фэнтези</string>
+    <string name="category_item_name_detective">Детективы</string>
+    <string name="category_item_name_comedy">Комедия</string>
+    <string name="category_item_name_horror">Ужасы</string>
+    <string name="category_item_name_romantic">Романтика</string>
+
+    <string name="story_process_continue_button_title">Продолжить</string>
+    <string name="story_process_reset_confirmation_title">Вы точно хотите начать\nсначала?</string>
+    <string name="story_process_rate_story_title">Пожалуйста, оцените\nисторию</string>
+    <string name="story_process_rate_app_title">Понравилось приложение?\nПоставьте оценку в Play Market</string>
+    <string name="story_process_rate_app_confirm">Оценить</string>
+    <string name="story_process_rate_app_dismiss">Позже</string>
+    <string name="story_process_pay_offer_title">Отключить рекламу за %s</string>
+    <string name="story_process_pay_offer_title_dismiss">Продолжить с рекламой</string>
+
+    <string name="choose_category_title">Какой жанр предпочитаете?</string>
+</resources>
