@@ -465,3 +465,462 @@ val storyLoveStoryRu1 = Story(
     currentPartId = "0",
     isRecommended = true
 )
+
+val storyLoveStoryEn1 = Story(
+    id = "4",
+    pictureUrl = "https://i.ibb.co/FhPpkys/image.jpg",
+    name = "Love story",
+    categories = listOf(
+        Category.NEW,
+        Category.ROMANTIC
+    ),
+    storyParts = listOf(
+        StoryPart(
+            partId = "0",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    text = "It was a sunny June day, and Alice was walking in the park. She had just passed her final college exams and was looking forward to a quiet summer. While walking, she noticed a cute guy sitting on a bench and reading a book."
+                ),
+                Article(
+                    id = "1",
+                    choices = listOf(),
+                    text = "Alice couldn't resist stealing a few glances at him as she passed by. She noticed that he had disheveled brown hair and a charming smile. When she was about to walk past him, the guy raised his head and their eyes met."
+                ),
+            )
+        ),
+        StoryPart(
+            partId = "1",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    remark = Remark(
+                        name = "Guy",
+                        remark = "Hello."
+                    )
+                ),
+                Article(
+                    id = "1",
+                    remark = Remark(
+                        name = "Alice",
+                        remark = "Hello...",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "2",
+                    remark = Remark(
+                        name = "Guy",
+                        remark = "Beautiful day, isn't it?"
+                    )
+                ),
+                Article(
+                    id = "3",
+                    remark = Remark(
+                        name = "Alice",
+                        remark = "Yes, it is.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "4",
+                    remark = Remark(
+                        remark = "My name is Ben.",
+                        name = "Guy",
+                    )
+                ),
+                Article(
+                    id = "5",
+                    remark = Remark(
+                        remark = "I am Alice.",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "6",
+                    remark = Remark(
+                        remark = "Nice to meet you, Alice.",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "7",
+                    remark = Remark(
+                        remark = "And me...",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "8",
+                    remark = Remark(
+                        remark = "Can you keep me company on such a beautiful day?",
+                        name = "Ben"
+                    )
+                ),
+                Article(
+                    id = "9",
+                    remark = Remark(
+                        remark = "With pleasure.",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "10",
+                    text = "They chatted for a few minutes, and Alice found out that Ben studied English literature at the same college as her. She was intrigued by him and couldn't help but feel attracted to him. Questions flew through her head. Love at first sight? Is this even possible?"
+                ),
+                Article(
+                    id = "11",
+                    remark = Remark(
+                        remark = "It was the most pleasant walk in a while",
+                        name = "Ben"
+                    )
+                ),
+                Article(
+                    id = "12",
+                    remark = Remark(
+                        remark = "I think so too... Can we continue our communication?",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "13",
+                    remark = Remark(
+                        remark = "Yes of course, I'm only for! Let me write down your...",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "14",
+                    text = "After their chance meeting in the park, Alice and Ben exchanged phone numbers and started texting. They corresponded late into the night, discussing books, movies, their hopes and dreams."
+                ),
+                Article(
+                    id = "15",
+                    remark = Remark(
+                        remark = "Listen. Are you here?",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "16",
+                    remark = Remark(
+                        remark = "Yes. What is it?",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "17",
+                    remark = Remark(
+                        remark = "I can't help but take a chance...",
+                        name = "Ben"
+                    )
+                ),
+                Article(
+                    id = "18",
+                    remark = Remark(
+                        remark = "What are you talking about? Is everything okay?",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "19",
+                    remark = Remark(
+                        remark = "I don't know, Alice. I'm asking you out on a date. I want to get to know you better.",
+                        name = "Ben"
+                    )
+                ),
+                Article(
+                    id = "20",
+                    remark = Remark(
+                        remark = "Alice?",
+                        name = "Ben"
+                    )
+                ),
+                Article(
+                    id = "21",
+                    remark = Remark(
+                        remark = "I agree, Ben. I've been waiting for this... I'm just glad)",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+            )
+        ),
+        StoryPart(
+            partId = "2",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    text = "Ben asked Alice out on a date. He suggested they go to a bookstore and choose books for each other."
+                ),
+                Article(
+                    id = "1",
+                    text = "Alice liked this idea and they agreed to meet at the bookstore next Saturday. When Alice arrived, Ben was already there, looking through the shelves."
+                ),
+                Article(
+                    id = "2",
+                    remark = Remark(
+                        name = "Ben",
+                        remark = "Hello.",
+                    ),
+                ),
+                Article(
+                    id = "3",
+                    remark = Remark(
+                        name = "Alice",
+                        remark = "Hello.",
+                        color = RemarkColor.SECONDARY
+                    ),
+                ),
+                Article(
+                    id = "4",
+                    remark = Remark(
+                        name = "Ben",
+                        remark = "How are you? How are you doing?",
+                    ),
+                ),
+                Article(
+                    id = "5",
+                    text = "They spent the next few hours looking around the bookstore and chatting about their favorite books. Alice was surprised to find that Ben has a deep knowledge of literature, and she was impressed by his insight."
+                ),
+                Article(
+                    id = "6",
+                    text = "After they selected their books, Ben suggested they take a walk in the park. They found a quiet place by the lake and sat on a bench."
+                ),
+                Article(
+                    id = "7",
+                    remark = Remark(
+                        name = "Alice",
+                        remark ="It's really cute.",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "8",
+                    remark = Remark(
+                        name = "Ben",
+                        remark = "Yes, it is, I'm really glad you agreed.",
+                    )
+                ),
+                Article(
+                    id = "9",
+                    remark = Remark(
+                        remark = "Me too...",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "10",
+                    text = "They sat in comfortable silence for a few minutes before Ben spoke."
+                ),
+                Article(
+                    id = "11",
+                    remark = Remark(
+                        remark = "Alice, I know this is our first date, but I feel that there is a connection between us, I don't want to rush things, but I just wanted to tell you that I really like you...",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "12",
+                    text = "Alice felt her heart skip a beat. "
+                ),
+                Article(
+                    id = "13",
+                    remark = Remark(
+                        remark = "I really like you too, Ben.",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "14",
+                    remark = Remark(
+                        remark = "But I don't want to rush, let's get to know each other better.",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "15",
+                    remark = Remark(
+                        remark = "Yes, you're right, Alice. This is a wise decision. I agree.",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "16",
+                    text = "Alice and Ben went on several more dates over the next few weeks. They watched movies, took long walks and had picnics in the park. Alice was falling in love with Ben completely."
+                )
+            )
+        ),
+        StoryPart(
+            partId = "3",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    remark = Remark(
+                        remark = "Ben...",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "1",
+                    remark = Remark(
+                        remark = "Yes? Are you okay?",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "2",
+                    remark = Remark(
+                        remark = "I love you...",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "3",
+                    remark = Remark(
+                        remark = "...",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "4",
+                    remark = Remark(
+                        remark = "Ben?",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "5",
+                    remark = Remark(
+                        remark = "I love you too, Alice.",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "6",
+                    text = "But there were some obstacles in their way. Alice's parents were going through a difficult divorce, and she struggled to cope with the changes in her family. Ben supported her and listened to her when she needed to talk, but Alice could see that it affected him too."
+                ),
+                Article(
+                    id = "7",
+                    text = "Meanwhile, Ben was dealing with his own problems. He had a part-time job at a bookstore, but it wasn't enough to pay the rent. He considered dropping out of college and finding a full-time job, but didn't want to give up on his dream of becoming a writer."
+                ),
+                Article(
+                    id = "8",
+                    choices = listOf(),
+                    text = "Alice tried to support him..."
+                ),
+            )
+        ),
+        StoryPart(
+            partId = "4",
+            articles = listOf(
+                Article(
+                    id = "0",
+                    isOpen = true,
+                    text = "As time went on, Alice and Ben's relationship began to change. They were still seeing each other, but both were more preoccupied with their own lives. Alice did an internship at a local newspaper, and Ben worked part-time at a bookstore."
+                ),
+                Article(
+                    id = "1",
+                    text = "They still corresponded with each other every day, but Alice noticed that their conversations became more superficial. They didn't talk about their hopes and dreams as much as they used to, and Alice began to worry that they were drifting apart."
+                ),
+                Article(
+                    id = "2",
+                    text = "One day Alice received an unexpected message from Ben."
+                ),
+                Article(
+                    id = "3",
+                    remark = Remark(
+                        remark = "Hi Alice, I need to talk to you.",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "4",
+                    text = "Alice's heart sank. She had the feeling that she knew what was going to happen."
+                ),
+                Article(
+                    id = "5",
+                    remark = Remark(
+                        remark = "Did something happen?",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "6",
+                    remark = Remark(
+                        remark = "Sorry, Alice, but I think we need to take a break.",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "7",
+                    text = "Alice felt tears welling up in her eyes."
+                ),
+                Article(
+                    id = "8",
+                    remark = Remark(
+                        remark = "Why?",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "9",
+                    remark = Remark(
+                        remark = "I just feel that we are moving away from each other, I don't want to distract you from your dreams, and I don't want to be distracted from mine.",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "10",
+                    text = "Alice felt a pang of sadness in her chest. She didn't want to lose Ben, but she also knew he was right. They were both at a crossroads in their lives, and they needed to focus on their own goals."
+                ),
+                Article(
+                    id = "11",
+                    remark = Remark(
+                        remark = "I understand...",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "12",
+                    remark = Remark(
+                        remark = "I will miss you, Alice, you are an amazing person, and I know that you will achieve your goals.",
+                        name = "Ben",
+                    )
+                ),
+                Article(
+                    id = "13",
+                    remark = Remark(
+                        remark = "Don't hurt me even more, please.",
+                        name = "Alice",
+                        color = RemarkColor.SECONDARY
+                    )
+                ),
+                Article(
+                    id = "14",
+                    text = "Alice felt empty when she hung up. She knew that she and Ben might never be together again, but she was grateful for the time they spent together. She again felt purposefulness and determination to follow her dream."
+                ),
+            )
+        )
+    ),
+    currentPartId = "0",
+    isRecommended = true
+)
