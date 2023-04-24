@@ -16,5 +16,7 @@ data class SettingsEntity(
     @ColumnInfo(name = "is_first_session")
     val isFirstSession: Boolean = true,
     @ColumnInfo(name = "count")
-    val alreadyReadArticleCount: Int = 0
+    val alreadyReadArticleCount: Int = 0,
+    @ColumnInfo(name = "is_app_rated")
+    val isAppRated: Boolean = false
 ): Parcelable

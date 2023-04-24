@@ -10,6 +10,7 @@ import com.example.stories.android.feature.process.domain.StoryProcessState
 import com.example.stories.android.feature.process.domain.model.Choice
 import com.example.stories.android.feature.process.domain.model.IStoryProcess
 import com.example.stories.android.feature.process.domain.usecase.AdvertisementUseCase
+import com.example.stories.android.feature.process.domain.usecase.RateAppUseCase
 import com.example.stories.android.feature.process.domain.usecase.StoryProcessUseCase
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,6 +27,7 @@ internal class StoryProcessViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val storyProcessUseCase: StoryProcessUseCase,
     private val advertisementUseCase: AdvertisementUseCase,
+    private val rateAppUseCase: RateAppUseCase,
     private val router: Router
 ) : ViewModel(), ContainerHost<StoryProcessState, StoryProcessSideEffect> {
 
@@ -92,7 +94,11 @@ internal class StoryProcessViewModel @Inject constructor(
     fun onLikeClicked() = intent {
         // Add Analytics
         storyProcessUseCase.setStoryRated(storyId = storyId)
-        postSideEffect(StoryProcessSideEffect.ShowRateAppBottomSheet)
+        if (!rateAppUseCase.isAppRated()) {
+            postSideEffect(StoryProcessSideEffect.ShowRateAppBottomSheet)
+        } else {
+            postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
+        }
     }
 
     fun onDislikeClicked() = intent {
@@ -103,6 +109,7 @@ internal class StoryProcessViewModel @Inject constructor(
 
     fun onRateConfirmClicked() = intent {
         //Go to Play Market
+        rateAppUseCase.setAppRated()
         postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
     }
 
