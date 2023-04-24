@@ -33,10 +33,15 @@ internal class StoryProcessViewModel @Inject constructor(
 
     companion object {
         const val STORY_ID = "storyId"
+        const val IS_FIRST_STORY_STATE = "isFirstStory"
     }
 
     private val storyId: String by lazy {
         requireNotNull(savedStateHandle[STORY_ID])
+    }
+
+    private val isFirstStory: Boolean by lazy {
+        savedStateHandle[IS_FIRST_STORY_STATE] ?: false
     }
 
     override val container: Container<StoryProcessState, StoryProcessSideEffect> =
@@ -156,7 +161,7 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onContinueClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
-        if (advertisementUseCase.isAdvertisementEnabled()) {
+        if (advertisementUseCase.isAdvertisementEnabled() && !isFirstStory) {
             val isNeedToShowAd = advertisementUseCase.isNeedToShowAd()
             if (isNeedToShowAd) {
                 if (!state.payOffer.price.isNullOrEmpty()) {

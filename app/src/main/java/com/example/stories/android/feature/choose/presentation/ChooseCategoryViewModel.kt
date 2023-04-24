@@ -6,9 +6,9 @@ import com.example.stories.android.feature.AppScreens
 import com.example.stories.android.feature.category.domain.model.CategoryItem
 import com.example.stories.android.feature.choose.domain.ChooseCategorySideEffect
 import com.example.stories.android.feature.choose.domain.ChooseCategoryState
+import com.example.stories.android.feature.choose.domain.Pair
 import com.example.stories.android.feature.choose.domain.usecase.CategoryToChooseUseCase
 import com.example.stories.android.feature.splash.domain.usecase.FirstSessionUseCase
-import com.example.stories.android.feature.choose.domain.Pair
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.Container
@@ -66,7 +66,10 @@ internal class ChooseCategoryViewModel @Inject constructor(
         firstSessionUseCase.setFirstSessionState(false)
         router.newRootChain(
             AppScreens.MainScreen(),
-            AppScreens.StoryProcessScreen(storyId)
+            AppScreens.StoryProcessScreen(
+                storyId = storyId,
+                isFirstStory = true
+            )
         )
     }
 }

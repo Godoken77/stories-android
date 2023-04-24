@@ -72,10 +72,11 @@ internal class StoryProcessFragment : Fragment() {
 
     companion object {
         //private const val purchaseKey = "disabling_ads"
-        fun newInstance(storyId: String): Fragment =
+        fun newInstance(storyId: String, isFirstStory: Boolean): Fragment =
             StoryProcessFragment().apply {
                 arguments = bundleOf(
-                    StoryProcessViewModel.STORY_ID to storyId
+                    StoryProcessViewModel.STORY_ID to storyId,
+                    StoryProcessViewModel.IS_FIRST_STORY_STATE to isFirstStory
                 )
             }
     }
