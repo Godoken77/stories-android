@@ -10,6 +10,7 @@ import com.example.stories.android.feature.process.domain.StoryProcessState
 import com.example.stories.android.feature.process.domain.model.Choice
 import com.example.stories.android.feature.process.domain.model.IStoryProcess
 import com.example.stories.android.feature.process.domain.usecase.AdvertisementUseCase
+import com.example.stories.android.feature.process.domain.usecase.RateAppUseCase
 import com.example.stories.android.feature.process.domain.usecase.StoryProcessUseCase
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,15 +27,21 @@ internal class StoryProcessViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val storyProcessUseCase: StoryProcessUseCase,
     private val advertisementUseCase: AdvertisementUseCase,
+    private val rateAppUseCase: RateAppUseCase,
     private val router: Router
 ) : ViewModel(), ContainerHost<StoryProcessState, StoryProcessSideEffect> {
 
     companion object {
         const val STORY_ID = "storyId"
+        const val IS_FIRST_STORY_STATE = "isFirstStory"
     }
 
     private val storyId: String by lazy {
         requireNotNull(savedStateHandle[STORY_ID])
+    }
+
+    private val isFirstStory: Boolean by lazy {
+        savedStateHandle[IS_FIRST_STORY_STATE] ?: false
     }
 
     override val container: Container<StoryProcessState, StoryProcessSideEffect> =
@@ -92,7 +99,11 @@ internal class StoryProcessViewModel @Inject constructor(
     fun onLikeClicked() = intent {
         // Add Analytics
         storyProcessUseCase.setStoryRated(storyId = storyId)
-        postSideEffect(StoryProcessSideEffect.ShowRateAppBottomSheet)
+        if (!rateAppUseCase.isAppRated()) {
+            postSideEffect(StoryProcessSideEffect.ShowRateAppBottomSheet)
+        } else {
+            postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
+        }
     }
 
     fun onDislikeClicked() = intent {
@@ -103,6 +114,7 @@ internal class StoryProcessViewModel @Inject constructor(
 
     fun onRateConfirmClicked() = intent {
         //Go to Play Market
+        rateAppUseCase.setAppRated()
         postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
     }
 
@@ -149,7 +161,7 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onContinueClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
-        if (advertisementUseCase.isAdvertisementEnabled()) {
+        if (advertisementUseCase.isAdvertisementEnabled() && !isFirstStory) {
             val isNeedToShowAd = advertisementUseCase.isNeedToShowAd()
             if (isNeedToShowAd) {
                 if (!state.payOffer.price.isNullOrEmpty()) {

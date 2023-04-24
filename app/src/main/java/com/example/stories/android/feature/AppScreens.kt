@@ -16,8 +16,15 @@ internal object AppScreens {
     fun StoriesScreen(category: Category): FragmentScreen =
         FragmentScreen { StoriesFragment.newInstance(category) }
 
-    fun StoryProcessScreen(storyId: String): FragmentScreen =
-        FragmentScreen { StoryProcessFragment.newInstance(storyId) }
+    fun StoryProcessScreen(
+        storyId: String,
+        isFirstStory: Boolean = false
+    ): FragmentScreen = FragmentScreen {
+        StoryProcessFragment.newInstance(
+            storyId = storyId,
+            isFirstStory = isFirstStory
+        )
+    }
 
     fun SplashScreen(): FragmentScreen =
         FragmentScreen { SplashFragment() }

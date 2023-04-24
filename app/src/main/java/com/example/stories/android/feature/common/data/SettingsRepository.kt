@@ -13,4 +13,6 @@ internal interface SettingsRepository {
     suspend fun setAlreadyReadArticleCount(count: Int)
 
     suspend fun increaseReadArticleCount()
+
+    suspend fun setAppRated()
 }

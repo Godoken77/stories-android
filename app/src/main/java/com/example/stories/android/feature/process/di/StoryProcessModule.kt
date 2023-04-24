@@ -2,6 +2,8 @@ package com.example.stories.android.feature.process.di
 
 import com.example.stories.android.feature.process.domain.usecase.AdvertisementUseCase
 import com.example.stories.android.feature.process.domain.usecase.AdvertisementUseCaseImpl
+import com.example.stories.android.feature.process.domain.usecase.RateAppUseCase
+import com.example.stories.android.feature.process.domain.usecase.RateAppUseCaseImpl
 import com.example.stories.android.feature.process.domain.usecase.StoryProcessUseCase
 import com.example.stories.android.feature.process.domain.usecase.StoryProcessUseCaseImpl
 import dagger.Binds
@@ -18,4 +20,7 @@ internal interface StoryProcessModule {
 
     @Binds
     fun bindAdvertisementUseCase(impl: AdvertisementUseCaseImpl): AdvertisementUseCase
+
+    @Binds
+    fun bindRateAppUseCase(impl: RateAppUseCaseImpl): RateAppUseCase
 }

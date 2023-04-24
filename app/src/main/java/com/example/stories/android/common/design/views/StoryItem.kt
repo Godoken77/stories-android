@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.stories.android.common.design.colors.AppColors
+import org.neural.stories.R
 
 data class StoryItemViewState(
     val id: String,
@@ -48,6 +50,7 @@ fun StoryItem(
             model = state.picture,
             contentScale = ContentScale.Crop,
             contentDescription = null,
+            placeholder = painterResource(id = R.drawable.image_placeholder),
             modifier = Modifier
                 .height(height)
                 .width(width)

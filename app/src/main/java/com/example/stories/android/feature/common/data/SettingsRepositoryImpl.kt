@@ -114,4 +114,20 @@ internal class SettingsRepositoryImpl @Inject constructor(
             settingsDao.updateSettings(updatedSettings)
         }
     }
+
+    override suspend fun setAppRated() {
+        val currentSettings = settingsDao.getSettings()
+
+        if (currentSettings != null) {
+            val updatedSettings = currentSettings.copy(
+                isAppRated = true
+            )
+            settingsDao.updateSettings(updatedSettings)
+        } else {
+            val updatedSettings = SettingsEntity().copy(
+                isAppRated = true
+            )
+            settingsDao.updateSettings(updatedSettings)
+        }
+    }
 }

@@ -7,6 +7,12 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ChooseCategoryState(
     val isFailure: Boolean = false,
-    val firstCategory: Pair<CategoryItem, String>? = null,
-    val secondCategory: Pair<CategoryItem, String>? = null
+    val firstCategory: Pair? = null,
+    val secondCategory: Pair? = null
+): Parcelable
+
+@Parcelize
+data class Pair(
+    val first: CategoryItem,
+    val second: String
 ): Parcelable
