@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.example.stories.android.feature.AppScreens
 import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.category.domain.model.CategoryItem
+import com.example.stories.android.feature.main.domain.usecase.RecommendedStoriesUseCase
 import com.example.stories.android.feature.stories.domain.StoriesSideEffect
 import com.example.stories.android.feature.stories.domain.StoriesState
 import com.example.stories.android.feature.stories.domain.model.IStoryItem
@@ -22,6 +23,7 @@ import javax.inject.Inject
 internal class StoriesViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val storiesByCategoryUseCase: StoriesByCategoryUseCase,
+    private val recommendedStoriesUseCase: RecommendedStoriesUseCase,
     private val router: Router
 ) : ViewModel(), ContainerHost<StoriesState, StoriesSideEffect> {
 
@@ -44,7 +46,8 @@ internal class StoriesViewModel @Inject constructor(
                     IStoryItem.ShimmerItem,
                     IStoryItem.ShimmerItem
                 ),
-                category = CategoryItem.fromCategory(category)
+                category = CategoryItem.fromCategory(category),
+                recommendedStories = listOf()
             ),
             savedStateHandle = savedStateHandle
         ) {
@@ -55,9 +58,15 @@ internal class StoriesViewModel @Inject constructor(
         storiesByCategoryUseCase
             .runCatching { getStoriesByCategory(category) }
             .onSuccess { stories ->
+                val recommendedStories = recommendedStoriesUseCase.getRecommendedStories()
+                    .filter {
+                        !it.categories.contains(category)
+                    }
+
                 reduce {
                     state.copy(
                         stories = stories,
+                        recommendedStories = recommendedStories,
                         isProgress = false
                     )
                 }
