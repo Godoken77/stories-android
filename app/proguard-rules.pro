@@ -24,3 +24,4 @@
 -keepattributes Signature
 -keep class com.google.android.gms.ads.** { *; }
 -keepclassmembers class com.example.stories.android.feature.common.model** { *; }
+-dontwarn okio.**
