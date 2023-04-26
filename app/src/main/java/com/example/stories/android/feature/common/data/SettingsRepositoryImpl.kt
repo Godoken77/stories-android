@@ -16,14 +16,20 @@ internal class SettingsRepositoryImpl @Inject constructor(
 
         // Server models updating - delete in release version
 
-        /*val stories = service.storiesWithContent
+        /*val stories = service.storiesWithContentRu
         stories.forEach {
-            apiService.setStory(story = it)
+            apiService.setStory(
+                story = it,
+                locale = Locale.RUSSIAN.name
+            )
         }*/
         
-        /*val result = apiService.getStories(locale = Locale.RUSSIAN.name).data
+        /*val result = apiService.getStories(locale = Locale.ENGLISH.name).data
         result?.forEach {
-            apiService.deleteStory(storyId = it.id)
+            apiService.deleteStory(
+                storyId = it.id,
+                locale = Locale.ENGLISH.name
+            )
         }*/
 
         settingsDao.runCatching { getSettings() }

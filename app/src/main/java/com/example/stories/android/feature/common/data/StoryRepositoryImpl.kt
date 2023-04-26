@@ -4,18 +4,15 @@ import android.content.Context
 import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDao
 import com.example.stories.android.feature.common.data.datasource.db.entity.StoryEntity
 import com.example.stories.android.feature.common.data.datasource.remote.ApiService
-import com.example.stories.android.feature.common.data.datasource.remote.Service
 import com.example.stories.android.feature.common.model.Story
 import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.StoryPart
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
-// Delete mock server integrating
 internal class StoryRepositoryImpl @Inject constructor(
     private val storyDao: StoryDao,
     private val apiService: ApiService,
-    private val service: Service,
     @ApplicationContext private val context: Context
 ) : StoryRepository {
 
@@ -53,12 +50,10 @@ internal class StoryRepositoryImpl @Inject constructor(
         val stories = mutableListOf<Story>()
         val locale = when(context.resources.configuration.locales.get(0).language.uppercase()) {
             "RU" -> Locale.RUSSIAN.name
-            else -> Locale.RUSSIAN.name
+            else -> Locale.ENGLISH.name
         }
 
-        // It is mock
-        service.runCatching { getStories() }
-        //apiService.runCatching { getStories(locale = locale) }
+        apiService.runCatching { getStories(locale = locale) }
             .onSuccess { remoteStoriesResult ->
                 val remoteStories = remoteStoriesResult.data?.map {
                     Story.fromResponseStory(it)
@@ -229,18 +224,16 @@ internal class StoryRepositoryImpl @Inject constructor(
     override suspend fun getStoryProcessWithStoryParts(storyId: String): Story {
         var storyWithContent: Story? = null
         val locale = when(context.resources.configuration.locales.get(0).language.uppercase()) {
-            "RU" -> "RUSSIAN"
-            else -> "ENGLISH"
+            "RU" -> Locale.RUSSIAN.name
+            else -> Locale.ENGLISH.name
         }
 
-        // It is mock
-        service.runCatching { getStoryById(storyId) }
-        /*apiService.runCatching {
+        apiService.runCatching {
             getStory(
                 storyId = storyId,
                 locale = locale
             )
-        }*/
+        }
             .onSuccess { remoteStoryResult ->
                 val remoteStory = remoteStoryResult.data?.let {
                     Story.fromResponseStoryContent(it)
@@ -274,6 +267,5 @@ internal class StoryRepositoryImpl @Inject constructor(
 
 enum class Locale {
     RUSSIAN,
-    ENGLISH,
-    DEFAULT
+    ENGLISH
 }

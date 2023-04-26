@@ -39,6 +39,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -316,6 +317,7 @@ private fun ScreenContent(
                                     model = state.storyProcessModel.pictureUrl,
                                     contentScale = ContentScale.Crop,
                                     contentDescription = null,
+                                    placeholder = painterResource(id = R.drawable.image_placeholder),
                                     modifier = Modifier
                                         .height(174.dp)
                                         .width(115.dp)
