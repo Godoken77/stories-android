@@ -29,7 +29,7 @@ interface ApiService {
     @DELETE("story/{storyId}")
     suspend fun deleteStory(
         @Header("Credentials") credentials: String = "123qaaq123QAAQ!@",
-        @Header("Locale") locale: String = "RUSSIAN",
+        @Header("Locale") locale: String = "ENGLISH",
         @Path("storyId") storyId: String
     ): BaseResponse<Story>
 
@@ -38,6 +38,12 @@ interface ApiService {
         @Header("Credentials") credentials: String = "123qaaq123QAAQ!@",
         @Header("Locale") locale: String = "ENGLISH",
         @Body story: Story,
+    ): BaseResponse<Unit>
+
+    @POST("genre")
+    suspend fun setGenre(
+        @Header("Credentials") credentials: String = "123qaaq123QAAQ!@",
+        @Body category: String,
     ): BaseResponse<Unit>
 
     // Ad
