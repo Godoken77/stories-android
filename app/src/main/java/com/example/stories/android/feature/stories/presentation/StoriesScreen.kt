@@ -104,7 +104,7 @@ internal fun StoriesScreen(
                                     picture = story.pictureUrl
                                 ),
                                 onClick = {
-                                    viewModel.openStory(it.id)
+                                    viewModel.openStoryFromList(it.id)
                                 },
                                 height = 180.dp,
                                 width = 180.dp
@@ -140,7 +140,7 @@ internal fun StoriesScreen(
                                             picture = story.pictureUrl
                                         ),
                                         onClick = {
-                                            viewModel.openStory(it.id)
+                                            viewModel.openRecommendedStory(it.id)
                                         }
                                     )
                                 }
