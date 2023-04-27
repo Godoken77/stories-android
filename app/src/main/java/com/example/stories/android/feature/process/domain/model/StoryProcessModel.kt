@@ -54,7 +54,8 @@ data class Article(
     val text: String? = null,
     val isOpen: Boolean = false,
     val choices: List<Choice> = emptyList(),
-    val remark: Remark? = null
+    val remark: Remark? = null,
+    val pictureUrl: String? = null
 ) : Parcelable
 
 @Parcelize

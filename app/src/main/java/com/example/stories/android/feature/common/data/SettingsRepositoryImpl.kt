@@ -16,6 +16,12 @@ internal class SettingsRepositoryImpl @Inject constructor(
 
         // Server models updating - delete in release version
 
+        /*Category.values().forEach {
+            apiService.setGenre(category = GenreRequest(it.name))
+        }*/
+
+        //apiService.getGenres()
+
         /*val stories = service.storiesWithContentRu
         stories.forEach {
             apiService.setStory(
