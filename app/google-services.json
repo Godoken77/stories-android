@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:783581849897:android:97a9776397cb3c53676f38",
+        "mobilesdk_app_id": "1:783581849897:android:36ba2984f61f9c57676f38",
         "android_client_info": {
-          "package_name": "com.example.stories.android"
+          "package_name": "org.neural.stories"
         }
       },
       "oauth_client": [
