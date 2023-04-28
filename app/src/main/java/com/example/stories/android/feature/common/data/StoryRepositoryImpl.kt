@@ -57,7 +57,7 @@ internal class StoryRepositoryImpl @Inject constructor(
             .onSuccess { remoteStoriesResult ->
                 val remoteStories = remoteStoriesResult.data?.map {
                     Story.fromResponseStory(it)
-                } ?: throw Exception()
+                } ?: throw Throwable()
                 val localStories = storyDao.getStories().map { storyEntity ->
                     Story.fromStoryEntity(storyEntity)
                 }
@@ -237,7 +237,7 @@ internal class StoryRepositoryImpl @Inject constructor(
             .onSuccess { remoteStoryResult ->
                 val remoteStory = remoteStoryResult.data?.let {
                     Story.fromResponseStoryContent(it)
-                } ?: throw Exception()
+                } ?: throw Throwable()
                 val localStory = storyDao.getStoryById(storyId)
 
                 // Доработать версионирование local и remote списков историй
