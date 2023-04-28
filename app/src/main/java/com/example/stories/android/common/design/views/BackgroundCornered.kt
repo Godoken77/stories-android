@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -16,19 +17,34 @@ import com.example.stories.android.common.design.colors.AppColors
 fun BackgroundCornered(
     modifier: Modifier = Modifier,
     backgroundColor: Color = AppColors.Transparent,
+    backgroundBrush: Brush? = null,
     roundedCornerSize: Dp = 16.dp,
     content: @Composable () -> Unit
 ) {
-    Surface(
-        color = Color.Unspecified,
-        modifier = modifier
-            .background(
-                backgroundColor,
-                RoundedCornerShape(size = roundedCornerSize)
-            )
-            .wrapContentSize()
-    ) {
-        content()
+    if (backgroundBrush == null) {
+        Surface(
+            color = Color.Unspecified,
+            modifier = modifier
+                .background(
+                    color = backgroundColor,
+                    shape = RoundedCornerShape(size = roundedCornerSize)
+                )
+                .wrapContentSize()
+        ) {
+            content()
+        }
+    } else {
+        Surface(
+            color = Color.Unspecified,
+            modifier = modifier
+                .background(
+                    brush = backgroundBrush,
+                    shape = RoundedCornerShape(size = roundedCornerSize)
+                )
+                .wrapContentSize()
+        ) {
+            content()
+        }
     }
 }
 

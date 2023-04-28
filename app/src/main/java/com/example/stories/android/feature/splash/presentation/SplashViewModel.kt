@@ -3,7 +3,6 @@ package com.example.stories.android.feature.splash.presentation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.stories.android.feature.AppScreens
-import com.example.stories.android.feature.analytics.domain.AmplitudeAnalytics
 import com.example.stories.android.feature.splash.domain.SplashSideEffect
 import com.example.stories.android.feature.splash.domain.SplashState
 import com.example.stories.android.feature.splash.domain.usecase.FirstSessionUseCase
@@ -21,7 +20,6 @@ internal class SplashViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val firstSessionUse: FirstSessionUseCase,
     private val preloadStoriesUseCase: PreloadStoriesUseCase,
-    private val amplitudeAnalytics: AmplitudeAnalytics,
     private val router: Router
 ) : ViewModel(), ContainerHost<SplashState, SplashSideEffect> {
 

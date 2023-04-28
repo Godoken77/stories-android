@@ -3,6 +3,7 @@ package com.example.stories.android.feature.main.presentation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.stories.android.feature.AppScreens
+import com.example.stories.android.feature.analytics.domain.AmplitudeAnalytics
 import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.category.domain.usecase.CategoryUseCase
 import com.example.stories.android.feature.main.domain.MainSideEffect
@@ -25,6 +26,7 @@ internal class MainViewModel @Inject constructor(
     private val recommendedStoriesUseCase: RecommendedStoriesUseCase,
     private val recentlyStoriesUseCase: RecentlyStoriesUseCase,
     private val categoryUseCase: CategoryUseCase,
+    private val amplitudeAnalytics: AmplitudeAnalytics,
     private val router: Router
 ) : ViewModel(), ContainerHost<MainState, MainSideEffect> {
 
@@ -70,11 +72,71 @@ internal class MainViewModel @Inject constructor(
             }
     }
 
-    fun openStory(storyId: String) = intent {
+    fun continueStory(storyId: String) = intent {
+        amplitudeAnalytics.logEvent(
+            event = "open_story",
+            properties = mapOf(
+                Pair(
+                    first = "story_id",
+                    second = storyId
+                ),
+                Pair(
+                    first = "start_point",
+                    second = "CONTINUE"
+                )
+            )
+        )
+        openStory(storyId = storyId)
+    }
+
+    fun openRecommendedStory(storyId: String) = intent {
+        amplitudeAnalytics.logEvent(
+            event = "open_story",
+            properties = mapOf(
+                Pair(
+                    first = "story_id",
+                    second = storyId
+                ),
+                Pair(
+                    first = "start_point",
+                    second = "RECOMMENDED"
+                )
+            )
+        )
+        openStory(storyId = storyId)
+    }
+
+    fun openRecentlyStory(storyId: String) = intent {
+        amplitudeAnalytics.logEvent(
+            event = "open_story",
+            properties = mapOf(
+                Pair(
+                    first = "story_id",
+                    second = storyId
+                ),
+                Pair(
+                    first = "start_point",
+                    second = "RECENTLY"
+                )
+            )
+        )
+        openStory(storyId = storyId)
+    }
+
+    private fun openStory(storyId: String) = intent {
         router.navigateTo(AppScreens.StoryProcessScreen(storyId))
     }
 
     fun openStoriesByCategory(category: Category) = intent {
+        amplitudeAnalytics.logEvent(
+            event = "select_category",
+            properties = mapOf(
+                Pair(
+                    first = "category",
+                    second = category.name.uppercase()
+                )
+            )
+        )
         router.navigateTo(AppScreens.StoriesScreen(category))
     }
 }

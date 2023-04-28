@@ -2,41 +2,13 @@ package com.example.stories.android.feature.common.data
 
 import com.example.stories.android.feature.common.data.datasource.db.dao.SettingsDao
 import com.example.stories.android.feature.common.data.datasource.db.entity.SettingsEntity
-import com.example.stories.android.feature.common.data.datasource.remote.ApiService
-import com.example.stories.android.feature.common.data.datasource.remote.Service
 import javax.inject.Inject
 
 internal class SettingsRepositoryImpl @Inject constructor(
-    private val settingsDao: SettingsDao,
-    private val service: Service,
-    private val apiService: ApiService
+    private val settingsDao: SettingsDao
 ): SettingsRepository {
     override suspend fun getSettings(): SettingsEntity {
         var settingsEntity: SettingsEntity? = null
-
-        // Server models updating - delete in release version
-
-        /*Category.values().forEach {
-            apiService.setGenre(category = GenreRequest(it.name))
-        }*/
-
-        //apiService.getGenres()
-
-        /*val stories = service.storiesWithContentRu
-        stories.forEach {
-            apiService.setStory(
-                story = it,
-                locale = Locale.RUSSIAN.name
-            )
-        }*/
-        
-        /*val result = apiService.getStories(locale = Locale.ENGLISH.name).data
-        result?.forEach {
-            apiService.deleteStory(
-                storyId = it.id,
-                locale = Locale.ENGLISH.name
-            )
-        }*/
 
         settingsDao.runCatching { getSettings() }
             .onSuccess { currentSettings ->

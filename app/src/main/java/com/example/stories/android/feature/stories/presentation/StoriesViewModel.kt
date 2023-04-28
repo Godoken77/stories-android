@@ -3,6 +3,7 @@ package com.example.stories.android.feature.stories.presentation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.stories.android.feature.AppScreens
+import com.example.stories.android.feature.analytics.domain.AmplitudeAnalytics
 import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.category.domain.model.CategoryItem
 import com.example.stories.android.feature.main.domain.usecase.RecommendedStoriesUseCase
@@ -24,6 +25,7 @@ internal class StoriesViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val storiesByCategoryUseCase: StoriesByCategoryUseCase,
     private val recommendedStoriesUseCase: RecommendedStoriesUseCase,
+    private val amplitudeAnalytics: AmplitudeAnalytics,
     private val router: Router
 ) : ViewModel(), ContainerHost<StoriesState, StoriesSideEffect> {
 
@@ -85,7 +87,41 @@ internal class StoriesViewModel @Inject constructor(
         router.exit()
     }
 
-    fun openStory(storyId: String) = intent {
+    fun openRecommendedStory(storyId: String) = intent {
+        amplitudeAnalytics.logEvent(
+            event = "open_story",
+            properties = mapOf(
+                Pair(
+                    first = "story_id",
+                    second = storyId
+                ),
+                Pair(
+                    first = "start_point",
+                    second = "CATEGORY_RECOMMENDED"
+                )
+            )
+        )
+        openStory(storyId)
+    }
+
+    fun openStoryFromList(storyId: String) = intent {
+        amplitudeAnalytics.logEvent(
+            event = "open_story",
+            properties = mapOf(
+                Pair(
+                    first = "story_id",
+                    second = storyId
+                ),
+                Pair(
+                    first = "start_point",
+                    second = "CATEGORY"
+                )
+            )
+        )
+        openStory(storyId)
+    }
+
+    private fun openStory(storyId: String) = intent {
         router.navigateTo(AppScreens.StoryProcessScreen(storyId))
     }
 }

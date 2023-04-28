@@ -3,6 +3,7 @@ package com.example.stories.android.feature.process.presentation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.stories.android.feature.AppScreens
+import com.example.stories.android.feature.analytics.domain.AmplitudeAnalytics
 import com.example.stories.android.feature.category.domain.model.Category
 import com.example.stories.android.feature.process.domain.PayOffer
 import com.example.stories.android.feature.process.domain.StoryProcessSideEffect
@@ -28,6 +29,7 @@ internal class StoryProcessViewModel @Inject constructor(
     private val storyProcessUseCase: StoryProcessUseCase,
     private val advertisementUseCase: AdvertisementUseCase,
     private val rateAppUseCase: RateAppUseCase,
+    private val amplitudeAnalytics: AmplitudeAnalytics,
     private val router: Router
 ) : ViewModel(), ContainerHost<StoryProcessState, StoryProcessSideEffect> {
 
@@ -43,6 +45,8 @@ internal class StoryProcessViewModel @Inject constructor(
     private val isFirstStory: Boolean by lazy {
         savedStateHandle[IS_FIRST_STORY_STATE] ?: false
     }
+
+    private var adCount: Int = 0
 
     override val container: Container<StoryProcessState, StoryProcessSideEffect> =
         container(
@@ -76,6 +80,18 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun openStoriesByCategory(category: Category) = intent {
+        if (isFirstStory) {
+            return@intent
+        }
+        amplitudeAnalytics.logEvent(
+            event = "select_category",
+            properties = mapOf(
+                Pair(
+                    first = "category",
+                    second = category.name.uppercase()
+                )
+            )
+        )
         router.navigateTo(AppScreens.StoriesScreen(category))
     }
 
@@ -88,6 +104,15 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onConfirmResetClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
+        amplitudeAnalytics.logEvent(
+            event = "reset_progress_confirm",
+            properties = mapOf(
+                Pair(
+                    first = "story_id",
+                    second = storyId
+                )
+            )
+        )
         resetProgress(storyProcess)
         postSideEffect(StoryProcessSideEffect.DismissResetConfirmationDialog)
     }
@@ -97,7 +122,19 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onLikeClicked() = intent {
-        // Add Analytics
+        amplitudeAnalytics.logEvent(
+            event = "rate_story",
+            properties = mapOf(
+                Pair(
+                    first = "story_id",
+                    second = storyId
+                ),
+                Pair(
+                    first = "rate_state",
+                    second = "GOOD"
+                )
+            )
+        )
         storyProcessUseCase.setStoryRated(storyId = storyId)
         if (!rateAppUseCase.isAppRated()) {
             postSideEffect(StoryProcessSideEffect.ShowRateAppBottomSheet)
@@ -107,15 +144,36 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onDislikeClicked() = intent {
-        //Add Analytics
+        amplitudeAnalytics.logEvent(
+            event = "rate_story",
+            properties = mapOf(
+                Pair(
+                    first = "story_id",
+                    second = storyId
+                ),
+                Pair(
+                    first = "rate_state",
+                    second = "BAD"
+                )
+            )
+        )
         storyProcessUseCase.setStoryRated(storyId = storyId)
         postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
     }
 
     fun onRateConfirmClicked() = intent {
-        //Go to Play Market
+        amplitudeAnalytics.logEvent(
+            event = "rate_app",
+            properties = mapOf(
+                Pair(
+                    first = "story_id",
+                    second = storyId
+                )
+            )
+        )
         rateAppUseCase.setAppRated()
         postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
+        //Go to Play Market
     }
 
     fun onRateDismissClicked() = intent {
@@ -161,8 +219,9 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onContinueClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
+        val isNeedToShowAd = advertisementUseCase.isNeedToShowAd()
+
         if (advertisementUseCase.isAdvertisementEnabled() && !isFirstStory) {
-            val isNeedToShowAd = advertisementUseCase.isNeedToShowAd()
             if (isNeedToShowAd) {
                 if (!state.payOffer.price.isNullOrEmpty()) {
                     reduce {
@@ -174,9 +233,41 @@ internal class StoryProcessViewModel @Inject constructor(
                     }
                     postSideEffect(StoryProcessSideEffect.ScrollToLastArticle)
                 } else {
+                    adCount += 1
+                    amplitudeAnalytics.logEvent(
+                        event = "ad_open",
+                        properties = mapOf(
+                            Pair(
+                                first = "story_id",
+                                second = storyId
+                            ),
+                            Pair(
+                                first = "ad_count",
+                                second = adCount
+                            )
+                        )
+                    )
                     onShowAdClicked()
                 }
                 return@intent
+            }
+        } else {
+            if (isNeedToShowAd) {
+                adCount += 1
+                amplitudeAnalytics.logEvent(
+                    event = "ad_lost",
+                    properties = mapOf(
+                        Pair(
+                            first = "story_id",
+                            second = storyId
+                        ),
+                        Pair(
+                            first = "ad_count",
+                            second = adCount
+                        )
+                    )
+                )
+                advertisementUseCase.resetAlreadyReadArticleCount()
             }
         }
 
@@ -201,6 +292,15 @@ internal class StoryProcessViewModel @Inject constructor(
                 )
             }
             if (!storyProcess.isRated) {
+                amplitudeAnalytics.logEvent(
+                    event = "rate_story_open",
+                    properties = mapOf(
+                        Pair(
+                            first = "story_id",
+                            second = storyId
+                        )
+                    )
+                )
                 postSideEffect(StoryProcessSideEffect.ShowRateBottomSheet)
             }
             return@intent

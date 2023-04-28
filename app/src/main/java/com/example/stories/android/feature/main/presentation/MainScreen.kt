@@ -60,7 +60,7 @@ internal fun MainScreen(
                         storyToContinue = state.storyToContinue
                     ),
                     onClick = { storyId ->
-                        viewModel.openStory(storyId)
+                        viewModel.continueStory(storyId)
                     },
                     modifier = Modifier
                         .fillMaxWidth()
@@ -95,7 +95,7 @@ internal fun MainScreen(
                                 picture = story.pictureUrl
                             ),
                             onClick = {
-                                viewModel.openStory(it.id)
+                                viewModel.openRecommendedStory(it.id)
                             }
                         )
                     }
@@ -170,7 +170,7 @@ internal fun MainScreen(
                                     picture = story.pictureUrl
                                 ),
                                 onClick = {
-                                    viewModel.openStory(it.id)
+                                    viewModel.openRecentlyStory(it.id)
                                 }
                             )
                         }

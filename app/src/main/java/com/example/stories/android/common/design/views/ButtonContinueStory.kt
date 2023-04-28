@@ -1,5 +1,6 @@
 package com.example.stories.android.common.design.views
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -11,16 +12,19 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -31,7 +35,13 @@ import org.neural.stories.R
 
 data class ButtonContinueStoryViewState(
     val storyToContinue: IStoryItem,
-    val backgroundColor: Color = AppColors.Purple
+    val backgroundColor: Color = AppColors.Purple,
+    val backgroundBrush: Brush = Brush.verticalGradient(
+        colors = listOf(
+            AppColors.Purple,
+            AppColors.PurpleDark
+        )
+    )
 )
 
 @Composable
@@ -42,7 +52,8 @@ fun ButtonContinueStory(
 ) {
     BackgroundCornered(
         backgroundColor = state.backgroundColor,
-        roundedCornerSize = 57.dp
+        roundedCornerSize = 57.dp,
+        backgroundBrush = state.backgroundBrush
     ) {
         ButtonContent(
             modifier = modifier,
@@ -88,18 +99,33 @@ private fun ButtonContent(
                     MarginVertical(margin = 2.dp)
                     SubTitle2(
                         text = state.storyToContinue.name,
-                        maxLines = 1
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        modifier = Modifier.widthIn(
+                            min = 100.dp,
+                            max = 250.dp
+                        )
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
-                AsyncImage(
-                    model = state.storyToContinue.pictureUrl,
-                    contentScale = ContentScale.Crop,
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(60.dp)
-                        .clip(CircleShape),
-                )
+                Box(contentAlignment = Alignment.Center) {
+                    Canvas(
+                        modifier = Modifier.size(60.dp)
+                    ) {
+                        drawCircle(
+                            color = AppColors.WhiteTitle
+                        )
+                    }
+                    AsyncImage(
+                        model = state.storyToContinue.pictureUrl,
+                        contentScale = ContentScale.Crop,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .size(58.dp)
+                            .clip(CircleShape),
+                    )
+                }
             }
         }
     }

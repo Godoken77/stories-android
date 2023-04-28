@@ -17,6 +17,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.semantics.Role
@@ -31,6 +32,7 @@ data class ButtonViewState(
     @DrawableRes val iconId: Int? = null,
     @DrawableRes val startIconId: Int? = null,
     val backgroundColor: Color = AppColors.Transparent,
+    val backgroundBrush: Brush? = null,
     val borderColor: Color? = null,
     val titleColor: Color = AppColors.WhiteTitle,
     val iconEndColor: Color = AppColors.White.copy(alpha = 0.8f)
@@ -43,15 +45,29 @@ fun Button(
     onClick: (ButtonViewState) -> Unit
 ) {
     if (state.borderColor == null) {
-        BackgroundCornered(
-            backgroundColor = state.backgroundColor,
-            roundedCornerSize = 57.dp
-        ) {
-            ButtonContent(
-                modifier = modifier,
-                state = state,
-                onClick = onClick
-            )
+        if (state.backgroundBrush == null) {
+            BackgroundCornered(
+                backgroundColor = state.backgroundColor,
+                roundedCornerSize = 57.dp
+            ) {
+                ButtonContent(
+                    modifier = modifier,
+                    state = state,
+                    onClick = onClick
+                )
+            }
+        } else {
+            BackgroundCornered(
+                backgroundColor = state.backgroundColor,
+                backgroundBrush = state.backgroundBrush,
+                roundedCornerSize = 57.dp
+            ) {
+                ButtonContent(
+                    modifier = modifier,
+                    state = state,
+                    onClick = onClick
+                )
+            }
         }
     } else {
         BackgroundCorneredWithBorder(
