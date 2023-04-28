@@ -10,7 +10,6 @@ import com.example.stories.android.feature.common.data.datasource.db.Database
 import com.example.stories.android.feature.common.data.datasource.db.dao.SettingsDao
 import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDao
 import com.example.stories.android.feature.common.data.datasource.remote.ApiService
-import com.example.stories.android.feature.common.data.datasource.remote.Service
 import com.example.stories.android.feature.common.domain.GetKey
 import dagger.Binds
 import dagger.Module
@@ -82,11 +81,6 @@ internal object CommonProvideModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
-
-    @Provides
-    @Singleton
-    fun provideService(): Service =
-        Service()
 
     @Provides
     @Singleton

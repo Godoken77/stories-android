@@ -20,6 +20,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.LazyRow
@@ -392,29 +393,44 @@ private fun ScreenContent(
                                 )
                             )
                         ) {
-                            if (item.remark == null) {
-                                PlainText(
-                                    text = item.text.orEmpty(),
-                                    modifier = Modifier
-                                        .padding(horizontal = 10.dp)
-                                )
-                            } else {
-                                val remark = item.remark
-
-                                RemarkItem(
-                                    modifier = Modifier
-                                        .padding(
-                                            horizontal = 10.dp,
-                                        ),
-                                    state = RemarkItemViewState(
-                                        name = remark.name,
-                                        remark = remark.remark,
-                                        colorIcon = when (remark.color) {
-                                            RemarkColor.FIRSTLY -> AppColors.PurpleLight
-                                            RemarkColor.SECONDARY -> AppColors.BlueLight
-                                        }
+                            Column {
+                                if (item.remark == null) {
+                                    PlainText(
+                                        text = item.text.orEmpty(),
+                                        modifier = Modifier
+                                            .padding(horizontal = 10.dp)
                                     )
-                                )
+                                } else {
+                                    val remark = item.remark
+
+                                    RemarkItem(
+                                        modifier = Modifier
+                                            .padding(
+                                                horizontal = 10.dp,
+                                            ),
+                                        state = RemarkItemViewState(
+                                            name = remark.name,
+                                            remark = remark.remark,
+                                            colorIcon = when (remark.color) {
+                                                RemarkColor.FIRSTLY -> AppColors.PurpleLight
+                                                RemarkColor.SECONDARY -> AppColors.BlueLight
+                                            }
+                                        )
+                                    )
+                                }
+                                if (item.pictureUrl != null) {
+                                    MarginVertical(margin = 16.dp)
+                                    AsyncImage(
+                                        model = item.pictureUrl,
+                                        contentScale = ContentScale.Fit,
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .padding(horizontal = 10.dp)
+                                            .wrapContentHeight()
+                                            .fillMaxWidth()
+                                            .clip(RoundedCornerShape(16.dp)),
+                                    )
+                                }
                             }
                         }
                     }
