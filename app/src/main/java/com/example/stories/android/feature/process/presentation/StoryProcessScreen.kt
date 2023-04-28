@@ -81,7 +81,8 @@ import org.orbitmvi.orbit.compose.collectSideEffect
 internal fun StoryProcessScreen(
     viewModel: StoryProcessViewModel,
     showAd: () -> Unit,
-    startPayment: () -> Unit
+    startPayment: () -> Unit,
+    openPlayMarket: () -> Unit
 ) {
     val state = viewModel.collectAsState().value
 
@@ -139,6 +140,14 @@ internal fun StoryProcessScreen(
             }
             is StoryProcessSideEffect.ShowRateAppBottomSheet -> {
                 rateAppState.value = true
+            }
+            is StoryProcessSideEffect.OpenPlayMarket -> {
+                scope.launch {
+                    modalBottomSheetState.hide()
+                }.invokeOnCompletion {
+                    rateAppState.value = false
+                    openPlayMarket()
+                }
             }
         }
     }
