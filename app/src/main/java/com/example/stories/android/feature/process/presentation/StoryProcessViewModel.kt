@@ -80,6 +80,9 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun openStoriesByCategory(category: Category) = intent {
+        if (isFirstStory) {
+            return@intent
+        }
         amplitudeAnalytics.logEvent(
             event = "select_category",
             properties = mapOf(
