@@ -1,5 +1,7 @@
 package com.example.stories.android.feature.process.presentation
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -117,6 +119,9 @@ internal class StoryProcessFragment : Fragment() {
             },
             startPayment = {
                 startPayment()
+            },
+            openPlayMarket = {
+                openPlayMarket()
             }
         )
     }
@@ -160,5 +165,14 @@ internal class StoryProcessFragment : Fragment() {
             requireActivity(),
             purchaseKey
         )*/
+    }
+
+    private fun openPlayMarket() {
+        startActivity(
+            Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://play.google.com/store/apps/details?id=${requireActivity().packageName}")
+            )
+        )
     }
 }

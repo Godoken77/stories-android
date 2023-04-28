@@ -12,7 +12,7 @@ internal class AdvertisementUseCaseImpl @Inject constructor(
 
     private companion object {
         const val RESET_STATE = 0
-        const val AD_COUNT = 5
+        const val AD_COUNT = 10
     }
 
     private var adSettingsCache: AdSettings? = null

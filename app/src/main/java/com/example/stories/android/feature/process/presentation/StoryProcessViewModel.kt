@@ -172,7 +172,7 @@ internal class StoryProcessViewModel @Inject constructor(
             )
         )
         rateAppUseCase.setAppRated()
-        postSideEffect(StoryProcessSideEffect.HideRateBottomSheet)
+        postSideEffect(StoryProcessSideEffect.OpenPlayMarket)
         //Go to Play Market
     }
 
