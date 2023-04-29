@@ -17,6 +17,10 @@ data class SettingsEntity(
     val isFirstSession: Boolean = true,
     @ColumnInfo(name = "count")
     val alreadyReadArticleCount: Int = 0,
+    @ColumnInfo(name = "session_count")
+    val sessionCount: Int = 0,
     @ColumnInfo(name = "is_app_rated")
-    val isAppRated: Boolean = false
+    val isAppRated: Boolean = false,
+    @ColumnInfo(name = "is_notify_permission_enabled")
+    val isNotifyPermissionEnabled: Boolean = false
 ): Parcelable

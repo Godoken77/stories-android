@@ -6,6 +6,8 @@ import com.example.stories.android.feature.process.domain.usecase.RateAppUseCase
 import com.example.stories.android.feature.process.domain.usecase.RateAppUseCaseImpl
 import com.example.stories.android.feature.process.domain.usecase.StoryProcessUseCase
 import com.example.stories.android.feature.process.domain.usecase.StoryProcessUseCaseImpl
+import com.example.stories.android.feature.splash.domain.usecase.PermissionUseCase
+import com.example.stories.android.feature.splash.domain.usecase.PermissionUseCaseImpl
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -23,4 +25,7 @@ internal interface StoryProcessModule {
 
     @Binds
     fun bindRateAppUseCase(impl: RateAppUseCaseImpl): RateAppUseCase
+
+    @Binds
+    fun bindPermissionUseCase(impl: PermissionUseCaseImpl): PermissionUseCase
 }

@@ -34,7 +34,7 @@ internal class SplashFragment : Fragment() {
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission(),
     ) {
-        viewModel.openNextScreen()
+        viewModel.handleRequestPermissionResult(it)
     }
 
     override fun onCreateView(
