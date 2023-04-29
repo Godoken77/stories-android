@@ -130,8 +130,8 @@ internal class StoryProcessFragment : Fragment() {
         val adRequest = AdRequest.Builder().build()
         InterstitialAd.load(
             requireContext(),
-            // Test ad id
-            "ca-app-pub-3940256099942544/1033173712",
+            // Prod ID
+            "ca-app-pub-7293993662631360/4318849885",
             adRequest,
             object : InterstitialAdLoadCallback() {
                 override fun onAdFailedToLoad(adError: LoadAdError) {
