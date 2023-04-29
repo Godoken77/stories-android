@@ -76,6 +76,19 @@ internal class SplashViewModel @Inject constructor(
     }
 
     fun handleRequestPermissionResult(isEnabled: Boolean) = intent {
+        amplitudeAnalytics.logEvent(
+            event = "notification_permission_result",
+            properties = mapOf(
+                Pair(
+                    first = "is_allow",
+                    second = isEnabled
+                ),
+                Pair(
+                    first = "is_first_request",
+                    second = isFirstSession
+                )
+            )
+        )
         permissionUseCase.setPermissionState(isEnabled)
         openNextScreen()
     }
