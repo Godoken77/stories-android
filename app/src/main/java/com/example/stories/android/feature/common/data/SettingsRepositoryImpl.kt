@@ -99,6 +99,38 @@ internal class SettingsRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun increaseSessionCount() {
+        val currentSettings = settingsDao.getSettings()
+
+        if (currentSettings != null) {
+            val updatedSettings = currentSettings.copy(
+                sessionCount = currentSettings.sessionCount + 1
+            )
+            settingsDao.updateSettings(updatedSettings)
+        } else {
+            val updatedSettings = SettingsEntity().copy(
+                sessionCount = 1
+            )
+            settingsDao.updateSettings(updatedSettings)
+        }
+    }
+
+    override suspend fun setSessionCount(count: Int) {
+        val currentSettings = settingsDao.getSettings()
+
+        if (currentSettings != null) {
+            val updatedSettings = currentSettings.copy(
+                sessionCount = count
+            )
+            settingsDao.updateSettings(updatedSettings)
+        } else {
+            val updatedSettings = SettingsEntity().copy(
+                sessionCount = count
+            )
+            settingsDao.updateSettings(updatedSettings)
+        }
+    }
+
     override suspend fun setAppRated() {
         val currentSettings = settingsDao.getSettings()
 
@@ -110,6 +142,22 @@ internal class SettingsRepositoryImpl @Inject constructor(
         } else {
             val updatedSettings = SettingsEntity().copy(
                 isAppRated = true
+            )
+            settingsDao.updateSettings(updatedSettings)
+        }
+    }
+
+    override suspend fun setNotifyPermissionState(isEnabled: Boolean) {
+        val currentSettings = settingsDao.getSettings()
+
+        if (currentSettings != null) {
+            val updatedSettings = currentSettings.copy(
+                isNotifyPermissionEnabled = isEnabled
+            )
+            settingsDao.updateSettings(updatedSettings)
+        } else {
+            val updatedSettings = SettingsEntity().copy(
+                isNotifyPermissionEnabled = isEnabled
             )
             settingsDao.updateSettings(updatedSettings)
         }

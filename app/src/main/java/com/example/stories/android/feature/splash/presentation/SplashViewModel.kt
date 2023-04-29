@@ -3,9 +3,11 @@ package com.example.stories.android.feature.splash.presentation
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import com.example.stories.android.feature.AppScreens
+import com.example.stories.android.feature.analytics.domain.AmplitudeAnalytics
 import com.example.stories.android.feature.splash.domain.SplashSideEffect
 import com.example.stories.android.feature.splash.domain.SplashState
 import com.example.stories.android.feature.splash.domain.usecase.FirstSessionUseCase
+import com.example.stories.android.feature.splash.domain.usecase.PermissionUseCase
 import com.example.stories.android.feature.splash.domain.usecase.PreloadStoriesUseCase
 import com.github.terrakok.cicerone.Router
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -21,6 +23,8 @@ internal class SplashViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val firstSessionUse: FirstSessionUseCase,
     private val preloadStoriesUseCase: PreloadStoriesUseCase,
+    private val permissionUseCase: PermissionUseCase,
+    private val amplitudeAnalytics: AmplitudeAnalytics,
     private val router: Router
 ) : ViewModel(), ContainerHost<SplashState, SplashSideEffect> {
 
@@ -39,15 +43,44 @@ internal class SplashViewModel @Inject constructor(
         firstSessionUse.runCatching { isFirstSession() }
             .onSuccess { isFirst ->
                 isFirstSession = isFirst
-                postSideEffect(SplashSideEffect.RequestPermissions)
+
+                if (permissionUseCase.isPermissionAlreadyAllow()) {
+                    openNextScreen()
+                    return@intent
+                }
+
+                if (permissionUseCase.isNeedToRequestNotificationPermission() || isFirstSession) {
+                    permissionUseCase.resetSessionCountBeforeRequestPermission()
+                    postSideEffect(SplashSideEffect.RequestPermissions)
+                } else {
+                    permissionUseCase.increaseSessionCountBeforeRequestPermission()
+                    openNextScreen()
+                }
             }
             .onFailure {
                 isFirstSession = false
-                postSideEffect(SplashSideEffect.RequestPermissions)
+
+                if (permissionUseCase.isPermissionAlreadyAllow()) {
+                    openNextScreen()
+                    return@intent
+                }
+
+                if (permissionUseCase.isNeedToRequestNotificationPermission()) {
+                    permissionUseCase.resetSessionCountBeforeRequestPermission()
+                    postSideEffect(SplashSideEffect.RequestPermissions)
+                } else {
+                    permissionUseCase.increaseSessionCountBeforeRequestPermission()
+                    openNextScreen()
+                }
             }
     }
 
-    fun openNextScreen() {
+    fun handleRequestPermissionResult(isEnabled: Boolean) = intent {
+        permissionUseCase.setPermissionState(isEnabled)
+        openNextScreen()
+    }
+
+    fun openNextScreen()= intent {
         if (isFirstSession) {
             openChooseCategoryScreen()
         } else {

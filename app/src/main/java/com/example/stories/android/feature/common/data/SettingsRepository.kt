@@ -14,5 +14,11 @@ internal interface SettingsRepository {
 
     suspend fun increaseReadArticleCount()
 
+    suspend fun setSessionCount(count: Int)
+
+    suspend fun increaseSessionCount()
+
     suspend fun setAppRated()
+
+    suspend fun setNotifyPermissionState(isEnabled: Boolean)
 }
