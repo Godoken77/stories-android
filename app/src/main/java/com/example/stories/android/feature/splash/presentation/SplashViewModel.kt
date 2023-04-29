@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.syntax.simple.intent
+import org.orbitmvi.orbit.syntax.simple.postSideEffect
 import org.orbitmvi.orbit.viewmodel.container
 import javax.inject.Inject
 
@@ -22,6 +23,8 @@ internal class SplashViewModel @Inject constructor(
     private val preloadStoriesUseCase: PreloadStoriesUseCase,
     private val router: Router
 ) : ViewModel(), ContainerHost<SplashState, SplashSideEffect> {
+
+    private var isFirstSession: Boolean = false
 
     override val container: Container<SplashState, SplashSideEffect> =
         container(
@@ -35,15 +38,21 @@ internal class SplashViewModel @Inject constructor(
         preloadStoriesUseCase.preloadStories()
         firstSessionUse.runCatching { isFirstSession() }
             .onSuccess { isFirst ->
-                if (isFirst) {
-                    openChooseCategoryScreen()
-                } else {
-                    openMainScreen()
-                }
+                isFirstSession = isFirst
+                postSideEffect(SplashSideEffect.RequestPermissions)
             }
             .onFailure {
-                openMainScreen()
+                isFirstSession = false
+                postSideEffect(SplashSideEffect.RequestPermissions)
             }
+    }
+
+    fun openNextScreen() {
+        if (isFirstSession) {
+            openChooseCategoryScreen()
+        } else {
+            openMainScreen()
+        }
     }
 
     private fun openChooseCategoryScreen() = intent {
