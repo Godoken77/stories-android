@@ -1,3 +1,6 @@
 package com.example.stories.android.feature.splash.domain
 
-sealed class SplashSideEffect
+internal sealed class SplashSideEffect {
+
+    object RequestPermissions : SplashSideEffect()
+}
