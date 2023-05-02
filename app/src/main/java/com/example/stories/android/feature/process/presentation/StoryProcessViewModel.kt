@@ -221,21 +221,42 @@ internal class StoryProcessViewModel @Inject constructor(
     fun onContinueClicked(storyProcess: IStoryProcess.StoryProcessModel) = intent {
         val isNeedToShowAd = advertisementUseCase.isNeedToShowAd()
 
-        if (advertisementUseCase.isAdvertisementEnabled() && !isFirstStory) {
-            if (isNeedToShowAd) {
-                if (!state.payOffer.price.isNullOrEmpty()) {
-                    reduce {
-                        state.copy(
-                            payOffer = PayOffer(
-                                isEnabled = true
+        if (advertisementUseCase.isAdvertisementEnabled()) {
+            if (!isFirstStory) {
+                if (isNeedToShowAd) {
+                    if (!state.payOffer.price.isNullOrEmpty()) {
+                        reduce {
+                            state.copy(
+                                payOffer = PayOffer(
+                                    isEnabled = true
+                                )
+                            )
+                        }
+                        postSideEffect(StoryProcessSideEffect.ScrollToLastArticle)
+                    } else {
+                        adCount += 1
+                        amplitudeAnalytics.logEvent(
+                            event = "ad_open",
+                            properties = mapOf(
+                                Pair(
+                                    first = "story_id",
+                                    second = storyId
+                                ),
+                                Pair(
+                                    first = "ad_count",
+                                    second = adCount
+                                )
                             )
                         )
+                        onShowAdClicked()
                     }
-                    postSideEffect(StoryProcessSideEffect.ScrollToLastArticle)
-                } else {
+                    return@intent
+                }
+            } else {
+                if (isNeedToShowAd) {
                     adCount += 1
                     amplitudeAnalytics.logEvent(
-                        event = "ad_open",
+                        event = "ad_lost",
                         properties = mapOf(
                             Pair(
                                 first = "story_id",
@@ -247,27 +268,8 @@ internal class StoryProcessViewModel @Inject constructor(
                             )
                         )
                     )
-                    onShowAdClicked()
+                    advertisementUseCase.resetAlreadyReadArticleCount()
                 }
-                return@intent
-            }
-        } else {
-            if (isNeedToShowAd) {
-                adCount += 1
-                amplitudeAnalytics.logEvent(
-                    event = "ad_lost",
-                    properties = mapOf(
-                        Pair(
-                            first = "story_id",
-                            second = storyId
-                        ),
-                        Pair(
-                            first = "ad_count",
-                            second = adCount
-                        )
-                    )
-                )
-                advertisementUseCase.resetAlreadyReadArticleCount()
             }
         }
 

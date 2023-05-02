@@ -1,6 +1,7 @@
 package com.example.stories.android.feature.process.domain.model
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import com.example.stories.android.feature.category.domain.model.CategoryItem
 import com.example.stories.android.feature.common.model.Story
 import com.google.gson.annotations.SerializedName
@@ -41,6 +42,7 @@ sealed class IStoryProcess : Parcelable {
 // Часть истории, в конце которой есть выбор из нескольких вариантов
 // или один вариант Продолжить
 @Parcelize
+@Keep
 data class StoryPart(
     @SerializedName("index")
     val partId: String,
@@ -48,6 +50,7 @@ data class StoryPart(
 ) : Parcelable
 
 @Parcelize
+@Keep
 data class Article(
     @SerializedName("index")
     val id: String,
@@ -59,18 +62,21 @@ data class Article(
 ) : Parcelable
 
 @Parcelize
+@Keep
 data class Choice(
     val title: String,
     val nextStoryPartId: String? = null
 ) : Parcelable
 
 @Parcelize
+@Keep
 data class Remark(
     val remark: String,
     val name: String,
     val color: RemarkColor = RemarkColor.FIRSTLY
 ) : Parcelable
 
+@Keep
 enum class RemarkColor {
     FIRSTLY,
     SECONDARY
