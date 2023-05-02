@@ -1,6 +1,7 @@
 package com.example.stories.android.feature.common.data
 
 import android.content.Context
+import androidx.annotation.Keep
 import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDao
 import com.example.stories.android.feature.common.data.datasource.db.entity.StoryEntity
 import com.example.stories.android.feature.common.data.datasource.remote.ApiService
@@ -265,6 +266,7 @@ internal class StoryRepositoryImpl @Inject constructor(
     }
 }
 
+@Keep
 enum class Locale {
     RUSSIAN,
     ENGLISH

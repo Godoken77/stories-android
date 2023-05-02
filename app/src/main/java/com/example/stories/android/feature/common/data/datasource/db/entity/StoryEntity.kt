@@ -1,6 +1,7 @@
 package com.example.stories.android.feature.common.data.datasource.db.entity
 
 import android.os.Parcelable
+import androidx.annotation.Keep
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -11,6 +12,7 @@ import com.example.stories.android.feature.process.domain.model.StoryPart
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Keep
 @Entity(tableName = "stories")
 @TypeConverters(StoryConverter::class)
 data class StoryEntity(
