@@ -42,7 +42,7 @@ internal class StoryProcessViewModel @Inject constructor(
         requireNotNull(savedStateHandle[STORY_ID])
     }
 
-    private val isFirstStory: Boolean by lazy {
+    val isFirstStory: Boolean by lazy {
         savedStateHandle[IS_FIRST_STORY_STATE] ?: false
     }
 

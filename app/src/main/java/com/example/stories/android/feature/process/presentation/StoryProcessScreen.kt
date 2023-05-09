@@ -523,9 +523,11 @@ private fun ScreenContent(
                             end = 10.dp
                         )
                     ) {
-                        ButtonBack (
-                            onClick = viewModel::onBackPressed
-                        )
+                        if (!viewModel.isFirstStory) {
+                            ButtonBack (
+                                onClick = viewModel::onBackPressed
+                            )
+                        }
                         Spacer(modifier = Modifier.weight(1f))
                         if (!currentPartIsFirstPart) {
                             ButtonIcon(
