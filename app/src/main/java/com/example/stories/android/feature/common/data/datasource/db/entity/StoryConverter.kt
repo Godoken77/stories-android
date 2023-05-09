@@ -25,7 +25,10 @@ class StoryConverter {
     }
 
     @TypeConverter
-    fun toStoryParts(data: String): List<StoryPart> {
+    fun toStoryParts(data: String?): List<StoryPart> {
+        if (data.isNullOrEmpty()) {
+            return emptyList()
+        }
         val listType = object : TypeToken<List<StoryPart>>() { }.type
         return Gson().fromJson(data, listType)
     }
