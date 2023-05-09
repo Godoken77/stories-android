@@ -62,11 +62,15 @@ internal class StoryProcessViewModel @Inject constructor(
         storyProcessUseCase
             .runCatching { getStoryProcessWithStoryParts(storyId) }
             .onSuccess { storyProcess ->
-                reduce {
-                    state.copy(
-                        storyProcessModel = storyProcess,
-                        isProgress = false
-                    )
+                if (storyProcess.storyParts.isEmpty()) {
+                    resetProgress(storyProcess)
+                } else {
+                    reduce {
+                        state.copy(
+                            storyProcessModel = storyProcess,
+                            isProgress = false
+                        )
+                    }
                 }
             }
             .onFailure {
@@ -173,7 +177,6 @@ internal class StoryProcessViewModel @Inject constructor(
         )
         rateAppUseCase.setAppRated()
         postSideEffect(StoryProcessSideEffect.OpenPlayMarket)
-        //Go to Play Market
     }
 
     fun onRateDismissClicked() = intent {
