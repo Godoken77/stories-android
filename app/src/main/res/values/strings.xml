@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Chat Story by AI</string>
+    <string name="app_name">NeuralStory - Story by AI</string>
 
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
