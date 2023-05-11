@@ -3,6 +3,7 @@
 
     <string name="common_yes">Да</string>
     <string name="common_no">Нет</string>
+    <string name="common_ok">Ок</string>
 
     <string name="main_recommended_title">Рекомендации</string>
     <string name="main_categories_title">Жанры</string>
@@ -20,6 +21,7 @@
 
     <string name="story_process_continue_button_title">Продолжить</string>
     <string name="story_process_reset_confirmation_title">Вы точно хотите начать\nсначала?</string>
+    <string name="story_process_block_back_title">Пожалуйста, прочтите первую историю\nдо конца</string>
     <string name="story_process_rate_story_title">Пожалуйста, оцените\nисторию</string>
     <string name="story_process_rate_app_title">Понравилось приложение?\nПоставьте оценку в Play Market</string>
     <string name="story_process_rate_app_confirm">Оценить</string>

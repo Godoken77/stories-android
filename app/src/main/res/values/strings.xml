@@ -3,6 +3,7 @@
 
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
+    <string name="common_ok">Ok</string>
 
     <string name="main_recommended_title">Recommendations</string>
     <string name="main_categories_title">Genres</string>
@@ -20,6 +21,7 @@
 
     <string name="story_process_continue_button_title">Continue</string>
     <string name="story_process_reset_confirmation_title">Are you sure you want to\nstart over?</string>
+    <string name="story_process_block_back_title">Please read the first story\nto the end</string>
     <string name="story_process_rate_story_title">Please rate\nthe story</string>
     <string name="story_process_rate_app_title">Did you like the app?\nPut a rating in the Play Market</string>
     <string name="story_process_rate_app_confirm">Rate</string>

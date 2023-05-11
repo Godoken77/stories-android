@@ -42,7 +42,7 @@ internal class StoryProcessViewModel @Inject constructor(
         requireNotNull(savedStateHandle[STORY_ID])
     }
 
-    val isFirstStory: Boolean by lazy {
+    private val isFirstStory: Boolean by lazy {
         savedStateHandle[IS_FIRST_STORY_STATE] ?: false
     }
 
@@ -100,7 +100,11 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onBackPressed() = intent {
-        router.exit()
+        if (isFirstStory) {
+            postSideEffect(StoryProcessSideEffect.ShowBlockBackDialog)
+        } else {
+            router.exit()
+        }
     }
 
     fun onResetProgressClicked() = intent {
@@ -123,6 +127,10 @@ internal class StoryProcessViewModel @Inject constructor(
 
     fun onDismissResetClicked() = intent {
         postSideEffect(StoryProcessSideEffect.DismissResetConfirmationDialog)
+    }
+
+    fun onDismissBlockBackClicked() = intent {
+        postSideEffect(StoryProcessSideEffect.DismissBlockBackDialog)
     }
 
     fun onLikeClicked() = intent {

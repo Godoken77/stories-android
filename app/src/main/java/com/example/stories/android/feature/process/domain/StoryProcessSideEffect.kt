@@ -8,6 +8,10 @@ internal sealed class StoryProcessSideEffect {
 
     object DismissResetConfirmationDialog : StoryProcessSideEffect()
 
+    object ShowBlockBackDialog : StoryProcessSideEffect()
+
+    object DismissBlockBackDialog : StoryProcessSideEffect()
+
     object ShowRateBottomSheet : StoryProcessSideEffect()
 
     object HideRateBottomSheet : StoryProcessSideEffect()
