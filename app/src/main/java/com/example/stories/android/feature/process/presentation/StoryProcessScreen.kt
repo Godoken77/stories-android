@@ -69,6 +69,7 @@ import com.example.stories.android.feature.process.domain.StoryProcessState
 import com.example.stories.android.feature.process.domain.model.Article
 import com.example.stories.android.feature.process.domain.model.IStoryProcess
 import com.example.stories.android.feature.process.domain.model.RemarkColor
+import com.example.stories.android.feature.process.presentation.dialog.BlockBackDialogScreen
 import com.example.stories.android.feature.process.presentation.dialog.ResetConfirmationDialogScreen
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -102,6 +103,10 @@ internal fun StoryProcessScreen(
         mutableStateOf(false)
     }
 
+    val blockBackDialogIfFirstStory = remember {
+        mutableStateOf(false)
+    }
+
     viewModel.collectSideEffect {
         when(it) {
             is StoryProcessSideEffect.ScrollToLastArticle -> {
@@ -118,6 +123,12 @@ internal fun StoryProcessScreen(
             }
             is StoryProcessSideEffect.DismissResetConfirmationDialog -> {
                 resetConfirmationDialogVisibility.value = false
+            }
+            is StoryProcessSideEffect.ShowBlockBackDialog -> {
+                blockBackDialogIfFirstStory.value = true
+            }
+            is StoryProcessSideEffect.DismissBlockBackDialog -> {
+                blockBackDialogIfFirstStory.value = false
             }
             is StoryProcessSideEffect.ShowRateBottomSheet -> {
                 scope.launch {
@@ -169,6 +180,24 @@ internal fun StoryProcessScreen(
                     viewModel.onConfirmResetClicked(state.storyProcessModel)
                 },
                 onDismissClicked = viewModel::onDismissResetClicked
+            )
+        }
+    }
+
+    if (state.storyProcessModel is IStoryProcess.StoryProcessModel &&
+        blockBackDialogIfFirstStory.value
+    ) {
+        Dialog(
+            onDismissRequest = {
+                resetConfirmationDialogVisibility.value = false
+            },
+            properties = DialogProperties(
+                dismissOnClickOutside = true,
+                usePlatformDefaultWidth = false
+            )
+        ) {
+            BlockBackDialogScreen(
+                onDismissClicked = viewModel::onDismissBlockBackClicked
             )
         }
     }
@@ -523,11 +552,9 @@ private fun ScreenContent(
                             end = 10.dp
                         )
                     ) {
-                        if (!viewModel.isFirstStory) {
-                            ButtonBack (
-                                onClick = viewModel::onBackPressed
-                            )
-                        }
+                        ButtonBack (
+                            onClick = viewModel::onBackPressed
+                        )
                         Spacer(modifier = Modifier.weight(1f))
                         if (!currentPartIsFirstPart) {
                             ButtonIcon(
