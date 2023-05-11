@@ -107,6 +107,10 @@ internal class StoryProcessViewModel @Inject constructor(
         }
     }
 
+    fun back() = intent {
+        router.exit()
+    }
+
     fun onResetProgressClicked() = intent {
         postSideEffect(StoryProcessSideEffect.ShowResetConfirmationDialog)
     }

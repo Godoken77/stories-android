@@ -16,8 +16,8 @@ android {
         applicationId "org.neural.stories"
         minSdk 28
         targetSdk 33
-        versionCode 17
-        versionName "1.04.2"
+        versionCode 18
+        versionName "1.04.3"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
