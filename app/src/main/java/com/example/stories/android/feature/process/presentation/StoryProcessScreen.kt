@@ -140,7 +140,7 @@ internal fun StoryProcessScreen(
                     modalBottomSheetState.hide()
                 }.invokeOnCompletion {
                     rateAppState.value = false
-                    viewModel.onBackPressed()
+                    viewModel.back()
                 }
             }
             is StoryProcessSideEffect.ShowAd -> {
