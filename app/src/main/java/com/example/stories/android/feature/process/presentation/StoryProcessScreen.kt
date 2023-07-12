@@ -493,7 +493,6 @@ private fun ScreenContent(
                                                     id = R.string.story_process_pay_offer_title,
                                                     it
                                                 ),
-                                                iconId = R.drawable.ic_dollar,
                                                 iconEndColor = AppColors.WhiteTitle
                                             ),
                                             modifier = Modifier
