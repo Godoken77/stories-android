@@ -24,5 +24,7 @@ data class SettingsEntity(
     @ColumnInfo(name = "is_app_rated")
     val isAppRated: Boolean = false,
     @ColumnInfo(name = "is_notify_permission_enabled")
-    val isNotifyPermissionEnabled: Boolean = false
+    val isNotifyPermissionEnabled: Boolean = false,
+    @ColumnInfo(name = "is_ad_enabled")
+    val isAdvertisementEnabled: Boolean = true,
 ): Parcelable

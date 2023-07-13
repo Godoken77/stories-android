@@ -26,12 +26,19 @@ internal class AdvertisementUseCaseImpl @Inject constructor(
     }
 
     override suspend fun isAdvertisementEnabled(): Boolean {
-        val settings = adSettingsCache ?: run {
+        val adSettings = adSettingsCache ?: run {
             adSettingsCache = apiService.getAdSettings().data
             return@run adSettingsCache
         }
 
-        return settings?.isEnabled ?: true
+        val localSettings = settingsRepository.getSettings()
+
+
+        return (adSettings?.isEnabled == true && localSettings.isAdvertisementEnabled)
+    }
+
+    override suspend fun disableAdvertisement() {
+        settingsRepository.disableAdvertisement()
     }
 
     override suspend fun isNeedToShowAd(): Boolean {

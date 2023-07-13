@@ -210,13 +210,16 @@ internal class StoryProcessViewModel @Inject constructor(
     }
 
     fun onPaymentConfirmed() = intent {
-        reduce {
-            state.copy(
-                payOffer = state.payOffer.copy(
-                    isEnabled = false
-                )
-            )
-        }
+        advertisementUseCase.runCatching { disableAdvertisement() }
+            .onSuccess {
+                reduce {
+                    state.copy(
+                        payOffer = state.payOffer.copy(
+                            isEnabled = false
+                        )
+                    )
+                }
+            }
     }
 
     fun onShowAdClicked() = intent {

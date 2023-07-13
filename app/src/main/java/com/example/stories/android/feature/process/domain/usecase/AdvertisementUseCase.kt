@@ -9,4 +9,6 @@ internal interface AdvertisementUseCase {
     suspend fun isNeedToShowAd(): Boolean
 
     suspend fun increaseReadArticleCount()
+
+    suspend fun disableAdvertisement()
 }

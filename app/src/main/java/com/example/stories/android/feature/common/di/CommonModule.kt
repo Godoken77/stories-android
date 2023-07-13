@@ -8,6 +8,7 @@ import com.example.stories.android.feature.common.data.StoryRepository
 import com.example.stories.android.feature.common.data.StoryRepositoryImpl
 import com.example.stories.android.feature.common.data.datasource.db.Database
 import com.example.stories.android.feature.common.data.datasource.db.MIGRATION_1_2
+import com.example.stories.android.feature.common.data.datasource.db.MIGRATION_2_3
 import com.example.stories.android.feature.common.data.datasource.db.dao.SettingsDao
 import com.example.stories.android.feature.common.data.datasource.db.dao.StoryDao
 import com.example.stories.android.feature.common.data.datasource.remote.ApiService
@@ -47,7 +48,7 @@ internal object CommonProvideModule {
             App.INSTANCE.applicationContext,
             Database::class.java, "db"
         )
-            .addMigrations(MIGRATION_1_2)
+            .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
             .build()
 
     @Provides

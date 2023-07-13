@@ -21,4 +21,6 @@ internal interface SettingsRepository {
     suspend fun setAppRated()
 
     suspend fun setNotifyPermissionState(isEnabled: Boolean)
+
+    suspend fun disableAdvertisement()
 }

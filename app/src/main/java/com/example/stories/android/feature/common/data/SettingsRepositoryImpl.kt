@@ -67,6 +67,22 @@ internal class SettingsRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun disableAdvertisement() {
+        val currentSettings = settingsDao.getSettings()
+
+        if (currentSettings != null) {
+            val updatedSettings = currentSettings.copy(
+                isAdvertisementEnabled = false
+            )
+            settingsDao.updateSettings(updatedSettings)
+        } else {
+            val updatedSettings = SettingsEntity().copy(
+                isFirstSession = false
+            )
+            settingsDao.updateSettings(updatedSettings)
+        }
+    }
+
     override suspend fun setAlreadyReadArticleCount(count: Int) {
         val currentSettings = settingsDao.getSettings()
 

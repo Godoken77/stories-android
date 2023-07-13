@@ -13,7 +13,7 @@ import com.example.stories.android.feature.common.data.datasource.db.entity.Stor
         StoryEntity::class,
         SettingsEntity::class
     ],
-    version = 2
+    version = 3
 )
 abstract class Database : RoomDatabase() {
 
@@ -26,5 +26,11 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
     override fun migrate(database: SupportSQLiteDatabase) {
         database.execSQL("UPDATE stories SET story_parts = ''")
         database.execSQL("UPDATE stories SET current_part_id = '1'")
+    }
+}
+
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(database: SupportSQLiteDatabase) {
+        database.execSQL("ALTER TABLE settings ADD COLUMN is_ad_enabled INTEGER NOT NULL DEFAULT(1)")
     }
 }
